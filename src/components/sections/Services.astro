@@ -1,0 +1,194 @@
+---
+const services = [
+  {
+    index: '01',
+    name: 'Web Development',
+    outcome: 'Fast, accessible sites and apps shipped on deadline.',
+  },
+  {
+    index: '02',
+    name: 'Custom Software & Internal Tools',
+    outcome: 'Purpose-built tooling that replaces spreadsheets and manual work.',
+  },
+  {
+    index: '03',
+    name: 'Cloud & DevOps',
+    outcome: 'Infrastructure that scales without waking you up at 3 am.',
+  },
+  {
+    index: '04',
+    name: 'UI/UX & Brand Systems',
+    outcome: 'Design systems and interfaces built for real users.',
+  },
+  {
+    index: '05',
+    name: 'Technical Consulting',
+    outcome: 'Honest advice on architecture, vendors, and build vs. buy.',
+  },
+  {
+    index: '06',
+    name: 'Maintenance & Support',
+    outcome: 'Ongoing ownership so your product keeps running after launch.',
+  },
+];
+---
+
+<section id="services" class="services-section section-pad" aria-labelledby="services-heading">
+  <div class="section-container">
+
+    <header class="section-header">
+      <span class="section-index" aria-hidden="true">01</span>
+      <div>
+        <h2 id="services-heading" class="section-title">Services</h2>
+        <p class="section-desc">What we build and what you get out of it.</p>
+      </div>
+    </header>
+
+    <div class="services-table" role="table" aria-label="Services list">
+      <div class="services-thead" role="rowgroup">
+        <div class="services-tr services-tr--head" role="row">
+          <span role="columnheader" class="col-idx">#</span>
+          <span role="columnheader">Service</span>
+          <span role="columnheader" class="col-outcome">Outcome</span>
+        </div>
+      </div>
+
+      <div role="rowgroup">
+        {services.map((s) => (
+          <div class="services-tr" role="row">
+            <span class="svc-index col-idx" role="cell" aria-hidden="true">{s.index}</span>
+            <span class="svc-name" role="cell">{s.name}</span>
+            <span class="svc-outcome col-outcome" role="cell">{s.outcome}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .services-section {
+    border-top: 1px solid var(--border);
+  }
+
+  .section-header {
+    display: flex;
+    gap: var(--space-5);
+    align-items: flex-start;
+    margin-bottom: var(--space-8);
+  }
+  .section-index {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--text-muted);
+    letter-spacing: 0.1em;
+    padding-top: 6px;
+    flex-shrink: 0;
+  }
+  .section-title {
+    font-size: clamp(var(--text-md), 3vw, var(--text-lg));
+    color: var(--text-strong);
+  }
+  .section-desc {
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+    margin-top: var(--space-1);
+    max-width: 52ch;
+  }
+
+  .services-table { width: 100%; }
+
+  .services-tr {
+    display: grid;
+    grid-template-columns: 2.5rem 1fr 1fr;
+    gap: var(--space-5);
+    align-items: start;
+    padding: var(--space-5) var(--space-2);
+    border-bottom: 1px solid var(--border);
+    position: relative;
+    transition: background var(--dur-fast) var(--ease-out);
+  }
+
+  @media (hover: hover) {
+    .services-tr:not(.services-tr--head):hover {
+      background: rgba(255,255,255,0.025);
+    }
+    .services-tr:not(.services-tr--head):hover::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 2px;
+      background: var(--grad-electric-stripe);
+      opacity: 0.8;
+    }
+    .services-tr:not(.services-tr--head):hover .svc-index {
+      transform: translateX(4px);
+      color: var(--text);
+    }
+    .services-tr:not(.services-tr--head):hover .svc-name {
+      color: var(--text-strong);
+    }
+  }
+
+  .services-tr--head {
+    padding-block: var(--space-3);
+    border-bottom: 1px solid var(--border-strong);
+  }
+  .services-tr--head span {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  .svc-index {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--text-muted);
+    padding-top: 3px;
+    transition: transform var(--dur-fast) var(--ease-out),
+                color var(--dur-fast) var(--ease-out);
+  }
+
+  .svc-name {
+    font-family: var(--font-mono);
+    font-size: var(--text-base);
+    font-weight: 500;
+    color: var(--text-strong);
+    transition: color var(--dur-fast) var(--ease-out);
+  }
+
+  .svc-outcome {
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+
+  /* Tablet */
+  @media (max-width: 900px) {
+    .services-tr {
+      grid-template-columns: 2rem 1fr;
+      grid-template-rows: auto auto;
+      gap: var(--space-2) var(--space-4);
+    }
+    .col-outcome { grid-column: 2; }
+    .services-tr--head .col-outcome { display: none; }
+  }
+
+  /* Mobile */
+  @media (max-width: 540px) {
+    .services-tr {
+      grid-template-columns: 1fr;
+      padding: var(--space-4) 0;
+      gap: var(--space-1);
+    }
+    .col-idx { display: none; }
+    .svc-name { font-size: var(--text-sm); }
+    .svc-outcome { font-size: var(--text-xs); }
+    .services-tr--head { display: none; }
+  }
+</style>

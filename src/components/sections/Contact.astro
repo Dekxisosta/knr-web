@@ -1,0 +1,450 @@
+---
+---
+
+<section id="contact" class="contact-section section-pad" aria-labelledby="contact-heading">
+  <div class="section-container">
+    <div class="contact-inner">
+
+      <!-- Left: info -->
+      <div class="contact-info">
+        <header class="section-header">
+          <span class="section-index" aria-hidden="true">07</span>
+          <h2 id="contact-heading" class="section-title">Start a project</h2>
+        </header>
+
+        <p class="contact-desc">
+          Tell us what you're building. We'll reply within one business day with
+          honest feedback and, if it's a fit, a 30-minute call to go deeper.
+        </p>
+
+        <dl class="contact-meta">
+          <div class="contact-meta-row">
+            <dt>Email</dt>
+            <dd><a href="mailto:[CONTACT_EMAIL]">[CONTACT_EMAIL]</a></dd>
+          </div>
+          <div class="contact-meta-row">
+            <dt>Location</dt>
+            <dd>[LOCATION]</dd>
+          </div>
+          <div class="contact-meta-row">
+            <dt>Response time</dt>
+            <dd>Within 1 business day</dd>
+          </div>
+          <div class="contact-meta-row">
+            <dt>First call</dt>
+            <dd>Free, 30 min, no commitment</dd>
+          </div>
+        </dl>
+      </div>
+
+      <!-- Right: form -->
+      <div class="contact-form-wrap">
+        <form
+          id="contact-form"
+          class="contact-form"
+          method="POST"
+          action="/api/contact"
+          novalidate
+          aria-label="Project inquiry form"
+        >
+          <!-- Honeypot (hidden from humans, visible to bots) -->
+          <div class="hp-field" aria-hidden="true">
+            <label for="hp-name">Leave this blank</label>
+            <input type="text" id="hp-name" name="hp_name" tabindex="-1" autocomplete="off" />
+          </div>
+
+          <div class="form-row">
+            <label class="form-label" for="name">
+              Name <span class="required" aria-label="required">*</span>
+            </label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              class="form-input"
+              autocomplete="name"
+              required
+              aria-required="true"
+              aria-describedby="name-error"
+            />
+            <span id="name-error" class="form-error" role="alert" aria-live="polite"></span>
+          </div>
+
+          <div class="form-row">
+            <label class="form-label" for="email">
+              Email <span class="required" aria-label="required">*</span>
+            </label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              class="form-input"
+              autocomplete="email"
+              required
+              aria-required="true"
+              aria-describedby="email-error"
+            />
+            <span id="email-error" class="form-error" role="alert" aria-live="polite"></span>
+          </div>
+
+          <div class="form-row">
+            <label class="form-label" for="project_type">Project type</label>
+            <select id="project_type" name="project_type" class="form-input form-select">
+              <option value="">Select one…</option>
+              <option value="web">Web development</option>
+              <option value="software">Custom software / internal tool</option>
+              <option value="devops">Cloud & DevOps</option>
+              <option value="design">UI/UX & brand system</option>
+              <option value="consulting">Technical consulting</option>
+              <option value="maintenance">Maintenance & support</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+
+          <div class="form-row">
+            <label class="form-label" for="budget">Budget range</label>
+            <select id="budget" name="budget" class="form-input form-select">
+              <option value="">Select one…</option>
+              <option value="5-15k">$5k – $15k</option>
+              <option value="15-50k">$15k – $50k</option>
+              <option value="50k+">$50k+</option>
+              <option value="unsure">Not sure yet</option>
+            </select>
+          </div>
+
+          <div class="form-row">
+            <label class="form-label" for="message">
+              Tell us about the project <span class="required" aria-label="required">*</span>
+            </label>
+            <textarea
+              id="message"
+              name="message"
+              class="form-input form-textarea"
+              rows="5"
+              required
+              aria-required="true"
+              aria-describedby="message-error"
+              placeholder="What are you building, what's the current situation, and what does success look like?"
+            ></textarea>
+            <span id="message-error" class="form-error" role="alert" aria-live="polite"></span>
+          </div>
+
+          <div id="form-status" class="form-status" role="status" aria-live="polite" hidden></div>
+
+          <div class="form-actions">
+            <button type="submit" class="form-submit electric-glow" id="submit-btn">
+              <span class="btn-text">Send inquiry</span>
+              <span class="btn-loading" aria-hidden="true" hidden>Sending…</span>
+            </button>
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+  .contact-section {
+    border-top: 1px solid var(--border);
+  }
+
+  .contact-inner {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: var(--space-12);
+    align-items: start;
+  }
+
+  /* ── Info side ────────────────────────────────────── */
+  .section-header {
+    display: flex;
+    gap: var(--space-5);
+    align-items: flex-start;
+    margin-bottom: var(--space-6);
+  }
+  .section-index {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--text-muted);
+    letter-spacing: 0.1em;
+    padding-top: 6px;
+    flex-shrink: 0;
+  }
+  .section-title {
+    font-size: clamp(var(--text-md), 3vw, var(--text-lg));
+    color: var(--text-strong);
+  }
+
+  .contact-desc {
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+    line-height: 1.7;
+    max-width: 44ch;
+    margin-bottom: var(--space-8);
+  }
+
+  .contact-meta {
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid var(--border);
+    margin: 0;
+  }
+  .contact-meta-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-3);
+    padding: var(--space-3) 0;
+    border-bottom: 1px solid var(--border);
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+  }
+  .contact-meta-row dt { color: var(--text-muted); }
+  .contact-meta-row dd { color: var(--text-strong); margin: 0; }
+  .contact-meta-row a {
+    color: var(--text-strong);
+    text-decoration: underline;
+    text-decoration-color: var(--border-strong);
+    text-underline-offset: 3px;
+    word-break: break-all;
+    transition: text-decoration-color var(--dur-fast) var(--ease-out);
+  }
+  @media (hover: hover) {
+    .contact-meta-row a:hover { text-decoration-color: var(--text-strong); }
+  }
+
+  /* ── Form ─────────────────────────────────────────── */
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .hp-field {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+
+  .form-row {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .form-label {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .required { color: var(--text-muted); }
+
+  .form-input {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--text-strong);
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    /* Larger tap area on mobile */
+    padding: var(--space-3) var(--space-4);
+    min-height: 44px;
+    width: 100%;
+    transition: border-color var(--dur-fast) var(--ease-out);
+    outline: none;
+    appearance: none;
+    border-radius: 0;
+    -webkit-text-size-adjust: 100%; /* prevent iOS zoom on focus */
+  }
+  .form-input:focus {
+    border-color: var(--border-strong);
+    outline: 2px solid var(--text-strong);
+    outline-offset: 2px;
+  }
+  .form-input::placeholder {
+    color: var(--text-muted);
+    opacity: 0.6;
+  }
+  .form-input.is-error {
+    border-color: var(--text-muted);
+    border-width: 2px;
+  }
+
+  .form-select {
+    cursor: pointer;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238a8a8a' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right var(--space-4) center;
+    padding-right: var(--space-10);
+  }
+  .form-select option {
+    background: var(--surface-2);
+    color: var(--text-strong);
+  }
+
+  .form-textarea {
+    resize: vertical;
+    min-height: 120px;
+  }
+
+  .form-error {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    min-height: 1em;
+  }
+  .form-error::before { content: '□'; flex-shrink: 0; }
+  .form-error:empty { display: none; }
+
+  .form-status {
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    padding: var(--space-4);
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+  }
+  .form-status.is-success {
+    border-color: var(--border-strong);
+    color: var(--text-strong);
+  }
+  .form-status.is-error-state {
+    border-color: var(--border-strong);
+  }
+
+  .form-actions { display: flex; }
+
+  .form-submit {
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    font-weight: 500;
+    background: var(--text-strong);
+    color: var(--bg);
+    border: 1px solid var(--text-strong);
+    /* Comfortable tap target */
+    padding: var(--space-3) var(--space-8);
+    min-height: 48px;
+    cursor: pointer;
+    isolation: isolate;
+    transition: background var(--dur-fast) var(--ease-out),
+                color var(--dur-fast) var(--ease-out),
+                transform var(--dur-fast) var(--ease-out);
+  }
+  @media (hover: hover) {
+    .form-submit:hover:not(:disabled) {
+      background: transparent;
+      color: var(--text-strong);
+      transform: translateY(-2px);
+    }
+  }
+  .form-submit:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  /* ── Responsive ──────────────────────────────────── */
+  @media (max-width: 900px) {
+    .contact-inner {
+      grid-template-columns: 1fr;
+      gap: var(--space-10);
+    }
+    .contact-desc { max-width: none; }
+  }
+
+  @media (max-width: 480px) {
+    .contact-meta-row {
+      grid-template-columns: 1fr;
+      gap: var(--space-1);
+    }
+    .contact-meta-row dd { color: var(--text); }
+  }
+</style>
+
+<script>
+  const form = document.getElementById('contact-form') as HTMLFormElement | null;
+  const submitBtn = document.getElementById('submit-btn') as HTMLButtonElement | null;
+  const statusEl = document.getElementById('form-status') as HTMLElement | null;
+
+  function showError(fieldId: string, msg: string) {
+    const input = document.getElementById(fieldId) as HTMLInputElement | null;
+    const errorEl = document.getElementById(`${fieldId}-error`) as HTMLElement | null;
+    if (input) input.classList.add('is-error');
+    if (errorEl) errorEl.textContent = msg;
+  }
+
+  function clearErrors() {
+    form?.querySelectorAll('.form-input').forEach((el) => el.classList.remove('is-error'));
+    form?.querySelectorAll('.form-error').forEach((el) => { (el as HTMLElement).textContent = ''; });
+    if (statusEl) { statusEl.hidden = true; statusEl.className = 'form-status'; }
+  }
+
+  function validateForm(data: FormData): boolean {
+    let valid = true;
+    const name    = data.get('name') as string;
+    const email   = data.get('email') as string;
+    const message = data.get('message') as string;
+
+    if (!name.trim()) { showError('name', 'Name is required'); valid = false; }
+    if (!email.trim()) { showError('email', 'Email is required'); valid = false; }
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      showError('email', 'Enter a valid email address'); valid = false;
+    }
+    if (!message.trim()) { showError('message', 'Tell us about your project'); valid = false; }
+    else if (message.trim().length < 20) {
+      showError('message', 'Please give us a bit more detail'); valid = false;
+    }
+    return valid;
+  }
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    clearErrors();
+    const data = new FormData(form);
+    if (data.get('hp_name')) return;
+    if (!validateForm(data)) return;
+
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      const btnText    = submitBtn.querySelector('.btn-text');
+      const btnLoading = submitBtn.querySelector('.btn-loading');
+      if (btnText)    (btnText    as HTMLElement).hidden = true;
+      if (btnLoading) (btnLoading as HTMLElement).hidden = false;
+    }
+
+    try {
+      const res = await fetch('/api/contact', { method: 'POST', body: data });
+      if (res.ok) {
+        if (statusEl) {
+          statusEl.hidden = false;
+          statusEl.className = 'form-status is-success';
+          statusEl.textContent = '■ Message sent. We\'ll be in touch within one business day.';
+        }
+        form.reset();
+      } else {
+        const json = await res.json().catch(() => ({}));
+        throw new Error((json as { message?: string }).message ?? 'Server error');
+      }
+    } catch {
+      if (statusEl) {
+        statusEl.hidden = false;
+        statusEl.className = 'form-status is-error-state';
+        statusEl.textContent = '□ Something went wrong. Email us directly at [CONTACT_EMAIL].';
+      }
+    } finally {
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        const btnText    = submitBtn.querySelector('.btn-text');
+        const btnLoading = submitBtn.querySelector('.btn-loading');
+        if (btnText)    (btnText    as HTMLElement).hidden = false;
+        if (btnLoading) (btnLoading as HTMLElement).hidden = true;
+      }
+    }
+  });
+</script>

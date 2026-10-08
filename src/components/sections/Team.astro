@@ -1,0 +1,306 @@
+---
+import { getCollection } from 'astro:content';
+
+const founders = (await getCollection('team')).sort(
+  (a, b) => a.data.order - b.data.order
+);
+---
+
+<section id="team" class="team-section" aria-labelledby="team-heading">
+  <div class="section-container">
+
+    <header class="section-header">
+      <span class="section-index" aria-hidden="true">05</span>
+      <h2 id="team-heading" class="section-title">Team</h2>
+    </header>
+
+    <p class="team-intro">
+      [WHY_KNR — how the founders met, what they share, how responsibilities split.
+      Replace this with 2-3 real sentences once founders provide the story.]
+    </p>
+
+    <ul class="founders-grid" role="list">
+      {founders.map((f) => {
+        const d = f.data;
+        return (
+          <li class="founder-card">
+            <!-- Photo -->
+            <div class="founder-photo-wrap">
+              <img
+                src={d.photo}
+                alt={`${d.name}, ${d.role}`}
+                width="400"
+                height="400"
+                class="founder-photo"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+
+            <!-- Info -->
+            <div class="founder-info">
+              <div class="founder-top">
+                <div>
+                  <h3 class="founder-name">{d.name}</h3>
+                  <p class="founder-role">{d.role}</p>
+                </div>
+              </div>
+
+              <p class="founder-focus">{d.focus}</p>
+              <p class="founder-bio">{d.bio}</p>
+
+              <!-- Credentials -->
+              {d.credentials.length > 0 && (
+                <ul class="credentials" role="list" aria-label={`${d.name}'s credentials`}>
+                  {d.credentials.map((c) => (
+                    <li class="credential">
+                      <span class="credential-mark" aria-hidden="true">■</span>
+                      <span class="credential-label">{c.label}</span>
+                      {c.detail && <span class="credential-detail">{c.detail}</span>}
+                      {c.year && <span class="credential-year">{c.year}</span>}
+                    </li>
+                  ))}
+                </ul>
+              )}
+
+              <!-- Links -->
+              <nav class="founder-links" aria-label={`${d.name}'s links`}>
+                {d.links.github && (
+                  <a href={d.links.github} class="founder-link" target="_blank" rel="noopener noreferrer">GitHub</a>
+                )}
+                {d.links.linkedin && (
+                  <a href={d.links.linkedin} class="founder-link" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                )}
+                {d.links.website && (
+                  <a href={d.links.website} class="founder-link" target="_blank" rel="noopener noreferrer">Website</a>
+                )}
+                {d.links.email && (
+                  <a href={`mailto:${d.links.email}`} class="founder-link">Email</a>
+                )}
+              </nav>
+            </div>
+          </li>
+        );
+      })}
+    </ul>
+
+  </div>
+</section>
+
+<style>
+  .team-section {
+    padding-block: var(--space-16);
+    border-top: 1px solid var(--border);
+  }
+  @media (min-width: 768px)  { .team-section { padding-block: var(--space-20); } }
+  @media (min-width: 1024px) { .team-section { padding-block: var(--space-24); } }
+
+  /* ── Section header ──────────────────────────────── */
+  .section-header {
+    display: flex;
+    gap: var(--space-5);
+    align-items: flex-start;
+    margin-bottom: var(--space-6);
+  }
+  .section-index {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--text-muted);
+    letter-spacing: 0.1em;
+    padding-top: 6px;
+  }
+  .section-title {
+    font-size: var(--text-lg);
+    color: var(--text-strong);
+  }
+
+  .team-intro {
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+    max-width: 70ch;
+    margin-bottom: var(--space-12);
+    line-height: 1.7;
+    border-left: 1px solid var(--border);
+    padding-left: var(--space-5);
+  }
+
+  /* ── Grid ────────────────────────────────────────── */
+  .founders-grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    border-top: 1px solid var(--border);
+    border-left: 1px solid var(--border);
+  }
+
+  .founder-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+    padding: var(--space-6);
+    border-right: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    transition: background var(--dur-fast) var(--ease-out);
+    position: relative;
+  }
+  @media (hover: hover) {
+    .founder-card:hover {
+      background: rgba(255,255,255,0.02);
+    }
+    /* Electric gradient border on top edge */
+    .founder-card:hover::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--grad-electric-stripe-h);
+      opacity: 0.85;
+    }
+  }
+
+  /* ── Photo ────────────────────────────────────────── */
+  .founder-photo-wrap {
+    aspect-ratio: 1;
+    overflow: hidden;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+  }
+  .founder-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(100%);
+    transition: filter var(--dur-base) var(--ease-out);
+  }
+  @media (hover: hover) {
+    .founder-card:hover .founder-photo {
+      filter: grayscale(60%) contrast(1.05) brightness(1.05);
+    }
+  }
+
+  /* ── Info ─────────────────────────────────────────── */
+  .founder-info {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    flex: 1;
+  }
+
+  .founder-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+
+  .founder-name {
+    font-family: var(--font-heading);
+    font-size: var(--text-md);
+    font-weight: 500;
+    color: var(--text-strong);
+    letter-spacing: -0.02em;
+  }
+
+  .founder-role {
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+    margin-top: var(--space-1);
+    max-width: none;
+  }
+
+  .founder-focus {
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    color: var(--text);
+    max-width: none;
+  }
+
+  .founder-bio {
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+    line-height: 1.7;
+    max-width: none;
+  }
+
+  /* ── Credentials ─────────────────────────────────── */
+  .credentials {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    border-top: 1px solid var(--border);
+    padding-top: var(--space-4);
+  }
+
+  .credential {
+    display: flex;
+    align-items: baseline;
+    gap: var(--space-2);
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--text-muted);
+    flex-wrap: wrap;
+  }
+  .credential-mark {
+    color: var(--border-strong);
+    font-size: 8px;
+    flex-shrink: 0;
+  }
+  .credential-label {
+    color: var(--text);
+  }
+  .credential-detail {
+    color: var(--text-muted);
+  }
+  .credential-year {
+    color: var(--text-muted);
+    margin-left: auto;
+  }
+
+  /* ── Links ────────────────────────────────────────── */
+  .founder-links {
+    display: flex;
+    gap: var(--space-4);
+    flex-wrap: wrap;
+    margin-top: auto;
+    padding-top: var(--space-2);
+    border-top: 1px solid var(--border);
+  }
+  .founder-link {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--text-muted);
+    text-decoration: underline;
+    text-decoration-color: var(--border);
+    text-underline-offset: 3px;
+    transition: color var(--dur-fast) var(--ease-out),
+                text-decoration-color var(--dur-fast) var(--ease-out);
+  }
+  .founder-link:hover {
+    color: var(--text-strong);
+    text-decoration-color: var(--text-strong);
+  }
+
+  /* ── Responsive ──────────────────────────────────── */
+  @media (max-width: 900px) {
+    .founders-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  @media (max-width: 600px) {
+    .founders-grid {
+      grid-template-columns: 1fr;
+      border-left: none;
+    }
+    .founder-card {
+      border-right: none;
+    }
+  }
+</style>

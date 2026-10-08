@@ -1,0 +1,216 @@
+---
+const pillars = [
+  {
+    index: '01',
+    title: 'Secure by default',
+    body: 'Security is a first-class concern from line one — not a checklist item at the end. Every system we build is designed with threat modelling, least-privilege access, and hardened dependencies in mind.',
+  },
+  {
+    index: '02',
+    title: 'Engineering velocity',
+    body: 'We use modern and AI-assisted tooling to ship faster without cutting corners. Speed and rigour are not opposites — the right tools make both possible at once.',
+  },
+  {
+    index: '03',
+    title: 'Engineer-led review',
+    body: 'Every deliverable is reviewed and validated by actual software engineers — not just tested for green outputs. We audit what was built, not just whether it runs.',
+  },
+  {
+    index: '04',
+    title: 'Against fragile software',
+    body: 'Quickly generated code that technically works is becoming a real problem. We address the security gaps, architectural debt, and reliability failures that accumulate when software is assembled without engineering judgment.',
+  },
+];
+---
+
+<section id="why" class="why-section section-pad" aria-labelledby="why-heading">
+  <div class="section-container">
+
+    <header class="why-header">
+      <div class="why-header-text">
+        <p class="why-eyebrow">Why KNR</p>
+        <h2 id="why-heading" class="why-title">
+          AI moves fast.<br />We make sure it moves right.
+        </h2>
+      </div>
+      <p class="why-lede">
+        The tooling available today lets small teams build things that used to
+        require dozens of engineers. That's genuinely useful — and genuinely
+        dangerous if there's no one accountable for what gets shipped.
+        We exist at that intersection.
+      </p>
+    </header>
+
+    <ul class="pillars" role="list">
+      {pillars.map((p) => (
+        <li class="pillar">
+          <span class="pillar-index" aria-hidden="true">{p.index}</span>
+          <div class="pillar-body">
+            <h3 class="pillar-title">{p.title}</h3>
+            <p class="pillar-text">{p.body}</p>
+          </div>
+        </li>
+      ))}
+    </ul>
+
+    <!-- Closing statement -->
+    <p class="why-close">
+      The result is software that works on day one and holds up six months later —
+      code you can hand to another engineer without embarrassment.
+    </p>
+
+  </div>
+</section>
+
+<style>
+  .why-section {
+    border-top: 1px solid var(--border);
+    position: relative;
+  }
+
+  /* ── Header ──────────────────────────────────────── */
+  .why-header {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-12);
+    align-items: start;
+    margin-bottom: var(--space-12);
+    padding-bottom: var(--space-12);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .why-eyebrow {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: var(--space-4);
+    max-width: none;
+  }
+
+  .why-title {
+    font-size: clamp(var(--text-lg), 3.5vw, var(--text-xl));
+    line-height: 1.1;
+    letter-spacing: -0.025em;
+    color: var(--text-strong);
+  }
+
+  .why-lede {
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+    line-height: 1.75;
+    max-width: 52ch;
+    align-self: end;
+    padding-top: var(--space-6);
+    border-left: 1px solid var(--border);
+    padding-left: var(--space-6);
+  }
+
+  /* ── Pillars ─────────────────────────────────────── */
+  .pillars {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    border-left: 1px solid var(--border);
+    border-top: 1px solid var(--border);
+  }
+
+  .pillar {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+    padding: var(--space-6);
+    border-right: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    position: relative;
+    transition: background var(--dur-fast) var(--ease-out);
+  }
+
+  @media (hover: hover) {
+    .pillar:hover {
+      background: rgba(255, 255, 255, 0.025);
+    }
+    /* Electric stripe on top edge */
+    .pillar:hover::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--grad-electric-stripe-h);
+      opacity: 0.85;
+    }
+  }
+
+  .pillar-index {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--text-muted);
+    letter-spacing: 0.1em;
+  }
+
+  .pillar-title {
+    font-family: var(--font-heading);
+    font-size: var(--text-base);
+    font-weight: 500;
+    color: var(--text-strong);
+    letter-spacing: -0.01em;
+    line-height: 1.2;
+  }
+
+  .pillar-text {
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+    line-height: 1.75;
+    max-width: none;
+  }
+
+  /* ── Closing line ────────────────────────────────── */
+  .why-close {
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+    line-height: 1.7;
+    max-width: 70ch;
+    margin-top: var(--space-10);
+    padding-top: var(--space-8);
+    border-top: 1px solid var(--border);
+    font-style: italic;
+  }
+
+  /* ── Responsive ──────────────────────────────────── */
+  @media (max-width: 1024px) {
+    .pillars { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (max-width: 900px) {
+    .why-header {
+      grid-template-columns: 1fr;
+      gap: var(--space-8);
+    }
+    .why-lede {
+      padding-top: 0;
+      border-left: none;
+      padding-left: 0;
+      border-top: 1px solid var(--border);
+      padding-top: var(--space-6);
+    }
+  }
+
+  @media (max-width: 600px) {
+    .pillars {
+      grid-template-columns: 1fr;
+      border-left: none;
+    }
+    .pillar { border-right: none; }
+    .why-close { max-width: none; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .pillar { transition: none; }
+  }
+</style>

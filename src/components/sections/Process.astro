@@ -1,0 +1,230 @@
+---
+const steps = [
+  {
+    index: '01',
+    phase: 'Discover',
+    description:
+      'We start with a structured call to understand your goals, constraints, and existing systems. No NDAs required to have the first conversation.',
+    timeframe: '1–2 days',
+  },
+  {
+    index: '02',
+    phase: 'Scope',
+    description:
+      'We write a clear spec: what we\'re building, what we\'re not, the tech stack, timeline, and fixed price. You approve it before a single line of code is written.',
+    timeframe: '3–5 days',
+  },
+  {
+    index: '03',
+    phase: 'Build',
+    description:
+      'Weekly check-ins, a shared Notion board, and a staging environment from day one. You can see progress at every step — no surprise reveals.',
+    timeframe: '4–12 weeks',
+  },
+  {
+    index: '04',
+    phase: 'Ship & Support',
+    description:
+      'We deploy to your infrastructure or help set one up. After launch we stay available for fixes, updates, and the inevitable things you think of post-launch.',
+    timeframe: 'Ongoing',
+  },
+];
+---
+
+<section id="process" class="process-section" aria-labelledby="process-heading">
+  <div class="section-container">
+
+    <header class="section-header">
+      <span class="section-index" aria-hidden="true">02</span>
+      <h2 id="process-heading" class="section-title">Process</h2>
+      <p class="section-desc">
+        How a project goes from idea to production.
+      </p>
+    </header>
+
+    <ol class="process-list" role="list">
+      {steps.map((step, i) => (
+        <li class="process-step" style={`--step-delay: ${i * 0.08}s`}>
+          <div class="step-connector" aria-hidden="true">
+            <span class="step-num">{step.index}</span>
+            {i < steps.length - 1 && <span class="step-line"></span>}
+          </div>
+          <div class="step-body">
+            <div class="step-top">
+              <h3 class="step-phase">{step.phase}</h3>
+              <span class="step-timeframe">{step.timeframe}</span>
+            </div>
+            <p class="step-desc">{step.description}</p>
+          </div>
+        </li>
+      ))}
+    </ol>
+
+  </div>
+</section>
+
+<style>
+  .process-section {
+    padding-block: var(--space-16);
+    border-top: 1px solid var(--border);
+  }
+  @media (min-width: 768px) { .process-section { padding-block: var(--space-20); } }
+  @media (min-width: 1024px) { .process-section { padding-block: var(--space-24); } }
+
+  /* ── Section header ──────────────────────────────── */
+  .section-header {
+    display: flex;
+    gap: var(--space-5);
+    align-items: flex-start;
+    margin-bottom: var(--space-8);
+  }
+  .section-index {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--text-muted);
+    letter-spacing: 0.1em;
+    padding-top: 6px;
+    flex-shrink: 0;
+  }
+  .section-title {
+    font-size: clamp(var(--text-md), 3vw, var(--text-lg));
+    color: var(--text-strong);
+  }
+  .section-desc {
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+    margin-top: var(--space-1);
+    max-width: 52ch;
+  }
+
+  /* ── Steps ───────────────────────────────────────── */
+  .process-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+  }
+
+  .process-step {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+    padding: var(--space-6);
+    border-right: 1px solid var(--border);
+    border-top: 1px solid var(--border);
+    position: relative;
+    animation: fade-up var(--dur-slow) var(--ease-out) var(--step-delay, 0s) both;
+  }
+  .process-step:last-child {
+    border-right: none;
+  }
+
+  .step-connector {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .step-num {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--text-muted);
+    letter-spacing: 0.1em;
+  }
+
+  .step-line {
+    display: none; /* shown on mobile vertical layout */
+  }
+
+  .step-body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    flex: 1;
+  }
+
+  .step-top {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+
+  .step-phase {
+    font-family: var(--font-heading);
+    font-size: var(--text-md);
+    font-weight: 500;
+    color: var(--text-strong);
+  }
+
+  .step-timeframe {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--text-muted);
+    letter-spacing: 0.05em;
+    border: 1px solid var(--border);
+    padding: 2px var(--space-2);
+    align-self: flex-start;
+  }
+
+  .step-desc {
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+    line-height: 1.7;
+    max-width: none;
+  }
+
+  /* ── Responsive ──────────────────────────────────── */
+  @media (max-width: 900px) {
+    .process-list {
+      grid-template-columns: 1fr 1fr;
+    }
+    .process-step:nth-child(2) { border-right: none; }
+    .process-step:nth-child(3) { border-right: 1px solid var(--border); border-top: 1px solid var(--border); }
+    .process-step:nth-child(4) { border-right: none; border-top: 1px solid var(--border); }
+    .step-desc { max-width: none; }
+  }
+
+  @media (max-width: 600px) {
+    .process-list {
+      grid-template-columns: 1fr;
+    }
+    .process-step {
+      border-right: none;
+      border-top: 1px solid var(--border);
+      flex-direction: row;
+      gap: var(--space-5);
+    }
+    .process-step:nth-child(3),
+    .process-step:nth-child(4) {
+      border-right: none;
+    }
+    .step-connector {
+      flex-direction: column;
+      align-items: center;
+      flex-shrink: 0;
+      width: 2rem;
+    }
+    .step-line {
+      display: block;
+      width: 1px;
+      flex: 1;
+      background: var(--border);
+      min-height: 20px;
+    }
+    .step-desc { max-width: none; }
+  }
+
+  /* ── Animation ───────────────────────────────────── */
+  @keyframes fade-up {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .process-step { animation: none; }
+  }
+</style>

@@ -1,0 +1,208 @@
+---
+const faqs = [
+  {
+    q: 'How do you price projects?',
+    a: 'Fixed price per project, agreed upfront. We scope carefully before quoting so there are no surprises. For ongoing work like maintenance and support, we use a monthly retainer. We don\'t bill hourly — it creates the wrong incentives.',
+  },
+  {
+    q: 'How long does a typical project take?',
+    a: 'Most projects land between 4 and 12 weeks depending on scope. A focused internal tool or marketing site can ship in 4 weeks. A full web application with integrations is usually 8–12. We\'ll give you a specific timeline in the scope document.',
+  },
+  {
+    q: 'Who owns the code?',
+    a: 'You do, completely. All code, design files, and infrastructure configurations are yours from day one. We don\'t build on proprietary frameworks or hold anything back. You can take the repo and hand it to another developer at any point.',
+  },
+  {
+    q: 'What happens after launch?',
+    a: 'We offer a maintenance retainer for ongoing updates, dependency upgrades, monitoring, and incident response. You\'re never locked in — but most clients stay because it\'s easier than onboarding a new contractor for every small change.',
+  },
+  {
+    q: 'Do you work with remote clients?',
+    a: 'Yes, entirely. We work async by default and schedule live calls only when they\'re genuinely useful. We\'ve worked with clients across multiple time zones without it slowing anything down.',
+  },
+  {
+    q: 'How do we start?',
+    a: 'Fill out the contact form below or email us directly. We\'ll reply within one business day, ask a few questions to understand what you\'re building, and set up a 30-minute call if it looks like a fit. No commitment required for the first conversation.',
+  },
+  {
+    q: 'Do you take on small projects?',
+    a: 'Our minimum engagement is roughly $5,000 [ADJUST]. Below that, the overhead of scoping, contracting, and handoff doesn\'t make sense for either side. If you\'re not sure whether your project clears that bar, ask — we\'ll give you a straight answer.',
+  },
+];
+---
+
+<section id="faq" class="faq-section section-pad" aria-labelledby="faq-heading">
+  <div class="section-container">
+
+    <header class="section-header">
+      <span class="section-index" aria-hidden="true">06</span>
+      <h2 id="faq-heading" class="section-title">FAQ</h2>
+    </header>
+
+    <dl class="faq-list">
+      {faqs.map((item, i) => (
+        <div class="faq-item">
+          <dt>
+            <button
+              class="faq-question"
+              aria-expanded="false"
+              aria-controls={`faq-answer-${i}`}
+              id={`faq-btn-${i}`}
+            >
+              <span class="faq-q-text">{item.q}</span>
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </button>
+          </dt>
+          <dd
+            class="faq-answer"
+            id={`faq-answer-${i}`}
+            role="region"
+            aria-labelledby={`faq-btn-${i}`}
+            hidden
+          >
+            <p>{item.a}</p>
+          </dd>
+        </div>
+      ))}
+    </dl>
+
+  </div>
+</section>
+
+<style>
+  .faq-section {
+    border-top: 1px solid var(--border);
+  }
+
+  .section-header {
+    display: flex;
+    gap: var(--space-5);
+    align-items: flex-start;
+    margin-bottom: var(--space-8);
+  }
+  .section-index {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--text-muted);
+    letter-spacing: 0.1em;
+    padding-top: 6px;
+    flex-shrink: 0;
+  }
+  .section-title {
+    font-size: clamp(var(--text-md), 3vw, var(--text-lg));
+    color: var(--text-strong);
+  }
+
+  .faq-list {
+    max-width: 760px;
+    margin: 0;
+    padding: 0;
+  }
+
+  .faq-item {
+    border-top: 1px solid var(--border);
+  }
+  .faq-item:last-child {
+    border-bottom: 1px solid var(--border);
+  }
+
+  .faq-question {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* Comfortable tap target — min 48px */
+    gap: var(--space-4);
+    width: 100%;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: var(--space-5) 0;
+    min-height: 48px;
+    text-align: left;
+    transition: color var(--dur-fast) var(--ease-out);
+    color: var(--text);
+  }
+
+  /* Icon rotates on open, no gradient */
+  @media (hover: hover) {
+    .faq-question:hover { color: var(--text-strong); }
+    .faq-question:hover .faq-q-text { color: var(--text-strong); }
+    .faq-question:hover .faq-icon {
+      border-color: var(--border-strong);
+      color: var(--text-strong);
+    }
+  }
+
+  .faq-q-text {
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    font-weight: 500;
+    color: inherit;
+    transition: color var(--dur-fast) var(--ease-out);
+    line-height: 1.5;
+  }
+
+  @media (min-width: 640px) {
+    .faq-q-text { font-size: var(--text-base); }
+  }
+
+  .faq-icon {
+    font-family: var(--font-mono);
+    font-size: var(--text-md);
+    color: var(--text-muted);
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform var(--dur-base) var(--ease-out),
+                color var(--dur-fast) var(--ease-out);
+    line-height: 1;
+    border: 1px solid var(--border);
+  }
+  .faq-question[aria-expanded="true"] .faq-icon {
+    transform: rotate(45deg);
+    color: var(--text-strong);
+    border-color: var(--border-strong);
+  }
+
+  .faq-answer {
+    overflow: hidden;
+  }
+  .faq-answer p {
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+    line-height: 1.75;
+    padding-bottom: var(--space-5);
+    max-width: 66ch;
+  }
+</style>
+
+<script>
+  const items = document.querySelectorAll('.faq-item');
+
+  items.forEach((item) => {
+    const btn = item.querySelector<HTMLButtonElement>('.faq-question');
+    const answer = item.querySelector<HTMLElement>('.faq-answer');
+    if (!btn || !answer) return;
+
+    btn.addEventListener('click', () => {
+      const isOpen = btn.getAttribute('aria-expanded') === 'true';
+
+      // Close all others
+      items.forEach((other) => {
+        const ob = other.querySelector<HTMLButtonElement>('.faq-question');
+        const oa = other.querySelector<HTMLElement>('.faq-answer');
+        if (ob && oa && ob !== btn) {
+          ob.setAttribute('aria-expanded', 'false');
+          oa.hidden = true;
+        }
+      });
+
+      btn.setAttribute('aria-expanded', String(!isOpen));
+      answer.hidden = isOpen;
+    });
+  });
+</script>

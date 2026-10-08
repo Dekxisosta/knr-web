@@ -1,0 +1,316 @@
+---
+// Hero section — plain-language statement + spec sheet block
+---
+
+<section class="hero" aria-labelledby="hero-headline">
+  <div class="section-container hero-inner">
+
+    <!-- Left: text content -->
+    <div class="hero-content">
+      <div class="hero-label" aria-hidden="true">
+        <span class="hero-label-dot"></span>
+        <span id="hero-label-text">KNR COLLECTIVE / EST. [YEAR]</span>
+      </div>
+
+      <h1 id="hero-headline" class="hero-headline">
+        <span class="hero-line">We build software</span>
+        <span class="hero-line">that runs your</span>
+        <span class="hero-line">business.</span>
+      </h1>
+
+      <p class="hero-sub">
+        Custom web applications, internal tools, and infrastructure
+        for companies that need things done right — on time, in budget,
+        and maintained after launch.
+      </p>
+
+      <div class="hero-actions">
+        <a href="/#contact" class="btn-primary">Start a project</a>
+        <a href="/#work" class="btn-secondary">See our work</a>
+      </div>
+    </div>
+
+    <!-- Right: spec-sheet block -->
+    <aside class="hero-spec" aria-label="Company overview">
+      <dl class="spec-list">
+        <div class="spec-row">
+          <dt>Founded</dt>
+          <dd>[YEAR]</dd>
+        </div>
+        <div class="spec-row">
+          <dt>Based in</dt>
+          <dd>[LOCATION]</dd>
+        </div>
+        <div class="spec-row">
+          <dt>Focus</dt>
+          <dd>Web · Software · DevOps</dd>
+        </div>
+        <div class="spec-row">
+          <dt>Team size</dt>
+          <dd>3 founders</dd>
+        </div>
+        <div class="spec-row">
+          <dt>Engagement</dt>
+          <dd>4 – 16 weeks</dd>
+        </div>
+        <div class="spec-row">
+          <dt>Code ownership</dt>
+          <dd>Yours, always</dd>
+        </div>
+      </dl>
+    </aside>
+
+  </div>
+
+  <!-- Scroll indicator -->
+  <div class="hero-scroll" aria-hidden="true">
+    <span class="scroll-line"></span>
+    <span class="scroll-label">scroll</span>
+  </div>
+</section>
+
+<style>
+  .hero {
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-top: 56px; /* header height */
+    position: relative;
+  }
+
+  .hero-inner {
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: var(--space-16);
+    align-items: center;
+    /* Tighter padding on mobile, expands up */
+    padding-block: var(--space-12);
+  }
+
+  @media (min-width: 768px) {
+    .hero-inner { padding-block: var(--space-16); }
+  }
+  @media (min-width: 1024px) {
+    .hero-inner { padding-block: var(--space-24); }
+  }
+
+  /* ── Label ────────────────────────────────────────── */
+  .hero-label {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--text-muted);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: var(--space-6);
+    opacity: 0;
+    animation: fade-up var(--dur-slow) var(--ease-out) 0.1s forwards;
+  }
+  .hero-label-dot {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border: 1px solid var(--text-muted);
+    background: var(--text-muted);
+    flex-shrink: 0;
+  }
+
+  /* ── Headline ──────────────────────────────────────── */
+  .hero-headline {
+    font-size: clamp(2rem, 6vw, var(--text-2xl));
+    display: flex;
+    flex-direction: column;
+    gap: 0.05em;
+    margin-bottom: var(--space-5);
+  }
+
+  .hero-line {
+    display: block;
+    overflow: hidden;
+    padding-bottom: 0.05em;
+  }
+
+  .hero-line:nth-child(1) { opacity: 0; animation: fade-up var(--dur-slow) var(--ease-out) 0.2s forwards; }
+  .hero-line:nth-child(2) { opacity: 0; animation: fade-up var(--dur-slow) var(--ease-out) 0.35s forwards; }
+  .hero-line:nth-child(3) { opacity: 0; animation: fade-up var(--dur-slow) var(--ease-out) 0.5s forwards; }
+
+  /* ── Sub ───────────────────────────────────────────── */
+  .hero-sub {
+    color: var(--text-muted);
+    font-size: var(--text-base);
+    line-height: 1.7;
+    max-width: 52ch;
+    margin-bottom: var(--space-8);
+    opacity: 0;
+    animation: fade-up var(--dur-slow) var(--ease-out) 0.65s forwards;
+  }
+
+  /* ── Actions ──────────────────────────────────────── */
+  .hero-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    flex-wrap: wrap;
+    opacity: 0;
+    animation: fade-up var(--dur-slow) var(--ease-out) 0.8s forwards;
+  }
+
+  .btn-primary {
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    font-weight: 500;
+    background: var(--text-strong);
+    color: var(--bg);
+    /* No border — replaced by the animated pseudo-element below */
+    border: none;
+    padding: calc(var(--space-3) + 2px) calc(var(--space-6) + 2px);
+    transition: transform var(--dur-fast) var(--ease-out);
+    position: relative;
+    isolation: isolate;
+    z-index: 0;
+  }
+  /* Animated gradient border — always running */
+  .btn-primary::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    z-index: -1;
+    background: conic-gradient(
+      from var(--electric-angle),
+      #00cfff, #7c3aed, #e800a0, #7c3aed, #00cfff
+    );
+    animation: electric-rotate 2.4s linear infinite;
+  }
+  /* White fill sits on top, leaving a 2px gradient edge visible */
+  .btn-primary::after {
+    content: '';
+    position: absolute;
+    inset: 2px;
+    z-index: -1;
+    background: var(--text-strong);
+  }
+  @media (hover: hover) {
+    .btn-primary:hover { transform: translateY(-2px); }
+  }
+
+  .btn-secondary {
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+    transition: color var(--dur-fast) var(--ease-out);
+    text-decoration: underline;
+    text-decoration-color: var(--border-strong);
+    text-underline-offset: 4px;
+  }
+  .btn-secondary:hover { color: var(--text-strong); }
+
+  /* ── Spec sheet ────────────────────────────────────── */
+  .hero-spec {
+    border: 1px solid var(--border);
+    padding: var(--space-6);
+    opacity: 0;
+    animation: fade-up var(--dur-slow) var(--ease-out) 0.5s forwards;
+  }
+
+  .spec-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin: 0;
+  }
+
+  .spec-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-4);
+    padding: var(--space-3) 0;
+    border-bottom: 1px solid var(--border);
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+  }
+  .spec-row:last-child { border-bottom: none; }
+
+  .spec-row dt {
+    color: var(--text-muted);
+  }
+  .spec-row dd {
+    color: var(--text-strong);
+    margin: 0;
+    text-align: right;
+  }
+
+  /* ── Scroll indicator ─────────────────────────────── */
+  .hero-scroll {
+    position: absolute;
+    bottom: var(--space-8);
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-2);
+    opacity: 0;
+    animation: fade-in var(--dur-slow) var(--ease-out) 1.2s forwards;
+  }
+
+  .scroll-line {
+    display: block;
+    width: 1px;
+    height: 32px;
+    background: linear-gradient(to bottom, var(--text-muted), transparent);
+    animation: scroll-pulse 2s ease-in-out infinite;
+  }
+  .scroll-label {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--text-muted);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  /* ── Keyframes ────────────────────────────────────── */
+  @keyframes fade-up {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fade-in {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+  @keyframes scroll-pulse {
+    0%, 100% { opacity: 0.4; transform: scaleY(1); }
+    50%       { opacity: 1;   transform: scaleY(1.15); }
+  }
+
+  /* ── Responsive ────────────────────────────────────── */
+  @media (max-width: 900px) {
+    .hero-inner {
+      grid-template-columns: 1fr;
+      gap: var(--space-10);
+    }
+    .hero-spec { max-width: 100%; }
+  }
+
+  @media (max-width: 480px) {
+    .hero-headline { font-size: clamp(1.75rem, 8vw, 2.5rem); }
+    .hero-sub { font-size: var(--text-sm); }
+    .hero-label { margin-bottom: var(--space-4); }
+  }
+
+  /* ── Reduced motion ────────────────────────────────── */
+  @media (prefers-reduced-motion: reduce) {
+    .hero-label,
+    .hero-line,
+    .hero-sub,
+    .hero-actions,
+    .hero-spec,
+    .hero-scroll {
+      opacity: 1;
+      animation: none;
+    }
+    .scroll-line { animation: none; }
+  }
+</style>
