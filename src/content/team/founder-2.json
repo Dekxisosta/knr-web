@@ -1,0 +1,25 @@
+{
+  "name": "[FOUNDER_2_NAME]",
+  "slug": "founder-2",
+  "role": "[FOUNDER_2_ROLE]",
+  "focus": "[FOUNDER_2_FOCUS — one line]",
+  "bio": "[FOUNDER_2_BIO — 2-3 sentences, specific, no buzzwords.]",
+  "photo": "/images/team/founder-2.jpg",
+  "credentials": [
+    {
+      "label": "[CREDENTIAL_1_LABEL]",
+      "detail": "[CREDENTIAL_1_DETAIL]",
+      "year": 2021
+    },
+    {
+      "label": "[CREDENTIAL_2_LABEL]",
+      "detail": "[CREDENTIAL_2_DETAIL]"
+    }
+  ],
+  "links": {
+    "github": "https://github.com/[FOUNDER_2_GITHUB]",
+    "linkedin": "https://linkedin.com/in/[FOUNDER_2_LINKEDIN]",
+    "email": "founder2@knrcollective.com"
+  },
+  "order": 2
+}

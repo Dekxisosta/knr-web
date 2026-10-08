@@ -1,0 +1,25 @@
+{
+  "name": "[FOUNDER_3_NAME]",
+  "slug": "founder-3",
+  "role": "[FOUNDER_3_ROLE]",
+  "focus": "[FOUNDER_3_FOCUS — one line]",
+  "bio": "[FOUNDER_3_BIO — 2-3 sentences, specific, no buzzwords.]",
+  "photo": "/images/team/founder-3.jpg",
+  "credentials": [
+    {
+      "label": "[CREDENTIAL_1_LABEL]",
+      "detail": "[CREDENTIAL_1_DETAIL]",
+      "year": 2023
+    },
+    {
+      "label": "[CREDENTIAL_2_LABEL]",
+      "detail": "[CREDENTIAL_2_DETAIL]"
+    }
+  ],
+  "links": {
+    "github": "https://github.com/[FOUNDER_3_GITHUB]",
+    "linkedin": "https://linkedin.com/in/[FOUNDER_3_LINKEDIN]",
+    "email": "founder3@knrcollective.com"
+  },
+  "order": 3
+}

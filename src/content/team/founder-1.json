@@ -1,0 +1,25 @@
+{
+  "name": "[FOUNDER_1_NAME]",
+  "slug": "founder-1",
+  "role": "[FOUNDER_1_ROLE]",
+  "focus": "[FOUNDER_1_FOCUS — one line, e.g. 'Full-stack engineering & architecture']",
+  "bio": "[FOUNDER_1_BIO — 2-3 sentences, specific, no buzzwords. What they built, where, outcomes.]",
+  "photo": "/images/team/founder-1.jpg",
+  "credentials": [
+    {
+      "label": "[CREDENTIAL_1_LABEL]",
+      "detail": "[CREDENTIAL_1_DETAIL]",
+      "year": 2022
+    },
+    {
+      "label": "[CREDENTIAL_2_LABEL]",
+      "detail": "[CREDENTIAL_2_DETAIL]"
+    }
+  ],
+  "links": {
+    "github": "https://github.com/[FOUNDER_1_GITHUB]",
+    "linkedin": "https://linkedin.com/in/[FOUNDER_1_LINKEDIN]",
+    "email": "founder1@knrcollective.com"
+  },
+  "order": 1
+}
