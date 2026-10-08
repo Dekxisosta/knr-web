@@ -1,0 +1,190 @@
+---
+const year = new Date().getFullYear();
+const buildVersion = '0.1.0';
+
+const navLinks = [
+  { href: '/#services', label: 'Services' },
+  { href: '/#work',     label: 'Work'     },
+  { href: '/#team',     label: 'Team'     },
+  { href: '/#contact',  label: 'Contact'  },
+];
+const legalLinks = [
+  { href: '/privacy', label: 'Privacy' },
+  { href: '/terms',   label: 'Terms'   },
+];
+---
+
+<footer class="site-footer">
+  <div class="section-container">
+    <div class="footer-top">
+      <!-- Wordmark + tagline -->
+      <div class="footer-brand">
+        <a href="/" class="wordmark" aria-label="KNR Collective — home">
+          <img src="/images/logo.png" alt="KNR Collective" class="logo-img" />
+        </a>
+        <p class="tagline">Software built by engineers,<br/>owned by you.</p>
+      </div>
+
+      <!-- Nav columns -->
+      <nav aria-label="Footer navigation" class="footer-nav">
+        <div class="footer-nav-col">
+          <p class="footer-nav-heading">Site</p>
+          <ul role="list">
+            {navLinks.map(({ href, label }) => (
+              <li><a href={href} class="footer-link">{label}</a></li>
+            ))}
+          </ul>
+        </div>
+        <div class="footer-nav-col">
+          <p class="footer-nav-heading">Legal</p>
+          <ul role="list">
+            {legalLinks.map(({ href, label }) => (
+              <li><a href={href} class="footer-link">{label}</a></li>
+            ))}
+          </ul>
+        </div>
+        <div class="footer-nav-col">
+          <p class="footer-nav-heading">Contact</p>
+          <ul role="list">
+            <li><a href="mailto:[CONTACT_EMAIL]" class="footer-link">[CONTACT_EMAIL]</a></li>
+            <li><a href="https://github.com/knrcollective" class="footer-link" target="_blank" rel="noopener">GitHub</a></li>
+            <li><a href="https://linkedin.com/company/knrcollective" class="footer-link" target="_blank" rel="noopener">LinkedIn</a></li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+
+    <!-- Mono status line -->
+    <div class="footer-status">
+      <span>© {year} KNR Collective</span>
+      <span class="sep">·</span>
+      <span>v{buildVersion}</span>
+      <span class="sep">·</span>
+      <span>[LOCATION]</span>
+      <span class="sep">·</span>
+      <span id="footer-time">[TIME]</span>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    border-top: 1px solid var(--border);
+    padding-block: var(--space-12) var(--space-8);
+    margin-top: var(--space-16);
+  }
+  @media (min-width: 1024px) {
+    .site-footer { padding-block: var(--space-16) var(--space-8); margin-top: var(--space-24); }
+  }
+
+  .footer-top {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: var(--space-12);
+    margin-bottom: var(--space-12);
+    padding-bottom: var(--space-12);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .footer-brand {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .wordmark {
+    display: flex;
+    align-items: center;
+    transition: opacity var(--dur-fast) var(--ease-out);
+  }
+  .wordmark:hover { opacity: 0.7; }
+
+  .logo-img {
+    height: 48px;
+    width: 48px;
+    display: block;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  .tagline {
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+    line-height: 1.6;
+    max-width: none;
+  }
+
+  .footer-nav {
+    display: flex;
+    gap: var(--space-12);
+  }
+  .footer-nav-col {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+  .footer-nav-heading {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    font-weight: 500;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: var(--space-1);
+    max-width: none;
+  }
+  .footer-nav-col ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+  .footer-link {
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+    transition: color var(--dur-fast) var(--ease-out);
+  }
+  .footer-link:hover { color: var(--text-strong); }
+
+  .footer-status {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--text-muted);
+  }
+  .sep { color: var(--border-strong); }
+
+  @media (max-width: 767px) {
+    .footer-top {
+      grid-template-columns: 1fr;
+    }
+    .footer-nav {
+      flex-wrap: wrap;
+      gap: var(--space-8);
+    }
+  }
+</style>
+
+<script>
+  // Live timezone clock in footer
+  function updateTime() {
+    const el = document.getElementById('footer-time');
+    if (!el) return;
+    const now = new Date();
+    el.textContent = now.toLocaleTimeString('en-US', {
+      timeZone: 'America/New_York',
+      hour: '2-digit',
+      minute: '2-digit',
+      timeZoneName: 'short',
+    });
+  }
+  updateTime();
+  setInterval(updateTime, 30000);
+</script>
