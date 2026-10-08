@@ -1,0 +1,60 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/sections/Hero.astro';
+import Services from '../components/sections/Services.astro';
+import Why from '../components/sections/Why.astro';
+import Process from '../components/sections/Process.astro';
+import SelectedWork from '../components/sections/SelectedWork.astro';
+import Team from '../components/sections/Team.astro';
+import FAQ from '../components/sections/FAQ.astro';
+import Contact from '../components/sections/Contact.astro';
+
+// Organization JSON-LD
+const orgSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'KNR Collective',
+  url: 'https://knrcollective.com',
+  logo: 'https://knrcollective.com/og.png',
+  description:
+    'KNR Collective builds custom web applications, internal tools, and software infrastructure.',
+  email: '[CONTACT_EMAIL]',
+  foundingDate: '[YEAR]',
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: '[CITY]',
+    addressCountry: '[COUNTRY_CODE]',
+  },
+  sameAs: [
+    'https://github.com/knrcollective',
+    'https://linkedin.com/company/knrcollective',
+  ],
+};
+
+// Person JSON-LD for each founder (replace placeholders with real data)
+const founderSchemas = [1, 2, 3].map((n) => ({
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: `[FOUNDER_${n}_NAME]`,
+  jobTitle: `[FOUNDER_${n}_ROLE]`,
+  worksFor: { '@type': 'Organization', name: 'KNR Collective', url: 'https://knrcollective.com' },
+  url: `https://knrcollective.com/#team`,
+}));
+
+const allSchemas = [orgSchema, ...founderSchemas];
+---
+
+<BaseLayout
+  title="KNR Collective"
+  description="KNR Collective builds custom web applications, internal tools, and software infrastructure for companies that need things done right."
+  jsonLd={allSchemas}
+>
+  <Hero />
+  <Services />
+  <Why />
+  <Process />
+  <SelectedWork />
+  <Team />
+  <FAQ />
+  <Contact />
+</BaseLayout>

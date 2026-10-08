@@ -1,0 +1,151 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+const lastUpdated = '2024-01-01';
+---
+
+<BaseLayout
+  title="Privacy Policy"
+  description="Privacy policy for KNR Collective."
+  noindex={false}
+>
+  <div class="legal-page">
+    <div class="section-container">
+      <nav class="page-nav">
+        <a href="/" class="back-link">← KNR/</a>
+      </nav>
+
+      <header class="page-header">
+        <h1 class="page-title">Privacy Policy</h1>
+        <p class="page-meta">Last updated: <time datetime={lastUpdated}>{lastUpdated}</time></p>
+      </header>
+
+      <div class="legal-body">
+        <section>
+          <h2>Information we collect</h2>
+          <p>
+            When you submit the contact form on our site, we collect your name, email address,
+            and the information you include in your message. We do not use tracking pixels,
+            behavioral advertising networks, or third-party analytics that identify individuals.
+          </p>
+        </section>
+
+        <section>
+          <h2>How we use it</h2>
+          <p>
+            We use your contact details solely to respond to your inquiry and, if we work together,
+            to communicate about your project. We do not sell, rent, or share your personal
+            information with third parties for marketing purposes.
+          </p>
+        </section>
+
+        <section>
+          <h2>Data retention</h2>
+          <p>
+            Contact form submissions are retained for as long as they are relevant to an active
+            or prospective engagement. You may request deletion at any time by emailing
+            <a href="mailto:[CONTACT_EMAIL]">[CONTACT_EMAIL]</a>.
+          </p>
+        </section>
+
+        <section>
+          <h2>Cookies</h2>
+          <p>
+            This site does not set non-essential cookies. We may use privacy-friendly analytics
+            (Plausible or Umami) that do not use cookies and do not collect personally
+            identifiable information.
+          </p>
+        </section>
+
+        <section>
+          <h2>Third-party services</h2>
+          <p>
+            The site may be hosted on Vercel or Netlify, each of which has its own privacy policy.
+            Contact form submissions may be routed through Formspree. We do not embed
+            third-party social widgets or advertising scripts.
+          </p>
+        </section>
+
+        <section>
+          <h2>Your rights</h2>
+          <p>
+            You have the right to access, correct, or delete any personal data we hold about you.
+            To exercise these rights, email <a href="mailto:[CONTACT_EMAIL]">[CONTACT_EMAIL]</a>.
+            We will respond within 30 days.
+          </p>
+        </section>
+
+        <section>
+          <h2>Contact</h2>
+          <p>
+            Questions about this policy: <a href="mailto:[CONTACT_EMAIL]">[CONTACT_EMAIL]</a>
+          </p>
+        </section>
+      </div>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .legal-page {
+    padding-top: calc(56px + var(--space-16));
+    padding-bottom: var(--space-24);
+    min-height: 100svh;
+  }
+  .page-nav { margin-bottom: var(--space-10); }
+  .back-link {
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+    transition: color var(--dur-fast) var(--ease-out);
+  }
+  .back-link:hover { color: var(--text-strong); }
+
+  .page-header {
+    margin-bottom: var(--space-12);
+    padding-bottom: var(--space-8);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+  .page-title { font-size: var(--text-xl); }
+  .page-meta {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--text-muted);
+    max-width: none;
+  }
+
+  .legal-body {
+    max-width: 680px;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-10);
+  }
+
+  .legal-body section { display: flex; flex-direction: column; gap: var(--space-3); }
+
+  .legal-body h2 {
+    font-family: var(--font-mono);
+    font-size: var(--text-base);
+    font-weight: 600;
+    color: var(--text-strong);
+  }
+
+  .legal-body p {
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+    line-height: 1.7;
+    max-width: 68ch;
+  }
+
+  .legal-body a {
+    color: var(--text-strong);
+    text-decoration: underline;
+    text-decoration-color: var(--border-strong);
+    text-underline-offset: 3px;
+    transition: text-decoration-color var(--dur-fast) var(--ease-out);
+  }
+  .legal-body a:hover { text-decoration-color: var(--text-strong); }
+</style>

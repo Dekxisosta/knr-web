@@ -1,0 +1,202 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+  const work = await getCollection('work');
+  return work.map((project) => ({
+    params: { slug: project.data.slug },
+    props: { project },
+  }));
+}
+
+const { project } = Astro.props;
+const { data } = project;
+const { Content } = await render(project);
+
+// Case study JSON-LD
+const caseStudySchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: data.title,
+  description: data.problem,
+  author: {
+    '@type': 'Organization',
+    name: 'KNR Collective',
+    url: 'https://knrcollective.com',
+  },
+  publisher: {
+    '@type': 'Organization',
+    name: 'KNR Collective',
+    url: 'https://knrcollective.com',
+  },
+  datePublished: `${data.year}-01-01`,
+};
+---
+
+<BaseLayout
+  title={data.title}
+  description={`${data.problem} — A case study by KNR Collective.`}
+  jsonLd={caseStudySchema}
+>
+  <article class="case-study">
+    <div class="section-container">
+
+      <!-- Back nav -->
+      <nav class="case-nav" aria-label="Case study navigation">
+        <a href="/work" class="back-link">← All work</a>
+      </nav>
+
+      <!-- Header -->
+      <header class="case-header">
+        <div class="case-meta">
+          <span class="case-type">{data.type}</span>
+          <span class="case-sep" aria-hidden="true">·</span>
+          <span class="case-year">{data.year}</span>
+        </div>
+        <h1 class="case-title">{data.title}</h1>
+        <p class="case-client">{data.client}</p>
+      </header>
+
+      <!-- Spec sheet -->
+      <div class="case-spec">
+        <dl class="spec-grid">
+          <div class="spec-row">
+            <dt>Problem</dt>
+            <dd>{data.problem}</dd>
+          </div>
+          <div class="spec-row">
+            <dt>What we built</dt>
+            <dd>{data.built}</dd>
+          </div>
+          <div class="spec-row">
+            <dt>Outcome</dt>
+            <dd>{data.outcome}</dd>
+          </div>
+        </dl>
+      </div>
+
+      <!-- Full case study content -->
+      <div class="case-body prose">
+        <Content />
+      </div>
+
+      <!-- Footer nav -->
+      <footer class="case-footer">
+        <a href="/work" class="back-link">← Back to all work</a>
+        <a href="/#contact" class="cta-link">Start a project →</a>
+      </footer>
+
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .case-study {
+    padding-top: calc(56px + var(--space-16));
+    padding-bottom: var(--space-24);
+    min-height: 100svh;
+  }
+
+  .case-nav {
+    margin-bottom: var(--space-10);
+  }
+
+  .back-link {
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+    transition: color var(--dur-fast) var(--ease-out);
+  }
+  .back-link:hover { color: var(--text-strong); }
+
+  /* ── Header ──────────────────────────────────────── */
+  .case-header {
+    margin-bottom: var(--space-10);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    padding-bottom: var(--space-10);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .case-meta {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .case-sep { color: var(--border-strong); }
+
+  .case-title {
+    font-size: clamp(var(--text-xl), 4vw, var(--text-2xl));
+    max-width: 16ch;
+  }
+
+  .case-client {
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+    max-width: none;
+  }
+
+  /* ── Spec ─────────────────────────────────────────── */
+  .case-spec {
+    margin-bottom: var(--space-12);
+    max-width: 720px;
+  }
+
+  .spec-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin: 0;
+  }
+
+  .spec-row {
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    gap: var(--space-6);
+    padding: var(--space-4) 0;
+    border-bottom: 1px solid var(--border);
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    align-items: start;
+  }
+  .spec-row:first-child { border-top: 1px solid var(--border); }
+  .spec-row dt { color: var(--text-muted); padding-top: 2px; }
+  .spec-row dd { color: var(--text); margin: 0; }
+
+  /* ── Body (prose) ─────────────────────────────────── */
+  .case-body {
+    max-width: 720px;
+    margin-bottom: var(--space-16);
+  }
+
+  /* ── Footer ──────────────────────────────────────── */
+  .case-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: var(--space-8);
+    border-top: 1px solid var(--border);
+    flex-wrap: wrap;
+    gap: var(--space-4);
+  }
+
+  .cta-link {
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    color: var(--text-strong);
+    transition: opacity var(--dur-fast) var(--ease-out);
+  }
+  .cta-link:hover { opacity: 0.7; }
+
+  @media (max-width: 600px) {
+    .spec-row { grid-template-columns: 1fr; gap: var(--space-2); }
+  }
+</style>

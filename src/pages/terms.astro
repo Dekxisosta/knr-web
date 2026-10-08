@@ -1,0 +1,147 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+const lastUpdated = '2024-01-01';
+---
+
+<BaseLayout
+  title="Terms of Service"
+  description="Terms of service for KNR Collective."
+>
+  <div class="legal-page">
+    <div class="section-container">
+      <nav class="page-nav">
+        <a href="/" class="back-link">← KNR/</a>
+      </nav>
+
+      <header class="page-header">
+        <h1 class="page-title">Terms of Service</h1>
+        <p class="page-meta">Last updated: <time datetime={lastUpdated}>{lastUpdated}</time></p>
+      </header>
+
+      <div class="legal-body">
+        <section>
+          <h2>Overview</h2>
+          <p>
+            These terms govern your use of the KNR Collective website (knrcollective.com).
+            By accessing the site you agree to these terms. Engagement-specific terms —
+            scope, deliverables, payment, IP ownership — are defined in individual
+            project contracts, which take precedence over anything on this page.
+          </p>
+        </section>
+
+        <section>
+          <h2>Use of this site</h2>
+          <p>
+            You may use this site for lawful purposes only. You may not attempt to gain
+            unauthorized access to any part of the site or its underlying infrastructure,
+            scrape content for commercial redistribution, or use the site to transmit
+            harmful or deceptive content.
+          </p>
+        </section>
+
+        <section>
+          <h2>Intellectual property</h2>
+          <p>
+            The content on this site — text, design, code — is the property of KNR Collective
+            unless otherwise noted. You may not reproduce or redistribute it without written
+            permission. Case studies are published with client permission; all client names
+            and details remain their property.
+          </p>
+        </section>
+
+        <section>
+          <h2>Disclaimer</h2>
+          <p>
+            This site is provided "as is." We make no warranties about its accuracy,
+            completeness, or fitness for a particular purpose. We are not liable for any
+            damages arising from your use of the site or reliance on its content.
+          </p>
+        </section>
+
+        <section>
+          <h2>Links to other sites</h2>
+          <p>
+            We may link to third-party sites for reference. We are not responsible for
+            their content or practices.
+          </p>
+        </section>
+
+        <section>
+          <h2>Changes</h2>
+          <p>
+            We may update these terms at any time. Continued use of the site after
+            changes constitutes acceptance of the revised terms.
+          </p>
+        </section>
+
+        <section>
+          <h2>Contact</h2>
+          <p>
+            Questions: <a href="mailto:[CONTACT_EMAIL]">[CONTACT_EMAIL]</a>
+          </p>
+        </section>
+      </div>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .legal-page {
+    padding-top: calc(56px + var(--space-16));
+    padding-bottom: var(--space-24);
+    min-height: 100svh;
+  }
+  .page-nav { margin-bottom: var(--space-10); }
+  .back-link {
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+    transition: color var(--dur-fast) var(--ease-out);
+  }
+  .back-link:hover { color: var(--text-strong); }
+
+  .page-header {
+    margin-bottom: var(--space-12);
+    padding-bottom: var(--space-8);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+  .page-title { font-size: var(--text-xl); }
+  .page-meta {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--text-muted);
+    max-width: none;
+  }
+
+  .legal-body {
+    max-width: 680px;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-10);
+  }
+  .legal-body section { display: flex; flex-direction: column; gap: var(--space-3); }
+  .legal-body h2 {
+    font-family: var(--font-mono);
+    font-size: var(--text-base);
+    font-weight: 600;
+    color: var(--text-strong);
+  }
+  .legal-body p {
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+    line-height: 1.7;
+    max-width: 68ch;
+  }
+  .legal-body a {
+    color: var(--text-strong);
+    text-decoration: underline;
+    text-decoration-color: var(--border-strong);
+    text-underline-offset: 3px;
+    transition: text-decoration-color var(--dur-fast) var(--ease-out);
+  }
+  .legal-body a:hover { text-decoration-color: var(--text-strong); }
+</style>

@@ -1,0 +1,142 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="404 — Page not found"
+  description="This page doesn't exist."
+  noindex={true}
+>
+  <div class="not-found">
+    <div class="section-container">
+
+      <div class="nf-inner">
+        <div class="nf-code" aria-hidden="true">404</div>
+
+        <div class="nf-content">
+          <p class="nf-label">Page not found</p>
+          <h1 class="nf-title">Nothing here.</h1>
+          <p class="nf-desc">
+            The page you're looking for doesn't exist or was moved.
+          </p>
+
+          <div class="nf-actions">
+            <a href="/" class="btn-primary">Back to home</a>
+            <a href="/#contact" class="btn-secondary">Contact us</a>
+          </div>
+        </div>
+
+        <div class="nf-meta" aria-hidden="true">
+          <span>KNR/ — 404</span>
+          <span class="nf-meta-sep">·</span>
+          <span>knrcollective.com</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .not-found {
+    min-height: 100svh;
+    display: flex;
+    align-items: center;
+    padding-top: 56px;
+  }
+
+  .nf-inner {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-8);
+    padding-block: var(--space-24);
+  }
+
+  .nf-code {
+    font-family: var(--font-mono);
+    font-size: clamp(5rem, 15vw, 10rem);
+    font-weight: 700;
+    color: var(--border);
+    line-height: 1;
+    letter-spacing: -0.04em;
+    user-select: none;
+  }
+
+  .nf-content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    max-width: 480px;
+  }
+
+  .nf-label {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    max-width: none;
+  }
+
+  .nf-title {
+    font-size: var(--text-xl);
+    color: var(--text-strong);
+  }
+
+  .nf-desc {
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+    max-width: 44ch;
+  }
+
+  .nf-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    margin-top: var(--space-4);
+    flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    font-weight: 500;
+    background: var(--text-strong);
+    color: var(--bg);
+    border: 1px solid var(--text-strong);
+    padding: var(--space-3) var(--space-6);
+    transition: background var(--dur-fast) var(--ease-out),
+                color var(--dur-fast) var(--ease-out),
+                transform var(--dur-fast) var(--ease-out);
+  }
+  .btn-primary:hover {
+    background: transparent;
+    color: var(--text-strong);
+    transform: translateY(-2px);
+  }
+
+  .btn-secondary {
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+    text-decoration: underline;
+    text-decoration-color: var(--border-strong);
+    text-underline-offset: 4px;
+    transition: color var(--dur-fast) var(--ease-out);
+  }
+  .btn-secondary:hover { color: var(--text-strong); }
+
+  .nf-meta {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--border-strong);
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin-top: var(--space-8);
+    padding-top: var(--space-8);
+    border-top: 1px solid var(--border);
+  }
+  .nf-meta-sep { color: var(--border); }
+</style>
