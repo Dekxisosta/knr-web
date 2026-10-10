@@ -24,24 +24,27 @@ export default function SideGrids() {
     let offset = 0;
     let shouldRender = false;
     let marginWidth = 0;
+    let resizeTimeout: number;
 
     const prefersReduced =
       typeof window !== 'undefined' &&
       window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     function calculateMargins() {
-      // Find the main content container
-      const container = document.querySelector('.section-container');
-      if (!container) return 0;
-
-      const containerRect = container.getBoundingClientRect();
+      // Use ResizeObserver approach or simple viewport-based calculation to avoid forced reflows
       const viewportWidth = window.innerWidth;
       
-      // Calculate available margin space on each side
-      const leftMargin = containerRect.left;
-      const rightMargin = viewportWidth - containerRect.right;
+      // Estimate container width based on common responsive design patterns
+      // Most sites use max-width of 1200-1400px with some padding
+      let containerWidth = viewportWidth;
+      if (viewportWidth >= 1200) {
+        containerWidth = Math.min(1200, viewportWidth * 0.9); // Assume 90% max-width with padding
+      }
       
-      return Math.min(leftMargin, rightMargin);
+      // Calculate available margin space on each side
+      const availableMargin = (viewportWidth - containerWidth) / 2;
+      
+      return Math.max(0, availableMargin);
     }
 
     function checkViewportAndMargins() {
@@ -57,32 +60,31 @@ export default function SideGrids() {
     function resize() {
       if (!leftCanvas || !rightCanvas) return;
       
-      checkViewportAndMargins();
-      
-      if (!shouldRender) return;
-      
-      // Use the available margin width (minus some padding)
-      const gridWidth = Math.min(marginWidth - 20, 120);
-      
-      // Set canvas size
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
-      const width = gridWidth * dpr;
-      const height = window.innerHeight * dpr;
-      
-      [leftCanvas, rightCanvas].forEach(canvas => {
-        canvas.width = width;
-        canvas.height = height;
-        canvas.style.width = gridWidth + 'px';
-        canvas.style.height = window.innerHeight + 'px';
-      });
-
-      // Position canvases in the margin areas
-      const container = document.querySelector('.section-container');
-      if (container) {
-        const containerRect = container.getBoundingClientRect();
-        leftCanvas.style.left = '10px';
-        rightCanvas.style.right = '10px';
-      }
+      // Debounce resize to prevent excessive calculations
+      clearTimeout(resizeTimeout);
+      resizeTimeout = window.setTimeout(() => {
+        checkViewportAndMargins();
+        
+        if (!shouldRender) return;
+        
+        // Use the available margin width (minus some padding)
+        const gridWidth = Math.min(marginWidth - 20, 120);
+        
+        // Use requestAnimationFrame to batch DOM updates
+        requestAnimationFrame(() => {
+          // Set canvas size
+          const dpr = Math.min(window.devicePixelRatio || 1, 2);
+          const width = gridWidth * dpr;
+          const height = window.innerHeight * dpr;
+          
+          [leftCanvas, rightCanvas].forEach(canvas => {
+            canvas.width = width;
+            canvas.height = height;
+            canvas.style.width = gridWidth + 'px';
+            canvas.style.height = window.innerHeight + 'px';
+          });
+        });
+      }, 100);
     }
 
     // Initial setup with a delay to ensure DOM is ready
@@ -90,7 +92,7 @@ export default function SideGrids() {
       resize();
     }, 100);
     
-    window.addEventListener('resize', resize);
+    window.addEventListener('resize', resize, { passive: true });
 
     function drawGrid(ctx: CanvasRenderingContext2D, canvas: HTMLCanvasElement) {
       if (!shouldRender) return;
@@ -100,7 +102,7 @@ export default function SideGrids() {
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
       ctx.scale(dpr, dpr);
       
-      const gridWidth = parseFloat(canvas.style.width);
+      const gridWidth = parseFloat(canvas.style.width) || 120;
       const cols = Math.ceil(gridWidth / GRID_SIZE);
       const rows = Math.ceil(window.innerHeight / GRID_SIZE) + 2;
       
@@ -140,6 +142,7 @@ export default function SideGrids() {
 
     return () => {
       cancelAnimationFrame(animId);
+      clearTimeout(resizeTimeout);
       window.removeEventListener('resize', resize);
     };
   }, []);
