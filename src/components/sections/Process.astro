@@ -2,229 +2,194 @@
 const steps = [
   {
     index: '01',
-    phase: 'Discover',
+    phase: 'Understand',
     description:
-      'We start with a structured call to understand your goals, constraints, and existing systems. No NDAs required to have the first conversation.',
-    timeframe: '1–2 days',
+      'Discuss your requirements, review existing systems, identify goals and constraints.',
+    timeframe: 'Initial',
   },
   {
     index: '02',
-    phase: 'Scope',
+    phase: 'Plan',
     description:
-      'We write a clear spec: what we\'re building, what we\'re not, the tech stack, timeline, and fixed price. You approve it before a single line of code is written.',
-    timeframe: '3–5 days',
+      'Define scope, technical approach, and deliverables. Agree on what will be built.',
+    timeframe: 'Scoping',
   },
   {
     index: '03',
     phase: 'Build',
     description:
-      'Weekly check-ins, a shared Notion board, and a staging environment from day one. You can see progress at every step — no surprise reveals.',
-    timeframe: '4–12 weeks',
+      'Develop, review, test, and validate. Security and correctness at every step.',
+    timeframe: 'Development',
   },
   {
     index: '04',
-    phase: 'Ship & Support',
+    phase: 'Deliver',
     description:
-      'We deploy to your infrastructure or help set one up. After launch we stay available for fixes, updates, and the inevitable things you think of post-launch.',
-    timeframe: 'Ongoing',
+      'Deploy, document, and hand off working software with confidence.',
+    timeframe: 'Completion',
   },
 ];
 ---
 
-<section id="process" class="process-section" aria-labelledby="process-heading">
+<section id="process" class="process-section section-pad" aria-labelledby="process-heading">
   <div class="section-container">
 
     <header class="section-header">
-      <span class="section-index" aria-hidden="true">02</span>
-      <h2 id="process-heading" class="section-title">Process</h2>
+      <div class="header-badge">Process</div>
+      <h2 id="process-heading" class="section-title">
+        How we work
+      </h2>
       <p class="section-desc">
-        How a project goes from idea to production.
+        From idea to production in four clear phases.
       </p>
     </header>
 
-    <ol class="process-list" role="list">
-      {steps.map((step, i) => (
-        <li class="process-step" style={`--step-delay: ${i * 0.08}s`}>
-          <div class="step-connector" aria-hidden="true">
-            <span class="step-num">{step.index}</span>
-            {i < steps.length - 1 && <span class="step-line"></span>}
+    <div class="process-grid">
+      {steps.map((step) => (
+        <article class="process-card">
+          <div class="card-header">
+            <span class="step-index">{step.index}</span>
+            <span class="step-timeframe">{step.timeframe}</span>
           </div>
-          <div class="step-body">
-            <div class="step-top">
-              <h3 class="step-phase">{step.phase}</h3>
-              <span class="step-timeframe">{step.timeframe}</span>
-            </div>
-            <p class="step-desc">{step.description}</p>
-          </div>
-        </li>
+          <h3 class="step-phase">{step.phase}</h3>
+          <p class="step-desc">{step.description}</p>
+        </article>
       ))}
-    </ol>
+    </div>
 
   </div>
 </section>
 
 <style>
   .process-section {
-    padding-block: var(--space-16);
-    border-top: 1px solid var(--border);
+    background: var(--bg);
+    position: relative;
   }
-  @media (min-width: 768px) { .process-section { padding-block: var(--space-20); } }
-  @media (min-width: 1024px) { .process-section { padding-block: var(--space-24); } }
 
-  /* ── Section header ──────────────────────────────── */
   .section-header {
-    display: flex;
-    gap: var(--space-5);
-    align-items: flex-start;
-    margin-bottom: var(--space-8);
-  }
-  .section-index {
-    font-family: var(--font-mono);
-    font-size: var(--text-xs);
-    color: var(--text-muted);
-    letter-spacing: 0.1em;
-    padding-top: 6px;
-    flex-shrink: 0;
-  }
-  .section-title {
-    font-size: clamp(var(--text-md), 3vw, var(--text-lg));
-    color: var(--text-strong);
-  }
-  .section-desc {
-    font-family: var(--font-mono);
-    font-size: var(--text-sm);
-    color: var(--text-muted);
-    margin-top: var(--space-1);
-    max-width: 52ch;
+    max-width: 720px;
+    margin-bottom: var(--space-16);
   }
 
-  /* ── Steps ───────────────────────────────────────── */
-  .process-list {
-    list-style: none;
-    margin: 0;
-    padding: 0;
+  .header-badge {
+    display: inline-block;
+    font-family: var(--font-body);
+    font-size: var(--text-xs);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-muted);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-full);
+    padding: var(--space-2) var(--space-4);
+    margin-bottom: var(--space-6);
+  }
+
+  .section-title {
+    font-size: clamp(2rem, 5vw, var(--text-3xl));
+    font-weight: 700;
+    color: var(--text-strong);
+    margin-bottom: var(--space-4);
+    letter-spacing: -0.03em;
+  }
+
+  .section-desc {
+    font-family: var(--font-body);
+    font-size: var(--text-lg);
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+
+  /* Grid */
+  .process-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 0;
+    gap: var(--space-6);
   }
 
-  .process-step {
+  @media (max-width: 900px) {
+    .process-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 640px) {
+    .process-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* Cards */
+  .process-card {
+    background: var(--surface);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-8);
     display: flex;
     flex-direction: column;
-    gap: var(--space-5);
-    padding: var(--space-6);
-    border-right: 1px solid var(--border);
-    border-top: 1px solid var(--border);
-    position: relative;
-    animation: fade-up var(--dur-slow) var(--ease-out) var(--step-delay, 0s) both;
-  }
-  .process-step:last-child {
-    border-right: none;
+    gap: var(--space-4);
+    transition: all var(--dur-base) var(--ease-out);
   }
 
-  .step-connector {
+  @media (hover: hover) {
+    .process-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+      border-color: var(--text-strong);
+    }
+  }
+
+  .card-header {
     display: flex;
-    flex-direction: column;
-    gap: var(--space-3);
+    align-items: center;
+    justify-content: space-between;
   }
 
-  .step-num {
+  .step-index {
     font-family: var(--font-mono);
     font-size: var(--text-xs);
+    font-weight: 600;
     color: var(--text-muted);
-    letter-spacing: 0.1em;
-  }
-
-  .step-line {
-    display: none; /* shown on mobile vertical layout */
-  }
-
-  .step-body {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-3);
-    flex: 1;
-  }
-
-  .step-top {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-1);
-  }
-
-  .step-phase {
-    font-family: var(--font-heading);
-    font-size: var(--text-md);
-    font-weight: 500;
-    color: var(--text-strong);
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-full);
+    padding: var(--space-2) var(--space-3);
   }
 
   .step-timeframe {
     font-family: var(--font-mono);
     font-size: var(--text-xs);
     color: var(--text-muted);
-    letter-spacing: 0.05em;
-    border: 1px solid var(--border);
-    padding: 2px var(--space-2);
-    align-self: flex-start;
+  }
+
+  .step-phase {
+    font-family: var(--font-heading);
+    font-size: var(--text-xl);
+    font-weight: 700;
+    color: var(--text-strong);
+    letter-spacing: -0.02em;
   }
 
   .step-desc {
-    font-family: var(--font-mono);
+    font-family: var(--font-body);
     font-size: var(--text-sm);
     color: var(--text-muted);
     line-height: 1.7;
-    max-width: none;
   }
 
-  /* ── Responsive ──────────────────────────────────── */
-  @media (max-width: 900px) {
-    .process-list {
-      grid-template-columns: 1fr 1fr;
+  @media (max-width: 640px) {
+    .process-card {
+      padding: var(--space-6);
     }
-    .process-step:nth-child(2) { border-right: none; }
-    .process-step:nth-child(3) { border-right: 1px solid var(--border); border-top: 1px solid var(--border); }
-    .process-step:nth-child(4) { border-right: none; border-top: 1px solid var(--border); }
-    .step-desc { max-width: none; }
-  }
-
-  @media (max-width: 600px) {
-    .process-list {
-      grid-template-columns: 1fr;
+    .section-title {
+      font-size: clamp(1.75rem, 8vw, 2.5rem);
     }
-    .process-step {
-      border-right: none;
-      border-top: 1px solid var(--border);
-      flex-direction: row;
-      gap: var(--space-5);
+    .section-desc {
+      font-size: var(--text-base);
     }
-    .process-step:nth-child(3),
-    .process-step:nth-child(4) {
-      border-right: none;
+    .step-phase {
+      font-size: var(--text-lg);
     }
-    .step-connector {
-      flex-direction: column;
-      align-items: center;
-      flex-shrink: 0;
-      width: 2rem;
-    }
-    .step-line {
-      display: block;
-      width: 1px;
-      flex: 1;
-      background: var(--border);
-      min-height: 20px;
-    }
-    .step-desc { max-width: none; }
-  }
-
-  /* ── Animation ───────────────────────────────────── */
-  @keyframes fade-up {
-    from { opacity: 0; transform: translateY(12px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .process-step { animation: none; }
   }
 </style>

@@ -17,7 +17,7 @@ const orgSchema = {
   url: 'https://knrcollective.com',
   logo: 'https://knrcollective.com/og.png',
   description:
-    'KNR Collective builds custom web applications, internal tools, and software infrastructure.',
+    'Software engineering, security auditing, and reliable digital solutions. We build new software, audit existing systems, and fix technical weaknesses.',
   email: '[CONTACT_EMAIL]',
   foundingDate: '[YEAR]',
   address: {
@@ -41,12 +41,53 @@ const founderSchemas = [1, 2, 3].map((n) => ({
   url: `https://knrcollective.com/#team`,
 }));
 
-const allSchemas = [orgSchema, ...founderSchemas];
+// FAQ Schema
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'What services do you offer?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Software development (websites, web apps, custom software), security auditing (code review and vulnerability assessment), code remediation (fixing security issues), and system enhancement (features, integrations, refactoring).',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'How do you approach security?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Security is treated as an engineering requirement throughout development. We review code, test implementations, validate dependencies, and audit systems rather than assuming generated or third-party code is safe.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'What technologies do you work with?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'We\'re technology-agnostic. Choices are based on project requirements, maintainability, security, performance, and our ability to deliver an appropriate solution.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'How do I get started?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Use the contact form or email us directly. We\'ll discuss your requirements, answer questions, and determine if we\'re the right fit for your project.',
+      },
+    },
+  ],
+};
+
+const allSchemas = [orgSchema, ...founderSchemas, faqSchema];
 ---
 
 <BaseLayout
   title="KNR Collective"
-  description="KNR Collective builds custom web applications, internal tools, and software infrastructure for companies that need things done right."
+  description="Software engineering and security-focused development. We build secure, maintainable software and audit existing systems for vulnerabilities."
+  keywords="software development, security auditing, code review, web applications, security engineering, technical consulting, software remediation"
   jsonLd={allSchemas}
 >
   <Hero />

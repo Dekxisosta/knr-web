@@ -1,316 +1,381 @@
 ---
-// Hero section — plain-language statement + spec sheet block
+// Hero section with modern pill design
 ---
 
 <section class="hero" aria-labelledby="hero-headline">
   <div class="section-container hero-inner">
 
-    <!-- Left: text content -->
+    <!-- Main content -->
     <div class="hero-content">
-      <div class="hero-label" aria-hidden="true">
-        <span class="hero-label-dot"></span>
-        <span id="hero-label-text">KNR COLLECTIVE / EST. [YEAR]</span>
+      <!-- Brand pill -->
+      <div class="brand-pill" aria-hidden="true">
+        <span class="pill-text">KNR Collective</span>
+        <div class="pill-dots">
+          <span class="dot"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+        </div>
       </div>
 
       <h1 id="hero-headline" class="hero-headline">
-        <span class="hero-line">We build software</span>
-        <span class="hero-line">that runs your</span>
-        <span class="hero-line">business.</span>
+        <span class="hero-line">Secure by</span>
+        <span class="hero-line hero-line--bold">design.</span>
       </h1>
 
       <p class="hero-sub">
-        Custom web applications, internal tools, and infrastructure
-        for companies that need things done right — on time, in budget,
-        and maintained after launch.
+        Software engineering and<br />
+        security auditing.
       </p>
 
       <div class="hero-actions">
-        <a href="/#contact" class="btn-primary">Start a project</a>
-        <a href="/#work" class="btn-secondary">See our work</a>
+        <a href="/#contact" class="btn-primary">
+          Start a project
+        </a>
+        <a href="/#work" class="btn-secondary">
+          See our work
+        </a>
+      </div>
+
+      <div class="hero-tag">
+        @knrcollective
       </div>
     </div>
 
-    <!-- Right: spec-sheet block -->
-    <aside class="hero-spec" aria-label="Company overview">
-      <dl class="spec-list">
-        <div class="spec-row">
-          <dt>Founded</dt>
-          <dd>[YEAR]</dd>
+    <!-- Visual element -->
+    <div class="hero-visual" aria-hidden="true">
+      <div class="visual-card">
+        <div class="card-halftone"></div>
+        <div class="card-content">
+          <div class="card-icon">↗</div>
         </div>
-        <div class="spec-row">
-          <dt>Based in</dt>
-          <dd>[LOCATION]</dd>
-        </div>
-        <div class="spec-row">
-          <dt>Focus</dt>
-          <dd>Web · Software · DevOps</dd>
-        </div>
-        <div class="spec-row">
-          <dt>Team size</dt>
-          <dd>3 founders</dd>
-        </div>
-        <div class="spec-row">
-          <dt>Engagement</dt>
-          <dd>4 – 16 weeks</dd>
-        </div>
-        <div class="spec-row">
-          <dt>Code ownership</dt>
-          <dd>Yours, always</dd>
-        </div>
-      </dl>
-    </aside>
+      </div>
+    </div>
 
   </div>
 
-  <!-- Scroll indicator -->
-  <div class="hero-scroll" aria-hidden="true">
-    <span class="scroll-line"></span>
-    <span class="scroll-label">scroll</span>
+  <!-- Value props -->
+  <div class="value-props section-container">
+    <div class="prop-pill">
+      <span class="prop-label">Secure by design</span>
+    </div>
+    <div class="prop-pill">
+      <span class="prop-label">Code auditing</span>
+    </div>
+    <div class="prop-pill">
+      <span class="prop-label">Maintainable software</span>
+    </div>
   </div>
 </section>
 
 <style>
   .hero {
-    min-height: 100svh;
+    min-height: 90vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding-top: 56px; /* header height */
+    padding-top: 100px;
+    padding-bottom: var(--space-16);
     position: relative;
+    background: var(--bg-dark);
   }
 
   .hero-inner {
     display: grid;
-    grid-template-columns: 1fr 320px;
-    gap: var(--space-16);
+    grid-template-columns: 1.2fr 1fr;
+    gap: var(--space-20);
     align-items: center;
-    /* Tighter padding on mobile, expands up */
     padding-block: var(--space-12);
   }
 
-  @media (min-width: 768px) {
-    .hero-inner { padding-block: var(--space-16); }
-  }
-  @media (min-width: 1024px) {
-    .hero-inner { padding-block: var(--space-24); }
+  @media (max-width: 900px) {
+    .hero-inner {
+      grid-template-columns: 1fr;
+      gap: var(--space-12);
+    }
   }
 
-  /* ── Label ────────────────────────────────────────── */
-  .hero-label {
-    display: flex;
+  /* ── Brand pill ──────────────────────────────────────── */
+  .brand-pill {
+    display: inline-flex;
     align-items: center;
-    gap: var(--space-3);
-    font-family: var(--font-mono);
-    font-size: var(--text-xs);
-    color: var(--text-muted);
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    margin-bottom: var(--space-6);
+    gap: var(--space-4);
+    background: transparent;
+    border: 1.5px solid var(--text-light);
+    border-radius: var(--radius-full);
+    padding: var(--space-3) var(--space-6);
+    margin-bottom: var(--space-10);
     opacity: 0;
     animation: fade-up var(--dur-slow) var(--ease-out) 0.1s forwards;
   }
-  .hero-label-dot {
-    display: inline-block;
-    width: 6px;
-    height: 6px;
-    border: 1px solid var(--text-muted);
-    background: var(--text-muted);
-    flex-shrink: 0;
+
+  .pill-text {
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    font-weight: 500;
+    color: var(--text-light);
+    letter-spacing: -0.01em;
   }
 
-  /* ── Headline ──────────────────────────────────────── */
-  .hero-headline {
-    font-size: clamp(2rem, 6vw, var(--text-2xl));
+  .pill-dots {
     display: flex;
-    flex-direction: column;
-    gap: 0.05em;
-    margin-bottom: var(--space-5);
+    gap: var(--space-2);
+  }
+
+  .dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: transparent;
+    border: 1.5px solid var(--text-light);
+  }
+
+  /* ── Headline ──────────────────────────────────────────── */
+  .hero-headline {
+    font-size: clamp(3.5rem, 10vw, 7rem);
+    font-weight: 700;
+    line-height: 0.9;
+    margin-bottom: var(--space-8);
+    letter-spacing: -0.05em;
+    color: var(--text-light);
   }
 
   .hero-line {
     display: block;
-    overflow: hidden;
-    padding-bottom: 0.05em;
-  }
-
-  .hero-line:nth-child(1) { opacity: 0; animation: fade-up var(--dur-slow) var(--ease-out) 0.2s forwards; }
-  .hero-line:nth-child(2) { opacity: 0; animation: fade-up var(--dur-slow) var(--ease-out) 0.35s forwards; }
-  .hero-line:nth-child(3) { opacity: 0; animation: fade-up var(--dur-slow) var(--ease-out) 0.5s forwards; }
-
-  /* ── Sub ───────────────────────────────────────────── */
-  .hero-sub {
-    color: var(--text-muted);
-    font-size: var(--text-base);
-    line-height: 1.7;
-    max-width: 52ch;
-    margin-bottom: var(--space-8);
+    font-weight: 400;
     opacity: 0;
-    animation: fade-up var(--dur-slow) var(--ease-out) 0.65s forwards;
+    animation: fade-up var(--dur-slow) var(--ease-out) 0.25s forwards;
   }
 
-  /* ── Actions ──────────────────────────────────────── */
+  .hero-line--bold {
+    font-weight: 700;
+    animation-delay: 0.4s;
+  }
+
+  /* ── Sub ───────────────────────────────────────────────── */
+  .hero-sub {
+    font-family: var(--font-body);
+    font-size: clamp(var(--text-lg), 2vw, var(--text-xl));
+    color: var(--text-light-muted);
+    line-height: 1.3;
+    margin-bottom: var(--space-10);
+    opacity: 0;
+    animation: fade-up var(--dur-slow) var(--ease-out) 0.55s forwards;
+  }
+
+  /* ── Actions ──────────────────────────────────────────── */
   .hero-actions {
     display: flex;
     align-items: center;
-    gap: var(--space-4);
+    gap: var(--space-5);
     flex-wrap: wrap;
+    margin-bottom: var(--space-6);
     opacity: 0;
-    animation: fade-up var(--dur-slow) var(--ease-out) 0.8s forwards;
+    animation: fade-up var(--dur-slow) var(--ease-out) 0.7s forwards;
   }
 
   .btn-primary {
-    font-family: var(--font-mono);
-    font-size: var(--text-sm);
-    font-weight: 500;
-    background: var(--text-strong);
-    color: var(--bg);
-    /* No border — replaced by the animated pseudo-element below */
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    font-weight: 600;
+    background: var(--text-light);
+    color: var(--bg-dark);
     border: none;
-    padding: calc(var(--space-3) + 2px) calc(var(--space-6) + 2px);
-    transition: transform var(--dur-fast) var(--ease-out);
-    position: relative;
-    isolation: isolate;
-    z-index: 0;
-  }
-  /* Animated gradient border — always running */
-  .btn-primary::before {
-    content: '';
-    position: absolute;
-    inset: -2px;
-    z-index: -1;
-    background: conic-gradient(
-      from var(--electric-angle),
-      #00cfff, #7c3aed, #e800a0, #7c3aed, #00cfff
-    );
-    animation: electric-rotate 2.4s linear infinite;
-  }
-  /* White fill sits on top, leaving a 2px gradient edge visible */
-  .btn-primary::after {
-    content: '';
-    position: absolute;
-    inset: 2px;
-    z-index: -1;
-    background: var(--text-strong);
+    border-radius: var(--radius-full);
+    padding: var(--space-4) var(--space-8);
+    min-height: 52px;
+    display: inline-flex;
+    align-items: center;
+    transition: all var(--dur-base) var(--ease-out);
+    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.15);
   }
   @media (hover: hover) {
-    .btn-primary:hover { transform: translateY(-2px); }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(255, 255, 255, 0.25);
+    }
   }
 
   .btn-secondary {
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    font-weight: 500;
+    color: var(--text-light-muted);
+    text-decoration: underline;
+    text-decoration-color: rgba(255, 255, 255, 0.3);
+    text-underline-offset: 4px;
+    transition: all var(--dur-fast) var(--ease-out);
+  }
+  .btn-secondary:hover {
+    color: var(--text-light);
+    text-decoration-color: var(--text-light);
+  }
+
+  /* ── Tag ───────────────────────────────────────────────── */
+  .hero-tag {
     font-family: var(--font-mono);
     font-size: var(--text-sm);
-    color: var(--text-muted);
-    transition: color var(--dur-fast) var(--ease-out);
-    text-decoration: underline;
-    text-decoration-color: var(--border-strong);
-    text-underline-offset: 4px;
+    color: var(--text-light-muted);
+    opacity: 0;
+    animation: fade-up var(--dur-slow) var(--ease-out) 0.85s forwards;
   }
-  .btn-secondary:hover { color: var(--text-strong); }
 
-  /* ── Spec sheet ────────────────────────────────────── */
-  .hero-spec {
-    border: 1px solid var(--border);
-    padding: var(--space-6);
+  /* ── Visual card ──────────────────────────────────────── */
+  .hero-visual {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     opacity: 0;
     animation: fade-up var(--dur-slow) var(--ease-out) 0.5s forwards;
   }
 
-  .spec-list {
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-    margin: 0;
+  .visual-card {
+    width: 100%;
+    max-width: 520px;
+    aspect-ratio: 1;
+    background: rgba(255, 255, 255, 0.05);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: var(--radius-lg);
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
   }
 
-  .spec-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: var(--space-4);
-    padding: var(--space-3) 0;
-    border-bottom: 1px solid var(--border);
-    font-family: var(--font-mono);
-    font-size: var(--text-sm);
-  }
-  .spec-row:last-child { border-bottom: none; }
-
-  .spec-row dt {
-    color: var(--text-muted);
-  }
-  .spec-row dd {
-    color: var(--text-strong);
-    margin: 0;
-    text-align: right;
-  }
-
-  /* ── Scroll indicator ─────────────────────────────── */
-  .hero-scroll {
+  .card-halftone {
     position: absolute;
-    bottom: var(--space-8);
-    left: 50%;
-    transform: translateX(-50%);
+    top: -20%;
+    right: -20%;
+    width: 80%;
+    height: 80%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.8) 2px, transparent 2px);
+    background-size: 16px 16px;
+    opacity: 0.15;
+    mask-image: radial-gradient(ellipse 60% 60% at 70% 30%, black 20%, transparent 70%);
+  }
+
+  .card-content {
+    position: relative;
+    width: 100%;
+    height: 100%;
     display: flex;
-    flex-direction: column;
     align-items: center;
-    gap: var(--space-2);
+    justify-content: center;
+  }
+
+  .card-icon {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    background: var(--text-light);
+    color: var(--bg-dark);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 5rem;
+    line-height: 1;
+    box-shadow: 0 12px 48px rgba(255, 255, 255, 0.2);
+  }
+
+  /* ── Value props ──────────────────────────────────────── */
+  .value-props {
+    display: flex;
+    gap: var(--space-4);
+    flex-wrap: wrap;
+    margin-top: var(--space-20);
     opacity: 0;
-    animation: fade-in var(--dur-slow) var(--ease-out) 1.2s forwards;
+    animation: fade-up var(--dur-slow) var(--ease-out) 1s forwards;
   }
 
-  .scroll-line {
-    display: block;
-    width: 1px;
-    height: 32px;
-    background: linear-gradient(to bottom, var(--text-muted), transparent);
-    animation: scroll-pulse 2s ease-in-out infinite;
-  }
-  .scroll-label {
-    font-family: var(--font-mono);
-    font-size: var(--text-xs);
-    color: var(--text-muted);
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
+  .prop-pill {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: var(--radius-full);
+    padding: var(--space-3) var(--space-6);
+    transition: all var(--dur-fast) var(--ease-out);
   }
 
-  /* ── Keyframes ────────────────────────────────────── */
+  @media (hover: hover) {
+    .prop-pill:hover {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(255, 255, 255, 0.4);
+      transform: translateY(-2px);
+    }
+  }
+
+  .prop-label {
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    font-weight: 500;
+    color: var(--text-light);
+  }
+
+  /* ── Keyframes ────────────────────────────────────────── */
   @keyframes fade-up {
-    from { opacity: 0; transform: translateY(12px); }
+    from { opacity: 0; transform: translateY(20px); }
     to   { opacity: 1; transform: translateY(0); }
   }
-  @keyframes fade-in {
-    from { opacity: 0; }
-    to   { opacity: 1; }
-  }
-  @keyframes scroll-pulse {
-    0%, 100% { opacity: 0.4; transform: scaleY(1); }
-    50%       { opacity: 1;   transform: scaleY(1.15); }
-  }
 
-  /* ── Responsive ────────────────────────────────────── */
+  /* ── Responsive ────────────────────────────────────────── */
   @media (max-width: 900px) {
-    .hero-inner {
-      grid-template-columns: 1fr;
-      gap: var(--space-10);
+    .hero-visual {
+      order: -1;
     }
-    .hero-spec { max-width: 100%; }
+    .visual-card {
+      max-width: 100%;
+    }
   }
 
-  @media (max-width: 480px) {
-    .hero-headline { font-size: clamp(1.75rem, 8vw, 2.5rem); }
-    .hero-sub { font-size: var(--text-sm); }
-    .hero-label { margin-bottom: var(--space-4); }
+  @media (max-width: 640px) {
+    .hero {
+      padding-top: 80px;
+      min-height: auto;
+    }
+    .hero-headline { 
+      font-size: clamp(2.5rem, 12vw, 3rem); 
+      margin-bottom: var(--space-6);
+    }
+    .hero-sub { 
+      font-size: var(--text-base); 
+      margin-bottom: var(--space-8);
+    }
+    .hero-actions {
+      gap: var(--space-4);
+    }
+    .btn-primary {
+      padding: var(--space-3) var(--space-6);
+      min-height: 48px;
+      font-size: var(--text-sm);
+    }
+    .btn-secondary {
+      font-size: var(--text-sm);
+    }
+    .value-props {
+      gap: var(--space-3);
+      margin-top: var(--space-12);
+    }
+    .prop-pill {
+      padding: var(--space-2) var(--space-4);
+    }
+    .prop-label {
+      font-size: var(--text-xs);
+    }
+    .card-icon {
+      width: 100px;
+      height: 100px;
+      font-size: 3.5rem;
+    }
   }
 
-  /* ── Reduced motion ────────────────────────────────── */
+  /* ── Reduced motion ────────────────────────────────────── */
   @media (prefers-reduced-motion: reduce) {
-    .hero-label,
+    .brand-pill,
     .hero-line,
     .hero-sub,
     .hero-actions,
-    .hero-spec,
-    .hero-scroll {
+    .hero-tag,
+    .hero-visual,
+    .value-props {
       opacity: 1;
       animation: none;
     }
-    .scroll-line { animation: none; }
   }
 </style>

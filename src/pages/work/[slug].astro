@@ -32,12 +32,42 @@ const caseStudySchema = {
   },
   datePublished: `${data.year}-01-01`,
 };
+
+// Breadcrumb JSON-LD
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    {
+      '@type': 'ListItem',
+      position: 1,
+      name: 'Home',
+      item: 'https://knrcollective.com',
+    },
+    {
+      '@type': 'ListItem',
+      position: 2,
+      name: 'Work',
+      item: 'https://knrcollective.com/work',
+    },
+    {
+      '@type': 'ListItem',
+      position: 3,
+      name: data.title,
+      item: `https://knrcollective.com/work/${data.slug}`,
+    },
+  ],
+};
+
+const allSchemas = [caseStudySchema, breadcrumbSchema];
 ---
 
 <BaseLayout
   title={data.title}
   description={`${data.problem} — A case study by KNR Collective.`}
-  jsonLd={caseStudySchema}
+  keywords={`${data.type}, case study, ${data.client}, web development project`}
+  ogType="article"
+  jsonLd={allSchemas}
 >
   <article class="case-study">
     <div class="section-container">

@@ -1,0 +1,22 @@
+{
+  "name": "KNR Collective",
+  "short_name": "KNR",
+  "description": "Custom web applications, internal tools, and software infrastructure for companies that need things done right.",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    },
+    {
+      "src": "/favicon.ico",
+      "sizes": "32x32",
+      "type": "image/x-icon"
+    }
+  ],
+  "theme_color": "#000000",
+  "background_color": "#000000",
+  "display": "standalone",
+  "start_url": "/",
+  "scope": "/"
+}

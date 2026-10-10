@@ -10,13 +10,14 @@ const { pathname } = Astro.url;
 
 <header id="site-header" class="site-header">
   <div class="header-inner section-container">
-    <!-- Logo -->
-    <a href="/" class="wordmark" aria-label="KNR Collective — home">
-      <img src="/images/logo.png" alt="KNR Collective" class="logo-img" />
-    </a>
+    <!-- Nav pill container -->
+    <nav class="nav-pill" aria-label="Primary navigation">
+      <!-- Logo -->
+      <a href="/" class="wordmark" aria-label="KNR Collective — home">
+        KNR Collective
+      </a>
 
-    <!-- Desktop nav -->
-    <nav aria-label="Primary navigation">
+      <!-- Desktop nav links -->
       <ul class="nav-list" role="list">
         {navLinks.map(({ href, label }) => (
           <li>
@@ -29,22 +30,26 @@ const { pathname } = Astro.url;
           </li>
         ))}
       </ul>
+      
+      <!-- Mobile menu toggle -->
+      <button
+        id="mobile-menu-btn"
+        class="mobile-menu-btn"
+        aria-label="Open navigation menu"
+        aria-expanded="false"
+        aria-controls="mobile-nav"
+      >
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+      </button>
     </nav>
 
-    <!-- CTA -->
-    <a href="/#contact" class="cta-btn electric-glow">Start a project</a>
-
-    <!-- Mobile menu toggle -->
-    <button
-      id="mobile-menu-btn"
-      class="mobile-menu-btn"
-      aria-label="Open navigation menu"
-      aria-expanded="false"
-      aria-controls="mobile-nav"
-    >
-      <span class="hamburger-line"></span>
-      <span class="hamburger-line"></span>
-    </button>
+    <!-- CTA pills -->
+    <div class="cta-pills">
+      <a href="/#contact" class="cta-btn">
+        <span class="cta-icon">↗</span>
+      </a>
+    </div>
   </div>
 
   <!-- Mobile nav -->
@@ -71,121 +76,125 @@ const { pathname } = Astro.url;
     left: 0;
     right: 0;
     z-index: 100;
-    transition: border-color var(--dur-fast) var(--ease-out),
-                background-color var(--dur-fast) var(--ease-out);
-    border-bottom: 1px solid transparent;
+    padding-block: var(--space-4);
+    transition: padding-block var(--dur-fast) var(--ease-out);
   }
 
   .site-header.scrolled {
-    border-bottom-color: var(--border);
-    background-color: rgba(0, 0, 0, 0.85);
-    backdrop-filter: blur(8px);
+    padding-block: var(--space-3);
+    background-color: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(12px);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
   }
 
   .header-inner {
     display: flex;
     align-items: center;
-    gap: var(--space-8);
-    height: 56px;
+    justify-content: space-between;
+    gap: var(--space-6);
+  }
+
+  /* Nav pill container */
+  .nav-pill {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-full);
+    padding: var(--space-2);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
   }
 
   .wordmark {
-    display: flex;
-    align-items: center;
-    flex-shrink: 0;
+    font-family: var(--font-heading);
+    font-size: var(--text-sm);
+    font-weight: 700;
+    color: var(--text-strong);
+    padding-inline: var(--space-4);
+    padding-block: var(--space-2);
     transition: opacity var(--dur-fast) var(--ease-out);
+    flex-shrink: 0;
+    letter-spacing: -0.02em;
   }
   .wordmark:hover { opacity: 0.7; }
 
-  .logo-img {
-    height: 40px;
-    width: 40px;
-    display: block;
-    border-radius: 50%;
-    object-fit: cover;
-  }
-
-  nav { margin-left: auto; }
-
   .nav-list {
     display: flex;
-    gap: var(--space-6);
+    gap: var(--space-1);
     list-style: none;
     margin: 0;
     padding: 0;
   }
 
   .nav-link {
-    font-family: var(--font-mono);
+    font-family: var(--font-body);
     font-size: var(--text-sm);
+    font-weight: 500;
     color: var(--text-muted);
-    position: relative;
-    transition: color var(--dur-fast) var(--ease-out);
-    padding-block: 2px;
-  }
-  .nav-link::after {
-    content: '';
-    position: absolute;
-    bottom: -2px;
-    left: 0;
-    width: 0;
-    height: 1px;
-    background: var(--text-strong);
-    transition: width var(--dur-base) var(--ease-out);
+    padding: var(--space-2) var(--space-4);
+    border-radius: var(--radius-full);
+    transition: all var(--dur-fast) var(--ease-out);
+    display: block;
   }
   .nav-link:hover,
   .nav-link--active {
     color: var(--text-strong);
+    background: white;
   }
-  .nav-link:hover::after,
-  .nav-link--active::after {
-    width: 100%;
+
+  /* CTA Pills */
+  .cta-pills {
+    display: flex;
+    gap: var(--space-2);
+    align-items: center;
   }
 
   .cta-btn {
-    font-family: var(--font-mono);
-    font-size: var(--text-sm);
-    font-weight: 500;
-    color: var(--bg);
+    width: 44px;
+    height: 44px;
+    border-radius: var(--radius-full);
     background: var(--text-strong);
-    border: 1px solid var(--text-strong);
-    padding: var(--space-2) var(--space-4);
-    isolation: isolate;
-    transition: background var(--dur-fast) var(--ease-out),
-                color var(--dur-fast) var(--ease-out),
-                transform var(--dur-fast) var(--ease-out);
-    flex-shrink: 0;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--text-lg);
+    transition: transform var(--dur-fast) var(--ease-out);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   }
-  @media (hover: hover) {
-    .cta-btn:hover {
-      background: transparent;
-      color: var(--text-strong);
-      transform: translateY(-2px);
-    }
+  .cta-btn:hover {
+    transform: translateY(-2px) scale(1.05);
+  }
+  
+  .cta-icon {
+    display: block;
+    line-height: 1;
   }
 
   .mobile-menu-btn {
     display: none;
     flex-direction: column;
-    gap: 5px;
+    gap: 4px;
     background: none;
     border: none;
     cursor: pointer;
     padding: var(--space-2);
-    margin-left: auto;
+    margin-left: var(--space-2);
   }
   .hamburger-line {
     display: block;
-    width: 20px;
-    height: 1px;
+    width: 18px;
+    height: 2px;
     background: var(--text-strong);
+    border-radius: 2px;
     transition: transform var(--dur-fast) var(--ease-out),
                 opacity var(--dur-fast) var(--ease-out);
   }
 
   .mobile-nav {
     border-top: 1px solid var(--border);
-    background: rgba(0, 0, 0, 0.95);
+    background: var(--surface);
   }
   .mobile-nav ul {
     list-style: none;
@@ -196,21 +205,24 @@ const { pathname } = Astro.url;
     gap: var(--space-4);
   }
   .mobile-nav-link {
-    font-family: var(--font-mono);
+    font-family: var(--font-body);
     font-size: var(--text-md);
-    color: var(--text-muted);
+    font-weight: 500;
+    color: var(--text);
     transition: color var(--dur-fast) var(--ease-out);
   }
   .mobile-nav-link:hover { color: var(--text-strong); }
   .mobile-nav-cta {
-    font-family: var(--font-mono);
+    font-family: var(--font-body);
     font-size: var(--text-md);
+    font-weight: 600;
     color: var(--text-strong);
   }
 
   @media (max-width: 767px) {
-    nav, .cta-btn { display: none; }
+    .nav-list, .cta-pills { display: none; }
     .mobile-menu-btn { display: flex; }
+    .wordmark { padding-inline: var(--space-3); }
   }
 </style>
 

@@ -5,7 +5,7 @@
 
 /* ─── Color scheme ─────────────────────────────────────────────────────── */
 :root {
-  color-scheme: dark;
+  color-scheme: light;
 }
 
 /* ─── Base reset / defaults ────────────────────────────────────────────── */
@@ -24,12 +24,44 @@ html {
 body {
   background-color: var(--bg);
   color: var(--text);
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: var(--text-base);
   line-height: 1.7;
   margin: 0;
   padding: 0;
   overflow-x: hidden;
+  position: relative;
+}
+
+/* Halftone background pattern */
+body::before {
+  content: '';
+  position: fixed;
+  top: -10%;
+  right: -5%;
+  width: 50%;
+  height: 50%;
+  background: radial-gradient(circle, var(--text-strong) 1px, transparent 1px);
+  background-size: 8px 8px;
+  opacity: 0.04;
+  pointer-events: none;
+  z-index: 0;
+  mask-image: radial-gradient(ellipse 70% 70% at 80% 20%, black 20%, transparent 70%);
+}
+
+body::after {
+  content: '';
+  position: fixed;
+  bottom: -10%;
+  left: -5%;
+  width: 45%;
+  height: 45%;
+  background: radial-gradient(circle, var(--text-strong) 1.5px, transparent 1.5px);
+  background-size: 12px 12px;
+  opacity: 0.03;
+  pointer-events: none;
+  z-index: 0;
+  mask-image: radial-gradient(ellipse 60% 60% at 20% 80%, black 30%, transparent 70%);
 }
 
 /* ─── Typography ────────────────────────────────────────────────────────── */
@@ -72,20 +104,11 @@ a {
 /* ─── Selection ─────────────────────────────────────────────────────────── */
 ::selection {
   background: var(--text-strong);
-  color: var(--bg);
+  color: var(--text-light);
 }
 
-/* ─── Scrollbar (webkit) ────────────────────────────────────────────────── */
-::-webkit-scrollbar {
-  width: 6px;
-}
-::-webkit-scrollbar-track {
-  background: var(--bg);
-}
-::-webkit-scrollbar-thumb {
-  background: var(--border-strong);
-  border-radius: 0;
-}
+/* ─── Scrollbar (system default on desktop) ────────────────────────────── */
+/* Remove custom scrollbar styling to use browser default */
 
 /* ─── Images ─────────────────────────────────────────────────────────────── */
 img {
@@ -98,7 +121,9 @@ img {
 .section-container {
   max-width: 1200px;
   margin-inline: auto;
-  padding-inline: var(--space-5); /* 20px on mobile */
+  padding-inline: var(--space-5);
+  position: relative;
+  z-index: 1;
 }
 
 @media (min-width: 640px) {

@@ -12,19 +12,26 @@ interface Props {
   canonical?: string;
   noindex?: boolean;
   jsonLd?: object | object[];
+  keywords?: string;
+  author?: string;
+  ogType?: 'website' | 'article';
 }
 
 const {
   title,
-  description = 'KNR Collective builds custom web applications, internal tools, and software infrastructure for companies that need things done right.',
+  description = 'Software engineering and security-focused development. We build secure software and audit existing systems for vulnerabilities.',
   ogImage = '/og.png',
   canonical,
   noindex = false,
   jsonLd,
+  keywords = 'software development, security auditing, code review, web applications, security engineering',
+  author = 'KNR Collective',
+  ogType = 'website',
 } = Astro.props;
 
 const canonicalUrl = canonical ?? new URL(Astro.url.pathname, Astro.site).href;
 const fullTitle = title === 'KNR Collective' ? title : `${title} — KNR Collective`;
+const ogImageUrl = new URL(ogImage, Astro.site).href;
 ---
 
 <!doctype html>
@@ -37,19 +44,38 @@ const fullTitle = title === 'KNR Collective' ? title : `${title} — KNR Collect
 
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
+    <meta name="keywords" content={keywords} />
+    <meta name="author" content={author} />
     {noindex && <meta name="robots" content="noindex,nofollow" />}
+    {!noindex && <meta name="robots" content="index,follow" />}
     <link rel="canonical" href={canonicalUrl} />
 
-    <!-- OG / Twitter -->
-    <meta property="og:type" content="website" />
+    <!-- Open Graph -->
+    <meta property="og:type" content={ogType} />
+    <meta property="og:site_name" content="KNR Collective" />
     <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonicalUrl} />
-    <meta property="og:image" content={new URL(ogImage, Astro.site).href} />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:image:alt" content={`${title} — KNR Collective`} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content="en_US" />
+
+    <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@knrcollective" />
+    <meta name="twitter:creator" content="@knrcollective" />
     <meta name="twitter:title" content={fullTitle} />
     <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={new URL(ogImage, Astro.site).href} />
+    <meta name="twitter:image" content={ogImageUrl} />
+    <meta name="twitter:image:alt" content={`${title} — KNR Collective`} />
+
+    <!-- Additional SEO -->
+    <meta name="application-name" content="KNR Collective" />
+    <meta name="apple-mobile-web-app-title" content="KNR Collective" />
+    <meta name="format-detection" content="telephone=no" />
+    <link rel="manifest" href="/site.webmanifest" />
 
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />

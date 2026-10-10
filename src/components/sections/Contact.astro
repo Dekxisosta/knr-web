@@ -1,43 +1,22 @@
 ---
+const checkIcon = '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>';
 ---
 
 <section id="contact" class="contact-section section-pad" aria-labelledby="contact-heading">
   <div class="section-container">
+    
+    <header class="section-header">
+      <h2 id="contact-heading" class="section-title">
+        Get in touch
+      </h2>
+      <p class="section-desc">
+        Tell us about your project or security concerns. We'll respond and discuss whether we're a good fit.
+      </p>
+    </header>
+
     <div class="contact-inner">
 
-      <!-- Left: info -->
-      <div class="contact-info">
-        <header class="section-header">
-          <span class="section-index" aria-hidden="true">07</span>
-          <h2 id="contact-heading" class="section-title">Start a project</h2>
-        </header>
-
-        <p class="contact-desc">
-          Tell us what you're building. We'll reply within one business day with
-          honest feedback and, if it's a fit, a 30-minute call to go deeper.
-        </p>
-
-        <dl class="contact-meta">
-          <div class="contact-meta-row">
-            <dt>Email</dt>
-            <dd><a href="mailto:[CONTACT_EMAIL]">[CONTACT_EMAIL]</a></dd>
-          </div>
-          <div class="contact-meta-row">
-            <dt>Location</dt>
-            <dd>[LOCATION]</dd>
-          </div>
-          <div class="contact-meta-row">
-            <dt>Response time</dt>
-            <dd>Within 1 business day</dd>
-          </div>
-          <div class="contact-meta-row">
-            <dt>First call</dt>
-            <dd>Free, 30 min, no commitment</dd>
-          </div>
-        </dl>
-      </div>
-
-      <!-- Right: form -->
+      <!-- Form -->
       <div class="contact-form-wrap">
         <form
           id="contact-form"
@@ -47,74 +26,63 @@
           novalidate
           aria-label="Project inquiry form"
         >
-          <!-- Honeypot (hidden from humans, visible to bots) -->
+          <!-- Honeypot -->
           <div class="hp-field" aria-hidden="true">
             <label for="hp-name">Leave this blank</label>
             <input type="text" id="hp-name" name="hp_name" tabindex="-1" autocomplete="off" />
           </div>
 
-          <div class="form-row">
-            <label class="form-label" for="name">
-              Name <span class="required" aria-label="required">*</span>
-            </label>
-            <input
-              type="text"
-              id="name"
-              name="name"
-              class="form-input"
-              autocomplete="name"
-              required
-              aria-required="true"
-              aria-describedby="name-error"
-            />
-            <span id="name-error" class="form-error" role="alert" aria-live="polite"></span>
+          <div class="form-grid">
+            <div class="form-row">
+              <label class="form-label" for="name">
+                Name <span class="required">*</span>
+              </label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                class="form-input"
+                autocomplete="name"
+                required
+                aria-required="true"
+                aria-describedby="name-error"
+              />
+              <span id="name-error" class="form-error" role="alert" aria-live="polite"></span>
+            </div>
+
+            <div class="form-row">
+              <label class="form-label" for="email">
+                Email <span class="required">*</span>
+              </label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                class="form-input"
+                autocomplete="email"
+                required
+                aria-required="true"
+                aria-describedby="email-error"
+              />
+              <span id="email-error" class="form-error" role="alert" aria-live="polite"></span>
+            </div>
           </div>
 
           <div class="form-row">
-            <label class="form-label" for="email">
-              Email <span class="required" aria-label="required">*</span>
-            </label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              class="form-input"
-              autocomplete="email"
-              required
-              aria-required="true"
-              aria-describedby="email-error"
-            />
-            <span id="email-error" class="form-error" role="alert" aria-live="polite"></span>
-          </div>
-
-          <div class="form-row">
-            <label class="form-label" for="project_type">Project type</label>
+            <label class="form-label" for="project_type">Inquiry type</label>
             <select id="project_type" name="project_type" class="form-input form-select">
               <option value="">Select one…</option>
-              <option value="web">Web development</option>
-              <option value="software">Custom software / internal tool</option>
-              <option value="devops">Cloud & DevOps</option>
-              <option value="design">UI/UX & brand system</option>
-              <option value="consulting">Technical consulting</option>
-              <option value="maintenance">Maintenance & support</option>
+              <option value="development">Software Development</option>
+              <option value="audit">Security Auditing</option>
+              <option value="remediation">Code Remediation</option>
+              <option value="enhancement">System Enhancement</option>
               <option value="other">Other</option>
             </select>
           </div>
 
           <div class="form-row">
-            <label class="form-label" for="budget">Budget range</label>
-            <select id="budget" name="budget" class="form-input form-select">
-              <option value="">Select one…</option>
-              <option value="5-15k">$5k – $15k</option>
-              <option value="15-50k">$15k – $50k</option>
-              <option value="50k+">$50k+</option>
-              <option value="unsure">Not sure yet</option>
-            </select>
-          </div>
-
-          <div class="form-row">
             <label class="form-label" for="message">
-              Tell us about the project <span class="required" aria-label="required">*</span>
+              Tell us about your project <span class="required">*</span>
             </label>
             <textarea
               id="message"
@@ -124,7 +92,7 @@
               required
               aria-required="true"
               aria-describedby="message-error"
-              placeholder="What are you building, what's the current situation, and what does success look like?"
+              placeholder="What are you building? What security concerns do you have? What does success look like?"
             ></textarea>
             <span id="message-error" class="form-error" role="alert" aria-live="polite"></span>
           </div>
@@ -132,12 +100,38 @@
           <div id="form-status" class="form-status" role="status" aria-live="polite" hidden></div>
 
           <div class="form-actions">
-            <button type="submit" class="form-submit electric-glow" id="submit-btn">
+            <button type="submit" class="form-submit" id="submit-btn">
               <span class="btn-text">Send inquiry</span>
               <span class="btn-loading" aria-hidden="true" hidden>Sending…</span>
             </button>
           </div>
         </form>
+      </div>
+
+      <!-- Info side -->
+      <div class="contact-info">
+        <div class="info-card">
+          <h3 class="info-title">Early stage notice</h3>
+          <ul class="info-list">
+            <li>
+              <span class="info-icon" set:html={checkIcon}></span>
+              <span>Company is in pre-launch preparation</span>
+            </li>
+            <li>
+              <span class="info-icon" set:html={checkIcon}></span>
+              <span>Portfolio and case studies in development</span>
+            </li>
+            <li>
+              <span class="info-icon" set:html={checkIcon}></span>
+              <span>Contact us to discuss your project</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="contact-meta">
+          <p class="meta-label">Direct contact</p>
+          <a href="mailto:[CONTACT_EMAIL]" class="meta-email">[CONTACT_EMAIL]</a>
+        </div>
       </div>
 
     </div>
@@ -146,79 +140,57 @@
 
 <style>
   .contact-section {
-    border-top: 1px solid var(--border);
+    background: var(--surface);
+    position: relative;
+  }
+
+  .section-header {
+    max-width: 720px;
+    margin-inline: auto;
+    margin-bottom: var(--space-16);
+    text-align: center;
+  }
+
+  .section-title {
+    font-size: clamp(2rem, 5vw, var(--text-3xl));
+    font-weight: 700;
+    color: var(--text-strong);
+    margin-bottom: var(--space-4);
+    letter-spacing: -0.03em;
+  }
+
+  .section-desc {
+    font-family: var(--font-body);
+    font-size: var(--text-lg);
+    color: var(--text-muted);
+    line-height: 1.6;
   }
 
   .contact-inner {
     display: grid;
-    grid-template-columns: 1fr 1.2fr;
+    grid-template-columns: 1.5fr 1fr;
     gap: var(--space-12);
     align-items: start;
+    max-width: 1100px;
+    margin-inline: auto;
   }
 
-  /* ── Info side ────────────────────────────────────── */
-  .section-header {
-    display: flex;
-    gap: var(--space-5);
-    align-items: flex-start;
-    margin-bottom: var(--space-6);
-  }
-  .section-index {
-    font-family: var(--font-mono);
-    font-size: var(--text-xs);
-    color: var(--text-muted);
-    letter-spacing: 0.1em;
-    padding-top: 6px;
-    flex-shrink: 0;
-  }
-  .section-title {
-    font-size: clamp(var(--text-md), 3vw, var(--text-lg));
-    color: var(--text-strong);
-  }
-
-  .contact-desc {
-    font-family: var(--font-mono);
-    font-size: var(--text-sm);
-    color: var(--text-muted);
-    line-height: 1.7;
-    max-width: 44ch;
-    margin-bottom: var(--space-8);
-  }
-
-  .contact-meta {
-    display: flex;
-    flex-direction: column;
-    border-top: 1px solid var(--border);
-    margin: 0;
-  }
-  .contact-meta-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: var(--space-3);
-    padding: var(--space-3) 0;
-    border-bottom: 1px solid var(--border);
-    font-family: var(--font-mono);
-    font-size: var(--text-sm);
-  }
-  .contact-meta-row dt { color: var(--text-muted); }
-  .contact-meta-row dd { color: var(--text-strong); margin: 0; }
-  .contact-meta-row a {
-    color: var(--text-strong);
-    text-decoration: underline;
-    text-decoration-color: var(--border-strong);
-    text-underline-offset: 3px;
-    word-break: break-all;
-    transition: text-decoration-color var(--dur-fast) var(--ease-out);
-  }
-  @media (hover: hover) {
-    .contact-meta-row a:hover { text-decoration-color: var(--text-strong); }
+  @media (max-width: 900px) {
+    .contact-inner {
+      grid-template-columns: 1fr;
+      gap: var(--space-10);
+    }
   }
 
   /* ── Form ─────────────────────────────────────────── */
   .contact-form {
+    background: white;
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-10);
     display: flex;
     flex-direction: column;
-    gap: var(--space-4);
+    gap: var(--space-5);
   }
 
   .hp-field {
@@ -230,6 +202,18 @@
     white-space: nowrap;
   }
 
+  .form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-5);
+  }
+
+  @media (max-width: 640px) {
+    .form-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
   .form-row {
     display: flex;
     flex-direction: column;
@@ -237,133 +221,215 @@
   }
 
   .form-label {
-    font-family: var(--font-mono);
-    font-size: var(--text-xs);
-    color: var(--text-muted);
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--text);
   }
   .required { color: var(--text-muted); }
 
   .form-input {
     background: var(--surface);
-    border: 1px solid var(--border);
+    border: 1.5px solid var(--border);
     color: var(--text-strong);
-    font-family: var(--font-mono);
-    font-size: var(--text-sm);
-    /* Larger tap area on mobile */
+    font-family: var(--font-body);
+    font-size: var(--text-base);
     padding: var(--space-3) var(--space-4);
-    min-height: 44px;
+    min-height: 48px;
     width: 100%;
-    transition: border-color var(--dur-fast) var(--ease-out);
+    transition: all var(--dur-fast) var(--ease-out);
     outline: none;
     appearance: none;
-    border-radius: 0;
-    -webkit-text-size-adjust: 100%; /* prevent iOS zoom on focus */
+    border-radius: var(--radius-sm);
   }
   .form-input:focus {
-    border-color: var(--border-strong);
-    outline: 2px solid var(--text-strong);
-    outline-offset: 2px;
+    border-color: var(--text-strong);
+    background: white;
   }
   .form-input::placeholder {
     color: var(--text-muted);
     opacity: 0.6;
   }
   .form-input.is-error {
-    border-color: var(--text-muted);
-    border-width: 2px;
+    border-color: #e11d48;
   }
 
   .form-select {
     cursor: pointer;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238a8a8a' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23666666' stroke-width='2' fill='none'/%3E%3C/svg%3E");
     background-repeat: no-repeat;
     background-position: right var(--space-4) center;
     padding-right: var(--space-10);
   }
+  
   .form-select option {
-    background: var(--surface-2);
+    background: white;
     color: var(--text-strong);
   }
 
   .form-textarea {
     resize: vertical;
-    min-height: 120px;
+    min-height: 140px;
+    line-height: 1.6;
   }
 
   .form-error {
-    font-family: var(--font-mono);
-    font-size: var(--text-xs);
-    color: var(--text-muted);
-    display: flex;
-    align-items: center;
-    gap: var(--space-2);
-    min-height: 1em;
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    color: #e11d48;
+    min-height: 1.2em;
   }
-  .form-error::before { content: '□'; flex-shrink: 0; }
   .form-error:empty { display: none; }
 
   .form-status {
-    font-family: var(--font-mono);
+    font-family: var(--font-body);
     font-size: var(--text-sm);
     padding: var(--space-4);
-    border: 1px solid var(--border);
-    color: var(--text-muted);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    color: var(--text);
+    background: var(--surface);
   }
   .form-status.is-success {
-    border-color: var(--border-strong);
-    color: var(--text-strong);
+    border-color: #10b981;
+    background: #f0fdf4;
+    color: #166534;
   }
   .form-status.is-error-state {
-    border-color: var(--border-strong);
+    border-color: #e11d48;
+    background: #fef2f2;
+    color: #991b1b;
   }
 
   .form-actions { display: flex; }
 
   .form-submit {
-    font-family: var(--font-mono);
-    font-size: var(--text-sm);
-    font-weight: 500;
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    font-weight: 600;
     background: var(--text-strong);
-    color: var(--bg);
-    border: 1px solid var(--text-strong);
-    /* Comfortable tap target */
-    padding: var(--space-3) var(--space-8);
-    min-height: 48px;
+    color: white;
+    border: none;
+    border-radius: var(--radius-full);
+    padding: var(--space-4) var(--space-8);
+    min-height: 52px;
     cursor: pointer;
-    isolation: isolate;
-    transition: background var(--dur-fast) var(--ease-out),
-                color var(--dur-fast) var(--ease-out),
-                transform var(--dur-fast) var(--ease-out);
+    transition: all var(--dur-base) var(--ease-out);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   }
   @media (hover: hover) {
     .form-submit:hover:not(:disabled) {
-      background: transparent;
-      color: var(--text-strong);
       transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
     }
   }
   .form-submit:disabled {
-    opacity: 0.5;
+    opacity: 0.6;
     cursor: not-allowed;
   }
 
-  /* ── Responsive ──────────────────────────────────── */
-  @media (max-width: 900px) {
-    .contact-inner {
-      grid-template-columns: 1fr;
-      gap: var(--space-10);
-    }
-    .contact-desc { max-width: none; }
+  /* ── Info side ────────────────────────────────────── */
+  .contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
   }
 
-  @media (max-width: 480px) {
-    .contact-meta-row {
-      grid-template-columns: 1fr;
-      gap: var(--space-1);
+  .info-card {
+    background: white;
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-8);
+  }
+
+  .info-title {
+    font-family: var(--font-heading);
+    font-size: var(--text-lg);
+    font-weight: 700;
+    color: var(--text-strong);
+    margin-bottom: var(--space-5);
+    letter-spacing: -0.02em;
+  }
+
+  .info-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .info-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-3);
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    color: var(--text);
+    line-height: 1.6;
+  }
+
+  .info-icon {
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    background: var(--text-strong);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2px;
+  }
+
+  .info-icon svg {
+    width: 14px;
+    height: 14px;
+    color: white;
+  }
+
+  .contact-meta {
+    padding: var(--space-6);
+    background: rgba(0, 0, 0, 0.02);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+  }
+
+  .meta-label {
+    font-family: var(--font-body);
+    font-size: var(--text-xs);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-muted);
+    margin-bottom: var(--space-2);
+  }
+
+  .meta-email {
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    color: var(--text-strong);
+    text-decoration: underline;
+    text-decoration-color: var(--border);
+    text-underline-offset: 3px;
+    word-break: break-all;
+    transition: text-decoration-color var(--dur-fast) var(--ease-out);
+  }
+  @media (hover: hover) {
+    .meta-email:hover { text-decoration-color: var(--text-strong); }
+  }
+
+  @media (max-width: 640px) {
+    .contact-form {
+      padding: var(--space-6);
     }
-    .contact-meta-row dd { color: var(--text); }
+    .section-title {
+      font-size: clamp(1.75rem, 8vw, 2.5rem);
+    }
+    .section-desc {
+      font-size: var(--text-base);
+    }
   }
 </style>
 
@@ -424,7 +490,7 @@
         if (statusEl) {
           statusEl.hidden = false;
           statusEl.className = 'form-status is-success';
-          statusEl.textContent = '■ Message sent. We\'ll be in touch within one business day.';
+          statusEl.textContent = '■ Message sent. We\'ll be in touch soon.';
         }
         form.reset();
       } else {
