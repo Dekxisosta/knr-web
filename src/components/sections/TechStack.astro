@@ -1,4 +1,6 @@
 ---
+import { StaggerParent, StaggerChild } from '../motion/Stagger.tsx';
+
 const technologies = [
   { name: 'React', icon: '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 12c-2-2.67-4.33-4-7-4a7 7 0 1 0 7 7c0-2.67-1.33-5-0-7Z"/><path d="M12 12c2-2.67 4.33-4 7-4a7 7 0 1 1-7 7c0-2.67 1.33-5 0-7Z"/><path d="M12 5v14"/></svg>' },
   { name: 'TypeScript', icon: '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 7h6l-2 10-2-10z"/><path d="M6 3h12l-1 18H7L6 3z"/></svg>' },
@@ -23,20 +25,20 @@ const technologies = [
 
 <section class="tech-stack-section" aria-label="Technologies we work with">
   <div class="marquee-container">
-    <div class="marquee-track">
+    <StaggerParent className="marquee-track" client:visible>
       {technologies.map((tech) => (
-        <div class="tech-item">
+        <StaggerChild className="tech-item">
           <span class="tech-icon" set:html={tech.icon}></span>
           <span class="tech-name">{tech.name}</span>
-        </div>
+        </StaggerChild>
       ))}
       {technologies.map((tech) => (
-        <div class="tech-item">
+        <StaggerChild className="tech-item">
           <span class="tech-icon" set:html={tech.icon}></span>
           <span class="tech-name">{tech.name}</span>
-        </div>
+        </StaggerChild>
       ))}
-    </div>
+    </StaggerParent>
   </div>
 </section>
 
@@ -60,8 +62,10 @@ const technologies = [
     animation: marquee 60s linear infinite;
     white-space: nowrap;
     width: calc(200% + var(--space-8));
+    /* Ensure stagger children have the right flexbox behavior */
   }
-
+  
+  /* Enhanced hover effects */
   .tech-item {
     display: flex;
     align-items: center;
@@ -75,12 +79,26 @@ const technologies = [
     padding: var(--space-3) var(--space-4);
     flex-shrink: 0;
     white-space: nowrap;
+    border-radius: var(--radius-sm);
+    transition: all 0.3s ease;
+    position: relative;
+    /* Initial state for stagger animation */
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  
+  /* Hover effects for individual tech items */
+  .tech-item:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
   }
 
   .tech-icon {
     display: flex;
     align-items: center;
     color: white;
+    transition: transform 0.3s ease;
   }
 
   .tech-icon svg {
@@ -88,19 +106,20 @@ const technologies = [
     height: 20px;
     stroke: white;
   }
+  
+  .tech-item:hover .tech-icon {
+    transform: scale(1.1);
+  }
 
   .tech-name {
     color: white;
   }
 
+  /* Fixed keyframes - removed duplicate */
   @keyframes marquee {
     0% {
       transform: translateX(0);
     }
-    100% {
-      transform: translateX(calc(-50% - var(--space-4)));
-    }
-  }
     100% {
       transform: translateX(-50%);
     }
@@ -117,6 +136,10 @@ const technologies = [
       gap: var(--space-1);
     }
     
+    .tech-item:hover {
+      transform: none; /* Disable hover lift on mobile */
+    }
+    
     .tech-icon svg {
       width: 16px;
       height: 16px;
@@ -128,10 +151,15 @@ const technologies = [
     }
   }
 
-  /* Reduced motion */
+  /* Reduced motion - disable both marquee and stagger */
   @media (prefers-reduced-motion: reduce) {
     .marquee-track {
       animation: none;
+    }
+    
+    .tech-item {
+      opacity: 1;
+      transform: none;
     }
     
     .marquee-container {
