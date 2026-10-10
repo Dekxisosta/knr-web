@@ -18,6 +18,12 @@
   --accent-blue: #00cfff;
   --accent-purple: #7c3aed;
   --accent-pink: #e800a0;
+  
+  /* Gold accents */
+  --gold: #FFD700;
+  --gold-light: #FFF4CC;
+  --gold-dark: #B8860B;
+  --gold-metallic: #D4AF37;
 
   /* Spacing scale (rem) */
   --space-1: 0.25rem;

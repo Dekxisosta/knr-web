@@ -1,8 +1,10 @@
 ---
 // Hero section with modern pill design
+import HalftoneBackground from '../ui/HalftoneBackground.tsx';
 ---
 
 <section class="hero" aria-labelledby="hero-headline">
+  <HalftoneBackground client:load />
   <div class="section-container hero-inner">
 
     <!-- Main content -->
@@ -44,10 +46,15 @@
     <!-- Visual element -->
     <div class="hero-visual" aria-hidden="true">
       <div class="visual-card">
-        <div class="card-halftone"></div>
-        <div class="card-content">
-          <div class="card-icon">↗</div>
-        </div>
+        <img 
+          src="/images/hero.webp" 
+          alt="" 
+          class="hero-image"
+          width="520"
+          height="520"
+          loading="eager"
+          decoding="async"
+        />
       </div>
     </div>
 
@@ -69,14 +76,75 @@
 
 <style>
   .hero {
-    min-height: 90vh;
+    min-height: 95vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     padding-top: 100px;
-    padding-bottom: var(--space-16);
+    padding-bottom: var(--space-20);
     position: relative;
     background: var(--bg-dark);
+    overflow: hidden;
+  }
+
+  /* Color-shifting gradient overlays */
+  .hero::before,
+  .hero::after {
+    content: '';
+    position: absolute;
+    pointer-events: none;
+    z-index: 0;
+    animation: gradient-shift 8s ease-in-out infinite;
+  }
+
+  /* Top-right gradient */
+  .hero::before {
+    top: 0;
+    right: 0;
+    width: 60%;
+    height: 60%;
+    background: radial-gradient(
+      ellipse 50% 40% at 80% 20%,
+      rgba(255, 215, 0, 0.12) 0%,
+      rgba(212, 175, 55, 0.06) 30%,
+      transparent 70%
+    );
+  }
+
+  /* Bottom-left gradient */
+  .hero::after {
+    bottom: 0;
+    left: 0;
+    width: 55%;
+    height: 55%;
+    background: radial-gradient(
+      ellipse 45% 35% at 20% 80%,
+      rgba(184, 134, 11, 0.1) 0%,
+      rgba(255, 215, 0, 0.05) 35%,
+      transparent 70%
+    );
+    animation-delay: 4s;
+  }
+
+  /* Hide gradients on tablet and below */
+  @media (max-width: 768px) {
+    .hero::before,
+    .hero::after {
+      display: none;
+    }
+  }
+
+  /* Gradient color shift animation */
+  @keyframes gradient-shift {
+    0%, 100% {
+      filter: hue-rotate(0deg) saturate(1);
+    }
+    33% {
+      filter: hue-rotate(-60deg) saturate(1.4); /* Shift to violet */
+    }
+    66% {
+      filter: hue-rotate(140deg) saturate(1.6); /* Shift to neon blue */
+    }
   }
 
   .hero-inner {
@@ -85,6 +153,7 @@
     gap: var(--space-20);
     align-items: center;
     padding-block: var(--space-12);
+    position: relative;
   }
 
   @media (max-width: 900px) {
@@ -131,7 +200,7 @@
 
   /* ── Headline ──────────────────────────────────────────── */
   .hero-headline {
-    font-size: clamp(3.5rem, 10vw, 7rem);
+    font-size: clamp(3.5rem, 10vw, 7.5rem);
     font-weight: 700;
     line-height: 0.9;
     margin-bottom: var(--space-8);
@@ -226,54 +295,40 @@
     align-items: center;
     opacity: 0;
     animation: fade-up var(--dur-slow) var(--ease-out) 0.5s forwards;
+    position: relative;
+    min-height: 600px;
   }
 
   .visual-card {
-    width: 100%;
-    max-width: 520px;
-    aspect-ratio: 1;
-    background: rgba(255, 255, 255, 0.05);
-    border: 2px solid rgba(255, 255, 255, 0.2);
-    border-radius: var(--radius-lg);
-    position: relative;
-    overflow: hidden;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-  }
-
-  .card-halftone {
     position: absolute;
-    top: -20%;
-    right: -20%;
-    width: 80%;
-    height: 80%;
-    background: radial-gradient(circle, rgba(255, 255, 255, 0.8) 2px, transparent 2px);
-    background-size: 16px 16px;
-    opacity: 0.15;
-    mask-image: radial-gradient(ellipse 60% 60% at 70% 30%, black 20%, transparent 70%);
+    width: 150%;
+    max-width: 900px;
+    aspect-ratio: 1;
+    right: -22%;
+    top: 50%;
+    transform: translateY(-50%);
   }
 
-  .card-content {
-    position: relative;
+  @media (min-width: 1200px) {
+    .hero-visual {
+      min-height: 650px;
+    }
+    
+    .visual-card {
+      width: 160%;
+      max-width: 950px;
+      right: -25%;
+    }
+  }
+
+  .hero-image {
     width: 100%;
     height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    object-fit: contain;
+    display: block;
   }
 
-  .card-icon {
-    width: 140px;
-    height: 140px;
-    border-radius: 50%;
-    background: var(--text-light);
-    color: var(--bg-dark);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 5rem;
-    line-height: 1;
-    box-shadow: 0 12px 48px rgba(255, 255, 255, 0.2);
-  }
+  /* Remove old card styles */
 
   /* ── Value props ──────────────────────────────────────── */
   .value-props {
@@ -317,10 +372,18 @@
   /* ── Responsive ────────────────────────────────────────── */
   @media (max-width: 900px) {
     .hero-visual {
-      order: -1;
+      order: 2;
+      min-height: 500px;
     }
     .visual-card {
-      max-width: 100%;
+      position: relative;
+      width: 100%;
+      max-width: 600px;
+      right: 0;
+      left: 0;
+      margin: 0 auto;
+      top: 0;
+      transform: none;
     }
   }
 
@@ -329,16 +392,24 @@
       padding-top: 80px;
       min-height: auto;
     }
+    .hero-content {
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      order: 1;
+    }
     .hero-headline { 
-      font-size: clamp(2.5rem, 12vw, 3rem); 
+      font-size: clamp(3rem, 15vw, 4rem); 
       margin-bottom: var(--space-6);
     }
     .hero-sub { 
-      font-size: var(--text-base); 
+      font-size: var(--text-lg); 
       margin-bottom: var(--space-8);
     }
     .hero-actions {
       gap: var(--space-4);
+      justify-content: center;
     }
     .btn-primary {
       padding: var(--space-3) var(--space-6);
@@ -351,17 +422,13 @@
     .value-props {
       gap: var(--space-3);
       margin-top: var(--space-12);
+      justify-content: center;
     }
     .prop-pill {
       padding: var(--space-2) var(--space-4);
     }
     .prop-label {
       font-size: var(--text-xs);
-    }
-    .card-icon {
-      width: 100px;
-      height: 100px;
-      font-size: 3.5rem;
     }
   }
 
