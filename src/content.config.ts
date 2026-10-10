@@ -6,6 +6,7 @@ const team = defineCollection({
   loader: glob({ pattern: '**/*.json', base: './src/content/team' }),
   schema: z.object({
     name: z.string(),
+    nickname: z.string(),
     slug: z.string(),
     role: z.string(),
     focus: z.string(),
@@ -28,24 +29,6 @@ const team = defineCollection({
   }),
 });
 
-// ── Work ─────────────────────────────────────────────────────────────────────
-const work = defineCollection({
-  loader: glob({ pattern: '**/*.md', base: './src/content/work' }),
-  schema: z.object({
-    title: z.string(),
-    slug: z.string(),
-    client: z.string(),
-    type: z.string(),
-    problem: z.string(),
-    built: z.string(),
-    outcome: z.string(),
-    year: z.number(),
-    cover: z.string().optional(),
-    featured: z.boolean().default(false),
-    publishPermission: z.boolean().default(false),
-  }),
-});
-
 // ── Services ─────────────────────────────────────────────────────────────────
 const services = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/services' }),
@@ -57,4 +40,4 @@ const services = defineCollection({
   }),
 });
 
-export const collections = { team, work, services };
+export const collections = { team, services };

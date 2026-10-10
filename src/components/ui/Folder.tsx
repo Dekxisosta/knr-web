@@ -28,11 +28,9 @@ interface FolderProps {
   size?: number;
   items?: React.ReactNode[];
   className?: string;
-  pages?: string[];
-  serviceIndex?: string;
 }
 
-const Folder = ({ color = '#5227FF', size = 1, items = [], className = '', pages = [], serviceIndex = '' }: FolderProps) => {
+const Folder = ({ color = '#5227FF', size = 1, items = [], className = '' }: FolderProps) => {
   const maxItems = 3;
   const papers = items.slice(0, maxItems);
   while (papers.length < maxItems) {
@@ -71,30 +69,12 @@ const Folder = ({ color = '#5227FF', size = 1, items = [], className = '', pages
     });
   };
 
-  const handlePaperMouseEnter = (_e: React.MouseEvent<HTMLDivElement>, index: number) => {
-    // Update the description text when hovering over a paper
-    if (serviceIndex && pages[index]) {
-      const descElement = document.querySelector(`[data-service="${serviceIndex}"]`);
-      if (descElement) {
-        descElement.textContent = pages[index];
-      }
-    }
-  };
-
   const handlePaperMouseLeave = (_e: React.MouseEvent<HTMLDivElement>, index: number) => {
     setPaperOffsets(prev => {
       const newOffsets = [...prev];
       newOffsets[index] = { x: 0, y: 0 };
       return newOffsets;
     });
-    
-    // Reset to default description (first page) when not hovering
-    if (serviceIndex && pages[0]) {
-      const descElement = document.querySelector(`[data-service="${serviceIndex}"]`);
-      if (descElement) {
-        descElement.textContent = pages[0];
-      }
-    }
   };
 
   const folderStyle = {
@@ -131,7 +111,6 @@ const Folder = ({ color = '#5227FF', size = 1, items = [], className = '', pages
               key={i}
               className={`paper paper-${i + 1}`}
               onMouseMove={e => handlePaperMouseMove(e, i)}
-              onMouseEnter={e => handlePaperMouseEnter(e, i)}
               onMouseLeave={e => handlePaperMouseLeave(e, i)}
               style={
                 open

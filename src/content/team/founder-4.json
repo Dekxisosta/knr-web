@@ -1,0 +1,34 @@
+{
+  "name": "Ais Intia",
+  "nickname": "AIS",
+  "slug": "ais",
+  "role": "Project Manager & QA Lead",
+  "focus": "Delivery, Operations & Quality",
+  "bio": "Internal facing gatekeeper focused on 'Keeping sprints on schedule and ensuring zero sloppy bugs ship to production.' Manages delivery timelines and rigorous testing.",
+  "photo": "/images/team/ais.webp",
+  "credentials": [
+    {
+      "label": "Sprint Planning & Delivery",
+      "detail": "Jira milestones, developer velocity tracking",
+      "year": 2021
+    },
+    {
+      "label": "Asset & Content Intake",
+      "detail": "Client assets, logos, photos, content"
+    },
+    {
+      "label": "Rigorous QA & Testing",
+      "detail": "Cross-device, edge-case, SEO audits"
+    },
+    {
+      "label": "Compliance & Handover",
+      "detail": "Privacy policies, UAT, client sign-off"
+    }
+  ],
+  "links": {
+    "github": "https://github.com/matigy",
+    "linkedin": "https://www.linkedin.com/in/ais-intia-b4181927a/",
+    "email": "aisintia130@gmail.com"
+  },
+  "order": 4
+}

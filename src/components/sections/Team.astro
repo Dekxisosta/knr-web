@@ -15,74 +15,70 @@ const founders = (await getCollection('team')).sort(
     </header>
 
     <p class="team-intro">
-      [WHY_KNR — how the founders met, what they share, how responsibilities split.
-      Replace this with 2-3 real sentences once founders provide the story.]
+      KNR Collective brings together software engineering, thoughtful design, and business strategy to build secure, reliable digital solutions. We believe businesses deserve technology that works as well as it promises.
     </p>
 
-    <ul class="founders-grid" role="list">
+    <div class="team-cards" role="list">
       {founders.map((f) => {
         const d = f.data;
         return (
-          <li class="founder-card">
+          <div class="team-card" role="listitem">
+            <!-- Large Nickname -->
+            <div class="nickname-section">
+              <h3 class="nickname">{d.nickname}</h3>
+            </div>
+
             <!-- Photo -->
-            <div class="founder-photo-wrap">
-              <img
-                src={d.photo}
-                alt={`${d.name}, ${d.role}`}
-                width="400"
-                height="400"
-                class="founder-photo"
-                loading="lazy"
-                decoding="async"
-              />
-            </div>
-
-            <!-- Info -->
-            <div class="founder-info">
-              <div class="founder-top">
-                <div>
-                  <h3 class="founder-name">{d.name}</h3>
-                  <p class="founder-role">{d.role}</p>
-                </div>
+            <div class="photo-section">
+              <div class="member-photo-wrap">
+                <img
+                  src={d.photo}
+                  alt={`${d.name}, ${d.role}`}
+                  width="160"
+                  height="160"
+                  class="member-photo"
+                  loading="lazy"
+                  decoding="async"
+                />
               </div>
-
-              <p class="founder-focus">{d.focus}</p>
-              <p class="founder-bio">{d.bio}</p>
-
-              <!-- Credentials -->
-              {d.credentials.length > 0 && (
-                <ul class="credentials" role="list" aria-label={`${d.name}'s credentials`}>
-                  {d.credentials.map((c) => (
-                    <li class="credential">
-                      <span class="credential-mark" aria-hidden="true">■</span>
-                      <span class="credential-label">{c.label}</span>
-                      {c.detail && <span class="credential-detail">{c.detail}</span>}
-                      {c.year && <span class="credential-year">{c.year}</span>}
-                    </li>
-                  ))}
-                </ul>
-              )}
-
-              <!-- Links -->
-              <nav class="founder-links" aria-label={`${d.name}'s links`}>
-                {d.links.github && (
-                  <a href={d.links.github} class="founder-link" target="_blank" rel="noopener noreferrer">GitHub</a>
-                )}
-                {d.links.linkedin && (
-                  <a href={d.links.linkedin} class="founder-link" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-                )}
-                {d.links.website && (
-                  <a href={d.links.website} class="founder-link" target="_blank" rel="noopener noreferrer">Website</a>
-                )}
-                {d.links.email && (
-                  <a href={`mailto:${d.links.email}`} class="founder-link">Email</a>
-                )}
-              </nav>
             </div>
-          </li>
+
+            <!-- Details -->
+            <div class="details-section">
+              <div class="member-details">
+                <h4 class="member-name">{d.name}</h4>
+                <p class="member-role">{d.role}</p>
+                <p class="member-focus">{d.focus}</p>
+                
+                <!-- Links -->
+                <nav class="member-links" aria-label={`${d.name}'s links`}>
+                  {d.links.github && (
+                    <a href={d.links.github} class="member-link" target="_blank" rel="noopener noreferrer" aria-label={`${d.name}'s GitHub`}>
+                      <span class="member-link-text">GitHub</span>
+                    </a>
+                  )}
+                  {d.links.linkedin && (
+                    <a href={d.links.linkedin} class="member-link" target="_blank" rel="noopener noreferrer" aria-label={`${d.name}'s LinkedIn`}>
+                      <span class="member-link-text">LinkedIn</span>
+                    </a>
+                  )}
+                  {d.links.website && (
+                    <a href={d.links.website} class="member-link" target="_blank" rel="noopener noreferrer" aria-label={`${d.name}'s Website`}>
+                      <span class="member-link-text">Website</span>
+                    </a>
+                  )}
+                  {d.links.email && (
+                    <a href={`mailto:${d.links.email}`} class="member-link" aria-label={`Email ${d.name}`}>
+                      <span class="member-link-text">Email</span>
+                    </a>
+                  )}
+                </nav>
+              </div>
+            </div>
+          </div>
         );
       })}
-    </ul>
+    </div>
 
   </div>
 </section>
@@ -110,8 +106,8 @@ const founders = (await getCollection('team')).sort(
     padding-top: 6px;
   }
   .section-title {
-    font-size: var(--text-lg);
-    color: var(--text-strong);
+    font-size: clamp(2rem, 5vw, 3rem);
+    color: #ffffff;
   }
 
   .team-intro {
@@ -125,182 +121,254 @@ const founders = (await getCollection('team')).sort(
     padding-left: var(--space-5);
   }
 
-  /* ── Grid ────────────────────────────────────────── */
-  .founders-grid {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 0;
-    border-top: 1px solid var(--border);
-    border-left: 1px solid var(--border);
-  }
-
-  .founder-card {
+  /* ── Team Cards ──────────────────────────────────── */
+  .team-cards {
     display: flex;
     flex-direction: column;
     gap: var(--space-6);
-    padding: var(--space-6);
-    border-right: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
-    transition: background var(--dur-fast) var(--ease-out);
-    position: relative;
   }
+
+  .team-card {
+    display: flex;
+    align-items: center;
+    gap: var(--space-8);
+    padding: var(--space-8);
+    border: 1px solid var(--border);
+    background: rgba(255,255,255,0.01);
+    transition: all var(--dur-fast) var(--ease-out);
+    position: relative;
+    /* Notch corners */
+    clip-path: polygon(
+      0 0,
+      calc(100% - 20px) 0,
+      100% 20px,
+      100% 100%,
+      20px 100%,
+      0 calc(100% - 20px)
+    );
+    /* Double border effect */
+    box-shadow: inset 0 0 0 3px rgba(255,255,255,0.3);
+  }
+
   @media (hover: hover) {
-    .founder-card:hover {
-      background: rgba(255,255,255,0.02);
+    .team-card:hover {
+      background: rgba(255,255,255,0.03);
+      border-color: #ffffff;
+      box-shadow: inset 0 0 0 3px rgba(255,255,255,0.6);
     }
     /* Electric gradient border on top edge */
-    .founder-card:hover::after {
+    .team-card:hover::after {
       content: '';
       position: absolute;
       top: 0; left: 0; right: 0;
       height: 2px;
       background: var(--grad-electric-stripe-h);
       opacity: 0.85;
+      /* Match the notch clip-path */
+      clip-path: polygon(
+        0 0,
+        calc(100% - 20px) 0,
+        100% 100%,
+        0 100%
+      );
     }
   }
 
-  /* ── Photo ────────────────────────────────────────── */
-  .founder-photo-wrap {
-    aspect-ratio: 1;
+  /* ── Nickname Section ────────────────────────────── */
+  .nickname-section {
+    flex: 0 0 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .nickname {
+    font-family: var(--font-heading);
+    font-size: 4rem;
+    font-weight: 900;
+    color: #ffffff;
+    letter-spacing: -0.05em;
+    margin: 0;
+    text-transform: uppercase;
+    line-height: 0.9;
+  }
+
+  /* ── Photo Section ───────────────────────────────── */
+  .photo-section {
+    flex: 0 0 160px;
+    display: flex;
+    justify-content: center;
+  }
+
+  .member-photo-wrap {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
     overflow: hidden;
     background: var(--surface-2);
-    border: 1px solid var(--border);
+    border: 3px dashed #444444;
+    transition: border-color var(--dur-fast) var(--ease-out);
+    position: relative;
   }
-  .founder-photo {
+  
+  /* Add subtle notch effect around the circular photo */
+  .member-photo-wrap::before {
+    content: '';
+    position: absolute;
+    top: -6px;
+    left: -6px;
+    right: -6px;
+    bottom: -6px;
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 50%;
+    clip-path: polygon(
+      0 0,
+      calc(100% - 8px) 0,
+      100% 8px,
+      100% calc(100% - 8px),
+      calc(100% - 8px) 100%,
+      8px 100%,
+      0 calc(100% - 8px),
+      0 8px
+    );
+    z-index: -1;
+    opacity: 0;
+    transition: opacity var(--dur-fast) var(--ease-out);
+  }
+  
+  .member-photo {
     width: 100%;
     height: 100%;
     object-fit: cover;
     filter: grayscale(100%);
     transition: filter var(--dur-base) var(--ease-out);
   }
+  
   @media (hover: hover) {
-    .founder-card:hover .founder-photo {
+    .team-card:hover .member-photo {
       filter: grayscale(60%) contrast(1.05) brightness(1.05);
+    }
+    .team-card:hover .member-photo-wrap {
+      border-color: #ffffff;
+    }
+    .team-card:hover .member-photo-wrap::before {
+      opacity: 1;
     }
   }
 
-  /* ── Info ─────────────────────────────────────────── */
-  .founder-info {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-4);
+  /* ── Details Section ─────────────────────────────── */
+  .details-section {
     flex: 1;
+    min-width: 0; /* Allow flex items to shrink below content size */
   }
 
-  .founder-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-  }
-
-  .founder-name {
-    font-family: var(--font-heading);
-    font-size: var(--text-md);
-    font-weight: 500;
-    color: var(--text-strong);
-    letter-spacing: -0.02em;
-  }
-
-  .founder-role {
-    font-family: var(--font-mono);
-    font-size: var(--text-sm);
-    color: var(--text-muted);
-    margin-top: var(--space-1);
-    max-width: none;
-  }
-
-  .founder-focus {
-    font-family: var(--font-mono);
-    font-size: var(--text-sm);
-    color: var(--text);
-    max-width: none;
-  }
-
-  .founder-bio {
-    font-family: var(--font-mono);
-    font-size: var(--text-sm);
-    color: var(--text-muted);
-    line-height: 1.7;
-    max-width: none;
-  }
-
-  /* ── Credentials ─────────────────────────────────── */
-  .credentials {
-    list-style: none;
-    margin: 0;
-    padding: 0;
+  .member-details {
     display: flex;
     flex-direction: column;
-    gap: var(--space-2);
-    border-top: 1px solid var(--border);
-    padding-top: var(--space-4);
+    gap: var(--space-3);
   }
 
-  .credential {
-    display: flex;
-    align-items: baseline;
-    gap: var(--space-2);
+  .member-name {
+    font-family: var(--font-heading);
+    font-size: var(--text-lg);
+    font-weight: 500;
+    color: #ffffff;
+    letter-spacing: -0.02em;
+    margin: 0;
+  }
+
+  .member-role {
     font-family: var(--font-mono);
-    font-size: var(--text-xs);
-    color: var(--text-muted);
-    flex-wrap: wrap;
+    font-size: var(--text-md);
+    color: #cccccc;
+    margin: 0;
   }
-  .credential-mark {
-    color: var(--border-strong);
-    font-size: 8px;
-    flex-shrink: 0;
-  }
-  .credential-label {
-    color: var(--text);
-  }
-  .credential-detail {
-    color: var(--text-muted);
-  }
-  .credential-year {
-    color: var(--text-muted);
-    margin-left: auto;
+
+  .member-focus {
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    color: #eeeeee;
+    line-height: 1.5;
+    margin: 0;
   }
 
   /* ── Links ────────────────────────────────────────── */
-  .founder-links {
+  .member-links {
     display: flex;
-    gap: var(--space-4);
+    gap: var(--space-3);
     flex-wrap: wrap;
-    margin-top: auto;
-    padding-top: var(--space-2);
-    border-top: 1px solid var(--border);
+    margin-top: var(--space-2);
   }
-  .founder-link {
+  
+  .member-link {
     font-family: var(--font-mono);
     font-size: var(--text-xs);
-    color: var(--text-muted);
-    text-decoration: underline;
-    text-decoration-color: var(--border);
-    text-underline-offset: 3px;
-    transition: color var(--dur-fast) var(--ease-out),
-                text-decoration-color var(--dur-fast) var(--ease-out);
+    color: #cccccc;
+    text-decoration: none;
+    padding: var(--space-1) var(--space-3);
+    border: 1px solid #444444;
+    border-radius: 2px;
+    transition: all var(--dur-fast) var(--ease-out);
   }
-  .founder-link:hover {
-    color: var(--text-strong);
-    text-decoration-color: var(--text-strong);
+  
+  .member-link:hover {
+    color: #ffffff;
+    border-color: #ffffff;
+    background: rgba(255,255,255,0.1);
+  }
+
+  .member-link-text {
+    font-size: inherit;
   }
 
   /* ── Responsive ──────────────────────────────────── */
   @media (max-width: 900px) {
-    .founders-grid {
-      grid-template-columns: 1fr 1fr;
+    .team-card {
+      gap: var(--space-6);
+    }
+    
+    .nickname-section {
+      flex: 0 0 120px;
+    }
+    
+    .nickname {
+      font-size: 2.5rem;
+    }
+    
+    .photo-section {
+      flex: 0 0 120px;
+    }
+    
+    .member-photo-wrap {
+      width: 120px;
+      height: 120px;
     }
   }
-  @media (max-width: 600px) {
-    .founders-grid {
-      grid-template-columns: 1fr;
-      border-left: none;
+
+  @media (max-width: 640px) {
+    .team-card {
+      flex-direction: column;
+      text-align: center;
+      gap: var(--space-6);
     }
-    .founder-card {
-      border-right: none;
+    
+    .nickname-section,
+    .photo-section,
+    .details-section {
+      flex: none;
+    }
+    
+    .nickname {
+      font-size: 3rem;
+    }
+    
+    .member-details {
+      align-items: center;
+    }
+    
+    .member-links {
+      justify-content: center;
     }
   }
 </style>

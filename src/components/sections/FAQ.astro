@@ -85,8 +85,8 @@ const faqs = [
     flex-shrink: 0;
   }
   .section-title {
-    font-size: clamp(var(--text-md), 3vw, var(--text-lg));
-    color: var(--text-strong);
+    font-size: clamp(2rem, 5vw, 3rem);
+    color: #ffffff;
   }
 
   .faq-list {
@@ -116,16 +116,16 @@ const faqs = [
     min-height: 48px;
     text-align: left;
     transition: color var(--dur-fast) var(--ease-out);
-    color: var(--text);
+    color: #ffffff;
   }
 
   /* Icon rotates on open, no gradient */
   @media (hover: hover) {
-    .faq-question:hover { color: var(--text-strong); }
-    .faq-question:hover .faq-q-text { color: var(--text-strong); }
+    .faq-question:hover { color: #ffffff; }
+    .faq-question:hover .faq-q-text { color: #ffffff; }
     .faq-question:hover .faq-icon {
-      border-color: var(--border-strong);
-      color: var(--text-strong);
+      border-color: #ffffff;
+      color: #ffffff;
     }
   }
 
@@ -145,7 +145,7 @@ const faqs = [
   .faq-icon {
     font-family: var(--font-mono);
     font-size: var(--text-md);
-    color: var(--text-muted);
+    color: #cccccc;
     flex-shrink: 0;
     width: 24px;
     height: 24px;
@@ -155,12 +155,12 @@ const faqs = [
     transition: transform var(--dur-base) var(--ease-out),
                 color var(--dur-fast) var(--ease-out);
     line-height: 1;
-    border: 1px solid var(--border);
+    border: 1px solid #444444;
   }
   .faq-question[aria-expanded="true"] .faq-icon {
     transform: rotate(45deg);
-    color: var(--text-strong);
-    border-color: var(--border-strong);
+    color: #ffffff;
+    border-color: #ffffff;
   }
 
   .faq-answer {
@@ -169,7 +169,7 @@ const faqs = [
   .faq-answer p {
     font-family: var(--font-mono);
     font-size: var(--text-sm);
-    color: var(--text-muted);
+    color: #eeeeee;
     line-height: 1.75;
     padding-bottom: var(--space-5);
     max-width: 66ch;

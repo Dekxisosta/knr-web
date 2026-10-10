@@ -5,42 +5,26 @@ const services = [
   {
     index: '01',
     name: 'Software Development',
+    outcome: 'Websites, web applications, custom software, and digital solutions built with security and maintainability in mind.',
     color: '#5227FF',
-    pages: [
-      'Websites, web applications, custom software, and digital solutions built with security and maintainability in mind.',
-      'Modern tech stacks with React, TypeScript, Node.js, Python, and cloud platforms.',
-      'Responsive design, API development, database architecture, and DevOps integration.',
-    ],
   },
   {
     index: '02',
     name: 'Security Auditing',
+    outcome: 'Code review and security assessment to identify vulnerabilities, implementation flaws, and technical weaknesses in existing systems.',
     color: '#FF6B6B',
-    pages: [
-      'Code review and security assessment to identify vulnerabilities, implementation flaws, and technical weaknesses in existing systems.',
-      'OWASP Top 10 analysis, authentication and authorization review, data protection assessment.',
-      'Penetration testing, threat modeling, and comprehensive security reports with actionable recommendations.',
-    ],
   },
   {
     index: '03',
     name: 'Code Remediation',
+    outcome: 'Fix security issues, resolve technical debt, and improve code quality based on audit findings.',
     color: '#4ECDC4',
-    pages: [
-      'Fix security issues, resolve technical debt, and improve code quality based on audit findings.',
-      'Refactoring legacy code, implementing security patches, and upgrading vulnerable dependencies.',
-      'Performance optimization, error handling improvements, and documentation updates.',
-    ],
   },
   {
     index: '04',
     name: 'System Enhancement',
+    outcome: 'Add features, integrate APIs, refactor architecture, and improve existing software systems.',
     color: '#FFD93D',
-    pages: [
-      'Add features, integrate APIs, refactor architecture, and improve existing software systems.',
-      'Third-party service integration, payment gateways, authentication providers, and analytics platforms.',
-      'Scalability improvements, microservices architecture, and cloud infrastructure optimization.',
-    ],
   },
 ];
 ---
@@ -58,29 +42,27 @@ const services = [
       </p>
     </header>
 
-    <div class="services-wrapper">
-      <div class="services-grid">
-        {services.map((service) => (
-          <article class="service-card">
-            <div class="folder-container">
-              <Folder 
-                color={service.color}
-                size={1.5}
-                pages={service.pages}
-                serviceIndex={service.index}
-                client:visible
-              />
-            </div>
-            <div class="card-header">
-              <span class="service-index">{service.index}</span>
-              <h3 class="service-name">{service.name}</h3>
-            </div>
-            <p class="service-outcome" data-service={service.index}>
-              {service.pages[0]}
-            </p>
-          </article>
-        ))}
-      </div>
+    <div class="services-grid">
+      {services.map((service) => (
+        <article class="service-card">
+          <div class="folder-container">
+            <Folder 
+              color={service.color} 
+              size={1.5} 
+              client:visible
+            />
+          </div>
+          <div class="card-header">
+            <span class="service-index">{service.index}</span>
+            <h3 class="service-name">{service.name}</h3>
+          </div>
+          <p class="service-outcome">{service.outcome}</p>
+          <svg class="card-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M7 17l10-10"></path>
+            <path d="M7 7h10v10"></path>
+          </svg>
+        </article>
+      ))}
     </div>
 
   </div>
@@ -93,53 +75,42 @@ const services = [
     overflow: hidden;
   }
 
-  .services-wrapper {
-    overflow-x: auto;
-    overflow-y: hidden;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: thin;
-    scrollbar-color: var(--text-strong) transparent;
-    transform: rotateX(180deg);
+  /* Halftone background patterns */
+  .services-section::before {
+    content: '';
+    position: absolute;
+    top: -10%;
+    right: -5%;
+    width: 40%;
+    height: 50%;
+    background: radial-gradient(circle, #000000 1px, transparent 1px);
+    background-size: 8px 8px;
+    opacity: 0.06;
+    pointer-events: none;
+    z-index: 1;
+    mask-image: radial-gradient(ellipse 60% 70% at 80% 20%, black 20%, transparent 70%);
   }
 
-  .services-grid {
-    transform: rotateX(180deg);
-  }
-
-  /* Webkit scrollbar styling (Chrome, Safari, Edge) */
-  .services-wrapper::-webkit-scrollbar {
-    height: 12px;
-  }
-
-  .services-wrapper::-webkit-scrollbar-track {
-    background: transparent;
-    margin: 0 var(--space-5);
-  }
-
-  .services-wrapper::-webkit-scrollbar-thumb {
-    background: var(--text-strong);
-    border-radius: 6px;
-    transition: background 0.2s ease;
-  }
-
-  .services-wrapper::-webkit-scrollbar-thumb:hover {
-    background: var(--text-muted);
-  }
-
-  /* Hide scrollbar on mobile for cleaner look */
-  @media (max-width: 767px) {
-    .services-wrapper {
-      scrollbar-width: none;
-      -ms-overflow-style: none;
-    }
-    .services-wrapper::-webkit-scrollbar {
-      display: none;
-    }
+  .services-section::after {
+    content: '';
+    position: absolute;
+    bottom: -10%;
+    left: -5%;
+    width: 35%;
+    height: 45%;
+    background: radial-gradient(circle, #000000 1.2px, transparent 1.2px);
+    background-size: 10px 10px;
+    opacity: 0.05;
+    pointer-events: none;
+    z-index: 1;
+    mask-image: radial-gradient(ellipse 50% 60% at 20% 80%, black 25%, transparent 65%);
   }
 
   .section-header {
     max-width: 720px;
     margin-bottom: var(--space-16);
+    position: relative;
+    z-index: 2;
   }
 
   .header-badge {
@@ -158,7 +129,7 @@ const services = [
   }
 
   .section-title {
-    font-size: clamp(2rem, 5vw, var(--text-3xl));
+    font-size: clamp(2rem, 5vw, 3rem);
     font-weight: 700;
     color: var(--text-strong);
     margin-bottom: var(--space-4);
@@ -175,49 +146,31 @@ const services = [
   /* Grid */
   .services-grid {
     display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: var(--space-6);
-    justify-content: start;
-    padding-bottom: var(--space-4);
+    position: relative;
+    z-index: 2;
   }
 
-  /* Mobile: 1x4 (single column, 4 rows) */
-  @media (max-width: 767px) {
+  @media (max-width: 640px) {
     .services-grid {
-      grid-template-columns: 320px;
-      grid-template-rows: repeat(4, auto);
-      justify-content: center;
-    }
-  }
-
-  /* Tablet: 2x2 (2 columns, 2 rows) */
-  @media (min-width: 768px) and (max-width: 1023px) {
-    .services-grid {
-      grid-template-columns: repeat(2, 320px);
-      grid-template-rows: repeat(2, auto);
-      justify-content: center;
-    }
-  }
-
-  /* Desktop: 4x1 (4 columns, 1 row) */
-  @media (min-width: 1024px) {
-    .services-grid {
-      grid-template-columns: repeat(4, 320px);
-      grid-template-rows: auto;
-      width: max-content;
+      grid-template-columns: 1fr;
     }
   }
 
   /* Cards */
   .service-card {
-    width: 320px;
     background: white;
-    border: 1.5px solid var(--border);
+    border: 4px dashed var(--text-strong);
     border-radius: var(--radius-lg);
     padding: var(--space-8);
     position: relative;
     transition: all var(--dur-base) var(--ease-out);
     display: flex;
     flex-direction: column;
+    cursor: pointer;
+    height: 100%;
+    align-self: stretch;
   }
 
   .folder-container {
@@ -244,14 +197,41 @@ const services = [
     transition: opacity var(--dur-base) var(--ease-out);
   }
 
+  .card-arrow {
+    position: absolute;
+    top: var(--space-4);
+    right: var(--space-4);
+    width: 24px;
+    height: 24px;
+    color: var(--text-strong);
+    opacity: 0;
+    transform: translate(4px, -4px);
+    transition: all var(--dur-base) var(--ease-out);
+  }
+
   @media (hover: hover) {
     .service-card:hover {
       transform: translateY(-4px);
-      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
-      border-color: var(--text-strong);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+      border-style: solid;
     }
+    
     .service-card:hover::before {
       opacity: 0.06;
+    }
+
+    .service-card:hover .card-arrow {
+      opacity: 1;
+      transform: translate(0, 0);
+    }
+  }
+
+  @keyframes dash-shift {
+    0% {
+      border-style: dashed;
+    }
+    100% {
+      border-style: solid;
     }
   }
 
@@ -286,14 +266,6 @@ const services = [
     font-size: var(--text-sm);
     color: var(--text-muted);
     line-height: 1.7;
-    min-height: 80px;
-    transition: opacity 0.2s ease-in-out;
-  }
-
-  @media (max-width: 640px) {
-    .service-outcome {
-      min-height: 60px;
-    }
   }
 
   @media (max-width: 640px) {

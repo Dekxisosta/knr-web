@@ -2,67 +2,144 @@
 const year = new Date().getFullYear();
 const buildVersion = '0.1.0';
 
-const navLinks = [
-  { href: '/#services', label: 'Services' },
-  { href: '/#work',     label: 'Work'     },
-  { href: '/#team',     label: 'Team'     },
-  { href: '/#contact',  label: 'Contact'  },
-];
-const legalLinks = [
-  { href: '/privacy', label: 'Privacy' },
-  { href: '/terms',   label: 'Terms'   },
+const footerSections = [
+  {
+    title: 'Services',
+    links: [
+      { href: '/#services', label: 'Web Development' },
+      { href: '/#services', label: 'Security Auditing' },
+      { href: '/#services', label: 'Code Remediation' },
+      { href: '/#services', label: 'System Enhancement' },
+    ]
+  },
+  {
+    title: 'Company',
+    links: [
+      { href: '/#team', label: 'Team' },
+      { href: '/#process', label: 'Process' },
+      { href: '/#contact', label: 'Contact' },
+    ]
+  },
+  {
+    title: 'Resources',
+    links: [
+      { href: '/privacy', label: 'Privacy Policy' },
+      { href: '/terms', label: 'Terms of Service' },
+    ]
+  },
+  {
+    title: 'Connect',
+    links: [
+      { href: 'mailto:knrcollective@proton.me', label: 'Email Us' },
+      { href: 'https://github.com/knrcollective', label: 'GitHub' },
+      { href: 'https://linkedin.com/company/knrcollective', label: 'LinkedIn' },
+    ]
+  }
 ];
 ---
 
 <footer class="site-footer">
-  <div class="section-container">
-    <div class="footer-top">
-      <!-- Wordmark + tagline -->
-      <div class="footer-brand">
-        <a href="/" class="wordmark" aria-label="KNR Collective — home">
-          <img src="/images/logo.png" alt="KNR Collective" class="logo-img" />
-        </a>
-        <p class="tagline">Secure software.<br/>Efficient development.</p>
+  <!-- Zipper Aesthetic -->
+  <div class="zipper-top">
+    <div class="zipper-line">
+      <div class="zipper-teeth">
+        <div class="tooth"></div>
+        <div class="tooth"></div>
+        <div class="tooth"></div>
+        <div class="tooth"></div>
+        <div class="tooth"></div>
+        <div class="tooth"></div>
+        <div class="tooth"></div>
+        <div class="tooth"></div>
+        <div class="tooth"></div>
+        <div class="tooth"></div>
+        <div class="tooth"></div>
+        <div class="tooth"></div>
+        <div class="tooth"></div>
+        <div class="tooth"></div>
+        <div class="tooth"></div>
+        <div class="tooth"></div>
+        <div class="tooth"></div>
+        <div class="tooth"></div>
+        <div class="tooth"></div>
+        <div class="tooth"></div>
       </div>
+      <div class="zipper-slider">
+        <div class="slider-pull"></div>
+      </div>
+    </div>
+  </div>
 
-      <!-- Nav columns -->
-      <nav aria-label="Footer navigation" class="footer-nav">
+  <div class="section-container">
+    <!-- Navigation Links Grid -->
+    <div class="footer-nav-grid">
+      {footerSections.map(section => (
         <div class="footer-nav-col">
-          <p class="footer-nav-heading">Site</p>
+          <h3 class="footer-nav-heading">{section.title}</h3>
           <ul role="list">
-            {navLinks.map(({ href, label }) => (
-              <li><a href={href} class="footer-link">{label}</a></li>
+            {section.links.map(link => (
+              <li><a href={link.href} class="footer-link">{link.label}</a></li>
             ))}
           </ul>
         </div>
-        <div class="footer-nav-col">
-          <p class="footer-nav-heading">Legal</p>
-          <ul role="list">
-            {legalLinks.map(({ href, label }) => (
-              <li><a href={href} class="footer-link">{label}</a></li>
-            ))}
-          </ul>
-        </div>
-        <div class="footer-nav-col">
-          <p class="footer-nav-heading">Contact</p>
-          <ul role="list">
-            <li><a href="mailto:[CONTACT_EMAIL]" class="footer-link">[CONTACT_EMAIL]</a></li>
-            <li><a href="https://github.com/knrcollective" class="footer-link" target="_blank" rel="noopener">GitHub</a></li>
-            <li><a href="https://linkedin.com/company/knrcollective" class="footer-link" target="_blank" rel="noopener">LinkedIn</a></li>
-          </ul>
-        </div>
-      </nav>
+      ))}
     </div>
 
-    <!-- Mono status line -->
+    <!-- Bottom Section -->
+    <div class="footer-bottom">
+      <!-- Company Info -->
+      <div class="footer-company">
+        <div class="company-logo">
+          <img src="/images/logo.png" alt="KNR Collective" class="logo-img" />
+        </div>
+        <div class="company-info">
+          <h4 class="company-name">KNR Collective</h4>
+          <p class="company-tagline">Secure Software Engineering</p>
+          <p class="company-desc">
+            We bring together software engineering, thoughtful design, and 
+            business strategy to build secure, reliable digital solutions.
+          </p>
+        </div>
+      </div>
+
+      <!-- Social Links -->
+      <div class="footer-social">
+        <p class="social-heading">Connect with us</p>
+        <div class="social-links">
+          <a href="https://github.com/knrcollective" class="social-link" target="_blank" rel="noopener" aria-label="GitHub">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+            </svg>
+          </a>
+          <a href="https://linkedin.com/company/knrcollective" class="social-link" target="_blank" rel="noopener" aria-label="LinkedIn">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+            </svg>
+          </a>
+          <a href="mailto:knrcollective@proton.me" class="social-link" aria-label="Email">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="m4 4 16 0c1.1 0 2 .9 2 2l0 12c0 1.1-.9 2-2 2l-16 0c-1.1 0-2-.9-2-2l0-12c0-1.1.9-2 2-2z"/>
+              <polyline points="22,6 12,13 2,6"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer Bottom -->
     <div class="footer-status">
-      <span>© {year} KNR Collective</span>
-      <span class="sep">·</span>
-      <span>v{buildVersion}</span>
-      <span class="sep">·</span>
-      <span>[LOCATION]</span>
-      <span class="sep">·</span>
-      <span id="footer-time">[TIME]</span>
+      <div class="status-left">
+        <a href="/privacy" class="status-link">Privacy</a>
+        <span class="sep">·</span>
+        <a href="/terms" class="status-link">Terms</a>
+        <span class="sep">·</span>
+        <span>© {year} KNR Collective. All rights reserved.</span>
+      </div>
+      <div class="status-right">
+        <button class="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+          Back to top ↑
+        </button>
+      </div>
     </div>
   </div>
 </footer>
@@ -70,128 +147,361 @@ const legalLinks = [
 <style>
   .site-footer {
     background: #000;
-    color: var(--text-light);
-    border-top-left-radius: var(--radius-xl);
-    border-top-right-radius: var(--radius-xl);
-    padding-block: var(--space-12) var(--space-8);
+    color: #ffffff;
+    padding-block: 0 var(--space-8);
     margin-top: var(--space-16);
     position: relative;
   }
   @media (min-width: 1024px) {
     .site-footer { 
-      padding-block: var(--space-16) var(--space-8); 
+      padding-bottom: var(--space-8); 
       margin-top: var(--space-24); 
     }
   }
 
-  .footer-top {
+  /* Zipper Aesthetic */
+  .zipper-top {
+    position: relative;
+    width: 100%;
+    height: 40px;
+    background: linear-gradient(to bottom, transparent 0%, #000 50%);
+    overflow: hidden;
+  }
+
+  .zipper-line {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .zipper-teeth {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0 80px;
+  }
+
+  .tooth {
+    width: 12px;
+    height: 20px;
+    background: white;
+    border-radius: 2px;
+    position: relative;
+    transform: skew(-15deg);
+    opacity: 0.8;
+  }
+
+  .tooth:nth-child(even) {
+    transform: skew(15deg);
+    opacity: 0.6;
+  }
+
+  /* Central zipper line */
+  .zipper-line::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: white;
+    transform: translateY(-50%);
+    z-index: 1;
+    opacity: 0.4;
+  }
+
+  /* Zipper slider */
+  .zipper-slider {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 40px;
+    height: 24px;
+    background: white;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    opacity: 0.9;
+  }
+
+  .slider-pull {
+    width: 16px;
+    height: 8px;
+    background: #000;
+    border-radius: 2px;
+    position: relative;
+  }
+
+  .slider-pull::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: 50%;
+    width: 4px;
+    height: 4px;
+    background: #000;
+    border-radius: 50%;
+    transform: translateX(-50%);
+  }
+
+  .section-container {
+    padding-top: var(--space-16);
+  }
+
+  @media (min-width: 1024px) {
+    .section-container {
+      padding-top: var(--space-20);
+    }
+  }
+
+  /* Navigation Grid */
+  .footer-nav-grid {
     display: grid;
-    grid-template-columns: 1fr auto;
+    grid-template-columns: repeat(4, 1fr);
     gap: var(--space-12);
-    margin-bottom: var(--space-12);
-    padding-bottom: var(--space-12);
+    margin-bottom: var(--space-16);
+    padding-bottom: var(--space-16);
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   }
 
-  .footer-brand {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-3);
+  @media (max-width: 900px) {
+    .footer-nav-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-8);
+    }
   }
 
-  .wordmark {
-    display: flex;
-    align-items: center;
-    transition: opacity var(--dur-fast) var(--ease-out);
-  }
-  .wordmark:hover { opacity: 0.7; }
-
-  .logo-img {
-    height: 48px;
-    width: 48px;
-    display: block;
-    border-radius: 50%;
-    object-fit: cover;
+  @media (max-width: 480px) {
+    .footer-nav-grid {
+      grid-template-columns: 1fr;
+      gap: var(--space-6);
+    }
   }
 
-  .tagline {
-    font-family: var(--font-mono);
-    font-size: var(--text-sm);
-    color: var(--text-light-muted);
-    line-height: 1.6;
-    max-width: none;
-  }
-
-  .footer-nav {
-    display: flex;
-    gap: var(--space-12);
-  }
   .footer-nav-col {
     display: flex;
     flex-direction: column;
-    gap: var(--space-3);
+    gap: var(--space-4);
   }
+
   .footer-nav-heading {
-    font-family: var(--font-mono);
-    font-size: var(--text-xs);
-    font-weight: 500;
-    color: var(--text-light-muted);
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    margin-bottom: var(--space-1);
-    max-width: none;
+    font-family: var(--font-heading);
+    font-size: var(--text-lg);
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: var(--space-2);
   }
+
   .footer-nav-col ul {
     list-style: none;
     margin: 0;
     padding: 0;
     display: flex;
     flex-direction: column;
-    gap: var(--space-2);
+    gap: var(--space-3);
   }
+
   .footer-link {
-    font-family: var(--font-mono);
+    font-family: var(--font-body);
     font-size: var(--text-sm);
-    color: var(--text-light-muted);
+    color: #cccccc;
     transition: color var(--dur-fast) var(--ease-out);
+    text-decoration: none;
   }
-  .footer-link:hover { color: var(--text-light); }
-
-  .footer-status {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: var(--space-2);
-    font-family: var(--font-mono);
-    font-size: var(--text-xs);
-    color: var(--text-light-muted);
+  .footer-link:hover { 
+    color: #ffffff; 
   }
-  .sep { color: rgba(255, 255, 255, 0.3); }
 
-  @media (max-width: 767px) {
-    .footer-top {
+  /* Bottom Section */
+  .footer-bottom {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: var(--space-12);
+    align-items: start;
+    margin-bottom: var(--space-12);
+  }
+
+  @media (max-width: 768px) {
+    .footer-bottom {
       grid-template-columns: 1fr;
-    }
-    .footer-nav {
-      flex-wrap: wrap;
       gap: var(--space-8);
     }
   }
+
+  /* Company Info */
+  .footer-company {
+    display: flex;
+    gap: var(--space-6);
+    align-items: flex-start;
+  }
+
+  @media (max-width: 480px) {
+    .footer-company {
+      flex-direction: column;
+      gap: var(--space-4);
+      text-align: center;
+    }
+  }
+
+  .company-logo {
+    flex-shrink: 0;
+  }
+
+  .logo-img {
+    width: 80px;
+    height: 80px;
+    border-radius: var(--radius-lg);
+    object-fit: cover;
+  }
+
+  .company-info {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .company-name {
+    font-family: var(--font-heading);
+    font-size: var(--text-xl);
+    font-weight: 700;
+    color: #ffffff;
+    margin: 0;
+  }
+
+  .company-tagline {
+    font-family: var(--font-body);
+    font-size: var(--text-md);
+    color: #ffffff;
+    font-weight: 600;
+    margin: 0;
+  }
+
+  .company-desc {
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    color: #cccccc;
+    line-height: 1.6;
+    max-width: 400px;
+    margin: 0;
+  }
+
+  /* Social Section */
+  .footer-social {
+    text-align: right;
+  }
+
+  @media (max-width: 768px) {
+    .footer-social {
+      text-align: center;
+    }
+  }
+
+  .social-heading {
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    color: #cccccc;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: var(--space-4);
+    font-weight: 600;
+  }
+
+  .social-links {
+    display: flex;
+    gap: var(--space-4);
+    justify-content: flex-end;
+  }
+
+  @media (max-width: 768px) {
+    .social-links {
+      justify-content: center;
+    }
+  }
+
+  .social-link {
+    width: 48px;
+    height: 48px;
+    border-radius: var(--radius-lg);
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #cccccc;
+    transition: all var(--dur-fast) var(--ease-out);
+  }
+
+  .social-link:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.3);
+    color: #ffffff;
+    transform: translateY(-2px);
+  }
+
+  /* Footer Status */
+  .footer-status {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: var(--space-6);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+  }
+
+  @media (max-width: 640px) {
+    .footer-status {
+      flex-direction: column;
+      gap: var(--space-4);
+      text-align: center;
+    }
+  }
+
+  .status-left {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    color: #cccccc;
+    flex-wrap: wrap;
+  }
+
+  .status-link {
+    color: #cccccc;
+    text-decoration: none;
+    transition: color var(--dur-fast) var(--ease-out);
+  }
+
+  .status-link:hover {
+    color: #ffffff;
+  }
+
+  .sep { 
+    color: rgba(255, 255, 255, 0.3); 
+  }
+
+  .back-to-top {
+    background: none;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #cccccc;
+    padding: var(--space-2) var(--space-4);
+    border-radius: var(--radius-md);
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    cursor: pointer;
+    transition: all var(--dur-fast) var(--ease-out);
+  }
+
+  .back-to-top:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.4);
+    color: #ffffff;
+  }
 </style>
 
-<script>
-  // Live timezone clock in footer
-  function updateTime() {
-    const el = document.getElementById('footer-time');
-    if (!el) return;
-    const now = new Date();
-    el.textContent = now.toLocaleTimeString('en-US', {
-      timeZone: 'America/New_York',
-      hour: '2-digit',
-      minute: '2-digit',
-      timeZoneName: 'short',
-    });
-  }
-  updateTime();
-  setInterval(updateTime, 30000);
-</script>
+

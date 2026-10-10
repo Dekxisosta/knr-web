@@ -1,7 +1,7 @@
 ---
 const navLinks = [
   { href: '/#services', label: 'Services' },
-  { href: '/#work',     label: 'Work'     },
+  { href: '/#process',  label: 'Process'  },
   { href: '/#team',     label: 'Team'     },
   { href: '/#contact',  label: 'Contact'  },
 ];
@@ -46,8 +46,9 @@ const { pathname } = Astro.url;
 
     <!-- CTA pills -->
     <div class="cta-pills">
-      <a href="/#contact" class="cta-btn">
+      <a href="/#contact" class="cta-btn" id="cta-btn">
         <span class="cta-icon">↗</span>
+        <span class="cta-text">Start a project</span>
       </a>
     </div>
   </div>
@@ -82,9 +83,39 @@ const { pathname } = Astro.url;
 
   .site-header.scrolled {
     padding-block: var(--space-3);
-    background-color: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(12px);
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+  }
+
+  /* Default white background for light pages */
+  .site-header.scrolled {
+    background-color: rgba(255, 255, 255, 0.95);
+  }
+
+  /* Dark background for legal pages */
+  .legal-page .site-header.scrolled {
+    background-color: rgba(0, 0, 0, 0.95);
+    box-shadow: 0 1px 3px rgba(255, 255, 255, 0.1);
+  }
+
+  /* Update nav pill styling for dark header */
+  .legal-page .site-header.scrolled .nav-pill {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.2);
+  }
+
+  .legal-page .site-header.scrolled .wordmark {
+    color: #ffffff;
+  }
+
+  .legal-page .site-header.scrolled .nav-link {
+    color: #cccccc;
+  }
+
+  .legal-page .site-header.scrolled .nav-link:hover,
+  .legal-page .site-header.scrolled .nav-link--active {
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.1);
   }
 
   .header-inner {
@@ -151,25 +182,52 @@ const { pathname } = Astro.url;
   }
 
   .cta-btn {
-    width: 44px;
-    height: 44px;
+    height: 40px; /* Match nav pill height */
+    padding: 0 var(--space-4);
     border-radius: var(--radius-full);
     background: var(--text-strong);
     color: white;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: var(--text-lg);
-    transition: transform var(--dur-fast) var(--ease-out);
+    gap: var(--space-2);
+    font-size: var(--text-sm);
+    font-weight: 500;
+    transition: all var(--dur-fast) var(--ease-out);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    white-space: nowrap;
+    overflow: hidden;
+    min-width: 40px; /* Ensures it's always at least icon size */
+    text-align: center;
   }
   .cta-btn:hover {
     transform: translateY(-2px) scale(1.05);
   }
   
   .cta-icon {
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     line-height: 1;
+    font-size: var(--text-lg);
+    flex-shrink: 0;
+  }
+
+  .cta-text {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    max-width: 0;
+    transition: all var(--dur-base) var(--ease-out);
+    font-family: var(--font-body);
+    text-align: center;
+  }
+
+  /* Show text when scrolled past contact */
+  .site-header.show-cta-text .cta-text {
+    opacity: 1;
+    max-width: 120px;
   }
 
   .mobile-menu-btn {
@@ -227,14 +285,6 @@ const { pathname } = Astro.url;
 </style>
 
 <script>
-  // Scroll border
-  const header = document.getElementById('site-header');
-  function onScroll() {
-    header?.classList.toggle('scrolled', window.scrollY > 24);
-  }
-  window.addEventListener('scroll', onScroll, { passive: true });
-  onScroll();
-
   // Mobile toggle
   const btn = document.getElementById('mobile-menu-btn');
   const mobileNav = document.getElementById('mobile-nav');

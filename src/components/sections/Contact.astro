@@ -130,7 +130,7 @@ const checkIcon = '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14
 
         <div class="contact-meta">
           <p class="meta-label">Direct contact</p>
-          <a href="mailto:[CONTACT_EMAIL]" class="meta-email">[CONTACT_EMAIL]</a>
+          <a href="mailto:knrcollective@proton.me" class="meta-email">knrcollective@proton.me</a>
         </div>
       </div>
 
@@ -152,7 +152,7 @@ const checkIcon = '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14
   }
 
   .section-title {
-    font-size: clamp(2rem, 5vw, var(--text-3xl));
+    font-size: clamp(2rem, 5vw, 3rem);
     font-weight: 700;
     color: var(--text-strong);
     margin-bottom: var(--space-4);
@@ -501,7 +501,7 @@ const checkIcon = '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14
       if (statusEl) {
         statusEl.hidden = false;
         statusEl.className = 'form-status is-error-state';
-        statusEl.textContent = '□ Something went wrong. Email us directly at [CONTACT_EMAIL].';
+        statusEl.textContent = '□ Something went wrong. Email us directly at knrcollective@proton.me.';
       }
     } finally {
       if (submitBtn) {

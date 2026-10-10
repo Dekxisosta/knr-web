@@ -1,25 +1,35 @@
 {
-  "name": "[FOUNDER_1_NAME]",
-  "slug": "founder-1",
-  "role": "[FOUNDER_1_ROLE]",
-  "focus": "[FOUNDER_1_FOCUS — one line, e.g. 'Full-stack engineering & architecture']",
-  "bio": "[FOUNDER_1_BIO — 2-3 sentences, specific, no buzzwords. What they built, where, outcomes.]",
-  "photo": "/images/team/founder-1.jpg",
+  "name": "Nel Xedrik Ariscon",
+  "nickname": "NEL",
+  "slug": "nel",
+  "role": "Product & Design Lead",
+  "focus": "Front-End & Experience",
+  "bio": "Owns the user reality: 'It looks premium, converts visitors, and loads instantly.' Creates high-trust SME interfaces with zero bloat and mobile-first performance.",
+  "photo": "/images/team/nel.webp",
   "credentials": [
     {
-      "label": "[CREDENTIAL_1_LABEL]",
-      "detail": "[CREDENTIAL_1_DETAIL]",
-      "year": 2022
+      "label": "UI/UX Design & Prototyping",
+      "detail": "Clean clinic layouts, B2B quotation paths",
+      "year": 2020
     },
     {
-      "label": "[CREDENTIAL_2_LABEL]",
-      "detail": "[CREDENTIAL_2_DETAIL]"
+      "label": "Front-End Development",
+      "detail": "Semantic markup, mobile-first responsive"
+    },
+    {
+      "label": "Performance & Core Web Vitals",
+      "detail": "Asset optimization, instant loading"
+    },
+    {
+      "label": "Client Dashboard UX",
+      "detail": "Effortless CMS editing experience"
     }
   ],
   "links": {
-    "github": "https://github.com/[FOUNDER_1_GITHUB]",
-    "linkedin": "https://linkedin.com/in/[FOUNDER_1_LINKEDIN]",
-    "email": "founder1@knrcollective.com"
+    "github": "https://github.com/dekxisosta",
+    "linkedin": "https://www.linkedin.com/in/nel-xedrik-ariscon-9b7a40387/",
+    "website": "https://dekxi-atelier.vercel.app/",
+    "email": "rroquxii@gmail.com"
   },
-  "order": 1
+  "order": 3
 }

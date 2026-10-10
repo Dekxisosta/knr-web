@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-const lastUpdated = '2024-01-01';
+const lastUpdated = '2024-12-10';
 ---
 
 <BaseLayout
@@ -15,7 +15,7 @@ const lastUpdated = '2024-01-01';
 
       <header class="page-header">
         <h1 class="page-title">Terms of Service</h1>
-        <p class="page-meta">Last updated: <time datetime={lastUpdated}>{lastUpdated}</time></p>
+        <p class="page-meta">Last updated: <time datetime={lastUpdated}>December 10, 2024</time></p>
       </header>
 
       <div class="legal-body">
@@ -26,6 +26,15 @@ const lastUpdated = '2024-01-01';
             By accessing the site you agree to these terms. Engagement-specific terms —
             scope, deliverables, payment, IP ownership — are defined in individual
             project contracts, which take precedence over anything on this page.
+          </p>
+        </section>
+
+        <section>
+          <h2>Services</h2>
+          <p>
+            KNR Collective provides software development, security auditing, code remediation, 
+            and system enhancement services. We bring together software engineering, thoughtful 
+            design, and business strategy to build secure, reliable digital solutions for businesses.
           </p>
         </section>
 
@@ -50,11 +59,21 @@ const lastUpdated = '2024-01-01';
         </section>
 
         <section>
-          <h2>Disclaimer</h2>
+          <h2>Client work and confidentiality</h2>
+          <p>
+            We treat all client information with strict confidentiality. Project details, 
+            code, and business information shared during engagements remain confidential 
+            and are not disclosed without explicit written consent.
+          </p>
+        </section>
+
+        <section>
+          <h2>Limitation of liability</h2>
           <p>
             This site is provided "as is." We make no warranties about its accuracy,
             completeness, or fitness for a particular purpose. We are not liable for any
-            damages arising from your use of the site or reliance on its content.
+            damages arising from your use of the site or reliance on its content. 
+            Service-specific liability terms are covered in individual project agreements.
           </p>
         </section>
 
@@ -77,7 +96,7 @@ const lastUpdated = '2024-01-01';
         <section>
           <h2>Contact</h2>
           <p>
-            Questions: <a href="mailto:[CONTACT_EMAIL]">[CONTACT_EMAIL]</a>
+            Questions: <a href="mailto:knrcollective@proton.me">knrcollective@proton.me</a>
           </p>
         </section>
       </div>
@@ -90,29 +109,33 @@ const lastUpdated = '2024-01-01';
     padding-top: calc(56px + var(--space-16));
     padding-bottom: var(--space-24);
     min-height: 100svh;
+    background: #000;
   }
   .page-nav { margin-bottom: var(--space-10); }
   .back-link {
     font-family: var(--font-mono);
     font-size: var(--text-sm);
-    color: var(--text-muted);
+    color: #cccccc;
     transition: color var(--dur-fast) var(--ease-out);
   }
-  .back-link:hover { color: var(--text-strong); }
+  .back-link:hover { color: #ffffff; }
 
   .page-header {
     margin-bottom: var(--space-12);
     padding-bottom: var(--space-8);
-    border-bottom: 1px solid var(--border);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
     display: flex;
     flex-direction: column;
     gap: var(--space-3);
   }
-  .page-title { font-size: var(--text-xl); }
+  .page-title { 
+    font-size: var(--text-xl); 
+    color: #ffffff;
+  }
   .page-meta {
     font-family: var(--font-mono);
     font-size: var(--text-xs);
-    color: var(--text-muted);
+    color: #cccccc;
     max-width: none;
   }
 
@@ -127,21 +150,21 @@ const lastUpdated = '2024-01-01';
     font-family: var(--font-mono);
     font-size: var(--text-base);
     font-weight: 600;
-    color: var(--text-strong);
+    color: #ffffff;
   }
   .legal-body p {
     font-family: var(--font-mono);
     font-size: var(--text-sm);
-    color: var(--text-muted);
+    color: #eeeeee;
     line-height: 1.7;
     max-width: 68ch;
   }
   .legal-body a {
-    color: var(--text-strong);
+    color: #ffffff;
     text-decoration: underline;
-    text-decoration-color: var(--border-strong);
+    text-decoration-color: #cccccc;
     text-underline-offset: 3px;
     transition: text-decoration-color var(--dur-fast) var(--ease-out);
   }
-  .legal-body a:hover { text-decoration-color: var(--text-strong); }
+  .legal-body a:hover { text-decoration-color: #ffffff; }
 </style>

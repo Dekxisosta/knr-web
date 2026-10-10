@@ -145,5 +145,31 @@ const ogImageUrl = new URL(ogImage, Astro.site).href;
     </main>
 
     <Footer />
+
+    <!-- Global header scroll behavior -->
+    <script is:inline>
+      function initHeaderScroll() {
+        const header = document.getElementById('site-header');
+        
+        function onScroll() {
+          if (!header) return;
+          
+          const scrolled = window.scrollY > 24;
+          
+          // Add scrolled class for header background AND show CTA text at the same time
+          header.classList.toggle('scrolled', scrolled);
+          header.classList.toggle('show-cta-text', scrolled);
+        }
+        
+        window.addEventListener('scroll', onScroll, { passive: true });
+        onScroll(); // Run once on load
+      }
+
+      // Initialize on page load
+      document.addEventListener('DOMContentLoaded', initHeaderScroll);
+      
+      // Re-initialize on Astro page transitions
+      document.addEventListener('astro:page-load', initHeaderScroll);
+    </script>
   </body>
 </html>

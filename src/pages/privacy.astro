@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-const lastUpdated = '2024-01-01';
+const lastUpdated = '2024-12-10';
 ---
 
 <BaseLayout
@@ -16,68 +16,125 @@ const lastUpdated = '2024-01-01';
 
       <header class="page-header">
         <h1 class="page-title">Privacy Policy</h1>
-        <p class="page-meta">Last updated: <time datetime={lastUpdated}>{lastUpdated}</time></p>
+        <p class="page-meta">Last updated: <time datetime={lastUpdated}>December 10, 2024</time></p>
       </header>
 
       <div class="legal-body">
         <section>
+          <h2>Overview</h2>
+          <p>
+            KNR Collective respects your privacy. This policy explains what information we collect,
+            how we use it, and your rights regarding that information. We collect only what's
+            necessary to provide our services and improve your experience.
+          </p>
+        </section>
+
+        <section>
           <h2>Information we collect</h2>
+          <h3>Contact forms</h3>
           <p>
-            When you submit the contact form on our site, we collect your name, email address,
-            and the information you include in your message. We do not use tracking pixels,
-            behavioral advertising networks, or third-party analytics that identify individuals.
+            When you submit a project inquiry through our contact form, we collect your name,
+            email address, project type, and message content. This information is used solely
+            to respond to your inquiry and discuss potential collaboration.
+          </p>
+          <h3>Website analytics</h3>
+          <p>
+            We may use privacy-focused analytics to understand how visitors use our website.
+            This includes general information like pages visited, time spent on site, and
+            referral sources. No personally identifiable information is collected through analytics.
+          </p>
+          <h3>Server logs</h3>
+          <p>
+            Our web servers automatically log standard information including IP addresses,
+            browser types, and page requests for security and troubleshooting purposes.
+            These logs are retained for a limited time and not used for tracking.
           </p>
         </section>
 
         <section>
-          <h2>How we use it</h2>
+          <h2>How we use your information</h2>
+          <ul>
+            <li>Respond to project inquiries and communicate about potential work</li>
+            <li>Provide updates on project progress for active clients</li>
+            <li>Improve our website and services based on usage patterns</li>
+            <li>Ensure website security and prevent abuse</li>
+          </ul>
           <p>
-            We use your contact details solely to respond to your inquiry and, if we work together,
-            to communicate about your project. We do not sell, rent, or share your personal
-            information with third parties for marketing purposes.
+            We do not sell, rent, or share your personal information with third parties
+            for marketing purposes. We do not send unsolicited promotional emails.
           </p>
         </section>
 
         <section>
-          <h2>Data retention</h2>
+          <h2>Data storage and security</h2>
           <p>
-            Contact form submissions are retained for as long as they are relevant to an active
-            or prospective engagement. You may request deletion at any time by emailing
-            <a href="mailto:[CONTACT_EMAIL]">[CONTACT_EMAIL]</a>.
+            Your information is stored securely using industry-standard practices.
+            Contact form submissions are transmitted over encrypted connections and
+            stored on secure servers. We implement appropriate technical and organizational
+            measures to protect against unauthorized access, alteration, disclosure, or destruction.
           </p>
         </section>
 
         <section>
-          <h2>Cookies</h2>
+          <h2>Client work confidentiality</h2>
           <p>
-            This site does not set non-essential cookies. We may use privacy-friendly analytics
-            (Plausible or Umami) that do not use cookies and do not collect personally
-            identifiable information.
+            For active projects, all client information, code, business details, and
+            project specifics are treated with strict confidentiality. We sign NDAs
+            when requested and maintain professional confidentiality standards regardless.
+            Client information is never shared without explicit written consent.
           </p>
         </section>
 
         <section>
           <h2>Third-party services</h2>
           <p>
-            The site may be hosted on Vercel or Netlify, each of which has its own privacy policy.
-            Contact form submissions may be routed through Formspree. We do not embed
-            third-party social widgets or advertising scripts.
+            Our contact form may use third-party services (such as Formspree) to process
+            submissions. These services have their own privacy policies and security measures.
+            We choose services that prioritize privacy and data protection.
+          </p>
+        </section>
+
+        <section>
+          <h2>Cookies and tracking</h2>
+          <p>
+            This website uses minimal cookies, primarily for essential functionality.
+            We do not use tracking cookies or third-party advertising networks.
+            Any analytics cookies used are privacy-focused and do not collect personal information.
           </p>
         </section>
 
         <section>
           <h2>Your rights</h2>
           <p>
-            You have the right to access, correct, or delete any personal data we hold about you.
-            To exercise these rights, email <a href="mailto:[CONTACT_EMAIL]">[CONTACT_EMAIL]</a>.
-            We will respond within 30 days.
+            You have the right to request information about data we hold about you,
+            request corrections to inaccurate information, or request deletion of your data.
+            For contact form submissions, you can request removal at any time.
+          </p>
+        </section>
+
+        <section>
+          <h2>Data retention</h2>
+          <p>
+            Contact form submissions are retained for up to 2 years to allow for follow-up
+            on potential projects. Server logs are retained for 90 days. Client project data
+            is retained as specified in individual project agreements.
+          </p>
+        </section>
+
+        <section>
+          <h2>Changes to this policy</h2>
+          <p>
+            We may update this privacy policy to reflect changes in our practices or
+            for legal reasons. Updated policies will be posted on this page with
+            a new "last updated" date.
           </p>
         </section>
 
         <section>
           <h2>Contact</h2>
           <p>
-            Questions about this policy: <a href="mailto:[CONTACT_EMAIL]">[CONTACT_EMAIL]</a>
+            Questions about this privacy policy or our data practices:
+            <a href="mailto:knrcollective@proton.me">knrcollective@proton.me</a>
           </p>
         </section>
       </div>
@@ -90,29 +147,33 @@ const lastUpdated = '2024-01-01';
     padding-top: calc(56px + var(--space-16));
     padding-bottom: var(--space-24);
     min-height: 100svh;
+    background: #000;
   }
   .page-nav { margin-bottom: var(--space-10); }
   .back-link {
     font-family: var(--font-mono);
     font-size: var(--text-sm);
-    color: var(--text-muted);
+    color: #cccccc;
     transition: color var(--dur-fast) var(--ease-out);
   }
-  .back-link:hover { color: var(--text-strong); }
+  .back-link:hover { color: #ffffff; }
 
   .page-header {
     margin-bottom: var(--space-12);
     padding-bottom: var(--space-8);
-    border-bottom: 1px solid var(--border);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
     display: flex;
     flex-direction: column;
     gap: var(--space-3);
   }
-  .page-title { font-size: var(--text-xl); }
+  .page-title { 
+    font-size: var(--text-xl); 
+    color: #ffffff;
+  }
   .page-meta {
     font-family: var(--font-mono);
     font-size: var(--text-xs);
-    color: var(--text-muted);
+    color: #cccccc;
     max-width: none;
   }
 
@@ -129,23 +190,57 @@ const lastUpdated = '2024-01-01';
     font-family: var(--font-mono);
     font-size: var(--text-base);
     font-weight: 600;
-    color: var(--text-strong);
+    color: #ffffff;
+  }
+
+  .legal-body h3 {
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: #ffffff;
+    margin-top: var(--space-4);
+    margin-bottom: var(--space-2);
   }
 
   .legal-body p {
     font-family: var(--font-mono);
     font-size: var(--text-sm);
-    color: var(--text-muted);
+    color: #eeeeee;
     line-height: 1.7;
     max-width: 68ch;
   }
 
+  .legal-body ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .legal-body li {
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    color: #eeeeee;
+    line-height: 1.7;
+    padding-left: var(--space-4);
+    position: relative;
+  }
+
+  .legal-body li::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    color: #ffffff;
+  }
+
   .legal-body a {
-    color: var(--text-strong);
+    color: #ffffff;
     text-decoration: underline;
-    text-decoration-color: var(--border-strong);
+    text-decoration-color: #cccccc;
     text-underline-offset: 3px;
     transition: text-decoration-color var(--dur-fast) var(--ease-out);
   }
-  .legal-body a:hover { text-decoration-color: var(--text-strong); }
+  .legal-body a:hover { text-decoration-color: #ffffff; }
 </style>

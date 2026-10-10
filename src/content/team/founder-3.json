@@ -1,25 +1,35 @@
 {
-  "name": "[FOUNDER_3_NAME]",
-  "slug": "founder-3",
-  "role": "[FOUNDER_3_ROLE]",
-  "focus": "[FOUNDER_3_FOCUS — one line]",
-  "bio": "[FOUNDER_3_BIO — 2-3 sentences, specific, no buzzwords.]",
-  "photo": "/images/team/founder-3.jpg",
+  "name": "Jeremiah Laza",
+  "nickname": "REM",
+  "slug": "rem",
+  "role": "Technical Lead",
+  "focus": "Architecture & Security",
+  "bio": "Owns the brand promise: 'It will not break, leak, or fail compliance.' Specializes in backend systems, security hardening, and infrastructure that scales reliably.",
+  "photo": "/images/team/rem.webp",
   "credentials": [
     {
-      "label": "[CREDENTIAL_1_LABEL]",
-      "detail": "[CREDENTIAL_1_DETAIL]",
-      "year": 2023
+      "label": "Backend & System Design",
+      "detail": "Headless CMS, API routing, integrations",
+      "year": 2018
     },
     {
-      "label": "[CREDENTIAL_2_LABEL]",
-      "detail": "[CREDENTIAL_2_DETAIL]"
+      "label": "Security & Compliance",
+      "detail": "Zero-trust configs, input sanitization"
+    },
+    {
+      "label": "Infrastructure & CI/CD",
+      "detail": "Edge deployments, automated backups"
+    },
+    {
+      "label": "Code Audit Gatekeeper",
+      "detail": "Reviews AI-assisted code output"
     }
   ],
   "links": {
-    "github": "https://github.com/[FOUNDER_3_GITHUB]",
-    "linkedin": "https://linkedin.com/in/[FOUNDER_3_LINKEDIN]",
-    "email": "founder3@knrcollective.com"
+    "github": "https://github.com/remsysc",
+    "linkedin": "https://www.linkedin.com/in/remsysc/",
+    "website": "https://remsysc.knr-collective.workers.dev/",
+    "email": "heremyas004@proton.me"
   },
-  "order": 3
+  "order": 2
 }

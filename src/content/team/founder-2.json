@@ -1,25 +1,34 @@
 {
-  "name": "[FOUNDER_2_NAME]",
-  "slug": "founder-2",
-  "role": "[FOUNDER_2_ROLE]",
-  "focus": "[FOUNDER_2_FOCUS — one line]",
-  "bio": "[FOUNDER_2_BIO — 2-3 sentences, specific, no buzzwords.]",
-  "photo": "/images/team/founder-2.jpg",
+  "name": "Kim Maturan",
+  "nickname": "KIM",
+  "slug": "kim",
+  "role": "Growth & Client Lead",
+  "focus": "Sales & Commercial Operations",
+  "bio": "External facing specialist focused on 'Winning deals, client relationship management, and legal closing.' Handles everything from outreach to contract negotiations.",
+  "photo": "/images/team/kim.webp",
   "credentials": [
     {
-      "label": "[CREDENTIAL_1_LABEL]",
-      "detail": "[CREDENTIAL_1_DETAIL]",
-      "year": 2021
+      "label": "Outreach & Pipeline",
+      "detail": "Cold outreach, SME networking, discovery calls",
+      "year": 2019
     },
     {
-      "label": "[CREDENTIAL_2_LABEL]",
-      "detail": "[CREDENTIAL_2_DETAIL]"
+      "label": "Discovery, Pitching & Closing",
+      "detail": "Sales conversations, proposals, objections"
+    },
+    {
+      "label": "Client Relationship & Account Mgmt",
+      "detail": "Check-ins, retainer renewals, upsells"
+    },
+    {
+      "label": "Legal Agreements",
+      "detail": "Contracts, SLA agreements, quotations"
     }
   ],
   "links": {
-    "github": "https://github.com/[FOUNDER_2_GITHUB]",
-    "linkedin": "https://linkedin.com/in/[FOUNDER_2_LINKEDIN]",
-    "email": "founder2@knrcollective.com"
+    "github": "https://github.com/cookizuki",
+    "linkedin": "https://www.linkedin.com/in/kim-maturan-6b5331386/",
+    "email": "kimmaturan1111@gmail.com"
   },
-  "order": 2
+  "order": 1
 }
