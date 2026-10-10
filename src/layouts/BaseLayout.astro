@@ -81,9 +81,21 @@ const ogImageUrl = new URL(ogImage, Astro.site).href;
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" href="/favicon.ico" />
 
-    <!-- Google Fonts preconnect — reduces latency for font requests -->
+    <!-- Google Fonts - optimized loading -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link 
+      rel="stylesheet" 
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300..700;1,300..700&family=Geist:wght@300..700&display=swap" 
+      media="print" 
+      onload="this.media='all'"
+    />
+    <noscript>
+      <link 
+        rel="stylesheet" 
+        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300..700;1,300..700&family=Geist:wght@300..700&display=swap"
+      />
+    </noscript>
 
     <!-- JSON-LD -->
     {jsonLd && (
