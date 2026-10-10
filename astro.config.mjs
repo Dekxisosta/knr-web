@@ -32,23 +32,35 @@ export default defineConfig({
         output: {
           // More granular chunking to improve caching and loading
           manualChunks: (id) => {
-            // React core bundle
+            // React core bundle (critical, cached long-term)
             if (id.includes('react') || id.includes('react-dom')) {
               return 'react-vendor';
             }
-            // Animation libraries (non-critical)
+            // Router and core Astro functionality (critical)
+            if (id.includes('ClientRouter') || id.includes('astro/transitions')) {
+              return 'astro-core';
+            }
+            // Animation libraries (non-critical, can be lazy loaded)
             if (id.includes('framer-motion') || id.includes('motion')) {
               return 'animation-libs';
             }
-            // Background components (non-critical)
+            // Background and visual effects (non-critical, load last)
             if (id.includes('GridBackground') || id.includes('SideGrids') || id.includes('HalftoneBackground')) {
               return 'visual-effects';
             }
-            // Utility libraries
+            // Stagger components (animation utilities)
+            if (id.includes('Stagger') || id.includes('Reveal') || id.includes('motion.ts')) {
+              return 'motion-utils';
+            }
+            // Utility libraries (small, can be inlined or grouped)
             if (id.includes('clsx') || id.includes('cn') || id.includes('utils')) {
               return 'utils';
             }
-            // Other vendor libraries
+            // UI components (mid-priority)
+            if (id.includes('/ui/') && !id.includes('Background') && !id.includes('SideGrids')) {
+              return 'ui-components';
+            }
+            // Other vendor libraries (group by size/importance)
             if (id.includes('node_modules')) {
               return 'vendor';
             }
@@ -67,9 +79,14 @@ export default defineConfig({
       // Exclude heavy dependencies from pre-bundling
       exclude: ['@astrojs/react'],
     },
+    // CSS optimization
+    css: {
+      // Ensure CSS is processed for non-blocking loading
+      postcss: {},
+    },
   },
   
-  // Compression
+  // Enhanced compression and optimization
   compressHTML: true,
   
   // Prefetch strategy for better performance

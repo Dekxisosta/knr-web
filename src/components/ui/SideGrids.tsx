@@ -31,20 +31,29 @@ export default function SideGrids() {
       window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     function calculateMargins() {
-      // Use ResizeObserver approach or simple viewport-based calculation to avoid forced reflows
+      // Use viewport-only calculations to completely avoid forced reflows
       const viewportWidth = window.innerWidth;
       
-      // Estimate container width based on common responsive design patterns
-      // Most sites use max-width of 1200-1400px with some padding
-      let containerWidth = viewportWidth;
-      if (viewportWidth >= 1200) {
-        containerWidth = Math.min(1200, viewportWidth * 0.9); // Assume 90% max-width with padding
+      // Estimate container width using CSS custom property or default calculation
+      const documentStyle = getComputedStyle(document.documentElement);
+      const maxWidth = parseInt(documentStyle.getPropertyValue('--container-max-width')) || 1400;
+      
+      // Calculate estimated container width based on responsive breakpoints
+      let estimatedContainer = viewportWidth;
+      if (viewportWidth >= maxWidth + 200) { // Account for padding
+        estimatedContainer = maxWidth;
+      } else if (viewportWidth >= 1024) {
+        estimatedContainer = viewportWidth * 0.85; // Typical responsive behavior
+      } else if (viewportWidth >= 768) {
+        estimatedContainer = viewportWidth * 0.9;
+      } else {
+        estimatedContainer = viewportWidth * 0.95;
       }
       
       // Calculate available margin space on each side
-      const availableMargin = (viewportWidth - containerWidth) / 2;
+      const availableMargin = (viewportWidth - estimatedContainer) / 2;
       
-      return Math.max(0, availableMargin);
+      return Math.max(0, availableMargin - 20); // Subtract some buffer
     }
 
     function checkViewportAndMargins() {
@@ -63,34 +72,50 @@ export default function SideGrids() {
       // Debounce resize to prevent excessive calculations
       clearTimeout(resizeTimeout);
       resizeTimeout = window.setTimeout(() => {
+        // Use performance.now() to measure timing
+        const startTime = performance.now();
+        
         checkViewportAndMargins();
         
-        if (!shouldRender) return;
+        if (!shouldRender) {
+          console.debug('SideGrids: Hidden due to insufficient margin space');
+          return;
+        }
         
         // Use the available margin width (minus some padding)
         const gridWidth = Math.min(marginWidth - 20, 120);
         
-        // Use requestAnimationFrame to batch DOM updates
+        // Use requestAnimationFrame to batch DOM updates and avoid forced reflow
         requestAnimationFrame(() => {
-          // Set canvas size
+          // Set canvas size using purely calculated values
           const dpr = Math.min(window.devicePixelRatio || 1, 2);
+          const viewportHeight = window.innerHeight;
           const width = gridWidth * dpr;
-          const height = window.innerHeight * dpr;
+          const height = viewportHeight * dpr;
           
           [leftCanvas, rightCanvas].forEach(canvas => {
+            // Batch all DOM writes together
             canvas.width = width;
             canvas.height = height;
             canvas.style.width = gridWidth + 'px';
-            canvas.style.height = window.innerHeight + 'px';
+            canvas.style.height = viewportHeight + 'px';
           });
+          
+          const endTime = performance.now();
+          const duration = endTime - startTime;
+          
+          // Log performance for debugging
+          if (duration > 16) { // More than one frame
+            console.warn(`SideGrids resize took ${duration.toFixed(2)}ms`);
+          }
         });
-      }, 100);
+      }, 150); // Increased debounce time
     }
 
-    // Initial setup with a delay to ensure DOM is ready
+    // Initial setup with a longer delay to ensure DOM is stable
     setTimeout(() => {
       resize();
-    }, 100);
+    }, 200);
     
     window.addEventListener('resize', resize, { passive: true });
 
