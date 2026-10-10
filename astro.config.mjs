@@ -16,5 +16,22 @@ export default defineConfig({
   integrations: [react(), sitemap()],
   vite: {
     plugins: [tailwindcss()],
+    build: {
+      // Inline small assets
+      assetsInlineLimit: 4096,
+      // Code splitting
+      rollupOptions: {
+        output: {
+          manualChunks: (id) => {
+            if (id.includes('react') || id.includes('react-dom')) {
+              return 'react-vendor';
+            }
+          },
+        },
+      },
+    },
   },
+  
+  // Compression
+  compressHTML: true,
 });
