@@ -8,6 +8,7 @@
   --border: #e0e0e0;
   --border-strong: #333333;
   --text-muted: #666666;
+  --text-muted-light: rgba(255, 255, 255, 0.8); /* High contrast version for dark backgrounds */
   --text: #1a1a1a;
   --text-strong: #000000;
   --text-light: #ffffff;

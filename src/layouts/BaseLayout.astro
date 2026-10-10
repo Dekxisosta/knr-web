@@ -78,19 +78,46 @@ const ogImageUrl = new URL(ogImage, Astro.site).href;
     <meta name="format-detection" content="telephone=no" />
     <link rel="manifest" href="/site.webmanifest" />
 
+    <!-- Preload critical resources to reduce waterfall -->
+    <link rel="preload" href="/_astro/BaseLayout.CGsp29h3.css" as="style" />
+    <link rel="preload" href="/_astro/index.WfhOV5Dj.css" as="style" />
+    
+    <!-- Preload critical JS modules -->
+    <link rel="modulepreload" href="/_astro/ClientRouter.astro_ast….BDCjmQ8c.js" />
+    <link rel="modulepreload" href="/_astro/client.cE8-S_EN.js" />
+    
+    <!-- DNS prefetch for external resources -->
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
+
+    <!-- Defer non-critical background JS -->
+    <link rel="prefetch" href="/_astro/GridBackground.DeSzwBcK.js" />
+    <link rel="prefetch" href="/_astro/SideGrids.CIGiBcw2.js" />
+    <link rel="prefetch" href="/_astro/HalftoneBackground.DtF-jbML.js" />
+
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" href="/favicon.ico" />
 
-    <!-- Google Fonts - optimized loading with preload -->
+    <!-- Google Fonts - optimized critical path loading -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    
+    <!-- Critical fonts loaded first -->
     <link 
       rel="preload"
       as="style"
-      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300..700;1,300..700&family=Geist:wght@300..700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Geist:wght@400;600;700&display=swap"
       onload="this.onload=null;this.rel='stylesheet'"
     />
+    
+    <!-- Non-critical mono font loaded after -->
+    <link 
+      rel="prefetch"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap"
+    />
+    
     <noscript>
       <link 
         rel="stylesheet" 
@@ -98,14 +125,18 @@ const ogImageUrl = new URL(ogImage, Astro.site).href;
       />
     </noscript>
 
-    <!-- Critical CSS inlined -->
+    <!-- Critical CSS inlined for immediate rendering -->
     <style>
       /* Critical above-the-fold styles */
+      * { box-sizing: border-box; }
       body { 
         margin: 0; 
         font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
         background: #ffffff;
         color: #1a1a1a;
+        line-height: 1.5;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
       }
       .site-header { 
         position: fixed; 
@@ -114,20 +145,50 @@ const ogImageUrl = new URL(ogImage, Astro.site).href;
         right: 0; 
         z-index: 1000;
         background: rgba(255,255,255,0.95);
+        backdrop-filter: blur(10px);
+        transition: background-color 0.2s ease;
       }
       .hero { 
-        min-height: 90vh; 
+        min-height: 95vh; 
         display: flex; 
         flex-direction: column; 
         justify-content: center;
         padding-top: 100px;
+        background: #0a0a0a;
+        position: relative;
+        overflow: hidden;
       }
-      /* Hide side grids on mobile */
+      .hero-headline {
+        font-size: clamp(3.5rem, 10vw, 7.5rem);
+        font-weight: 700;
+        line-height: 0.9;
+        color: #ffffff;
+        margin-bottom: 2rem;
+        letter-spacing: -0.05em;
+      }
+      /* Critical layout grid */
+      .section-container {
+        width: 100%;
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 0 clamp(1.5rem, 4vw, 4rem);
+      }
+      /* Hide visual effects on mobile initially */
       @media (max-width: 768px) {
         canvas[style*="left: 0"],
         canvas[style*="right: 0"] {
           display: none !important;
         }
+      }
+      /* Loading states */
+      .loading-placeholder {
+        background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+        background-size: 200% 100%;
+        animation: loading 1.5s infinite;
+      }
+      @keyframes loading {
+        0% { background-position: 200% 0; }
+        100% { background-position: -200% 0; }
       }
     </style>
 
@@ -143,11 +204,32 @@ const ogImageUrl = new URL(ogImage, Astro.site).href;
     <!-- Remove no-js class immediately -->
     <script>document.documentElement.classList.remove('no-js');</script>
 
-    <!-- Animated background (loads after page is interactive) -->
-    <GridBackground client:idle transition:persist />
+    <!-- Simple loading indicator for initial page load -->
+    <div id="page-loader" style="position:fixed;top:0;left:0;width:100%;height:3px;background:linear-gradient(90deg,#d4af37 0%,#f4d03f 50%,#d4af37 100%);background-size:200% 100%;animation:loader-animation 2s ease-in-out infinite;z-index:9999;">
+    </div>
+    <style>
+      @keyframes loader-animation {
+        0% { background-position: 200% 0; }
+        100% { background-position: -200% 0; }
+      }
+    </style>
+    <script is:inline>
+      // Remove loader when page is fully loaded
+      window.addEventListener('load', () => {
+        const loader = document.getElementById('page-loader');
+        if (loader) {
+          loader.style.opacity = '0';
+          loader.style.transition = 'opacity 0.3s ease';
+          setTimeout(() => loader.remove(), 300);
+        }
+      });
+    </script>
+
+    <!-- Animated background (non-critical, load after interaction) -->
+    <GridBackground client:media="(min-width: 768px)" transition:persist />
     
-    <!-- Moving pixel grids on sides for white backgrounds (desktop only) -->
-    <SideGrids client:idle transition:persist />
+    <!-- Moving pixel grids on sides for white backgrounds (desktop only, non-critical) -->
+    <SideGrids client:media="(min-width: 768px)" transition:persist />
 
     <Header />
 

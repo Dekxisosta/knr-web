@@ -145,7 +145,7 @@ const faqs = [
   .faq-icon {
     font-family: var(--font-mono);
     font-size: var(--text-md);
-    color: #cccccc;
+    color: #ffffff; /* Improved contrast from #cccccc */
     flex-shrink: 0;
     width: 24px;
     height: 24px;
@@ -155,12 +155,14 @@ const faqs = [
     transition: transform var(--dur-base) var(--ease-out),
                 color var(--dur-fast) var(--ease-out);
     line-height: 1;
-    border: 1px solid #444444;
+    border: 1px solid #666666; /* Improved contrast from #444444 */
+    opacity: 0.8; /* Subtle distinction while maintaining contrast */
   }
   .faq-question[aria-expanded="true"] .faq-icon {
     transform: rotate(45deg);
     color: #ffffff;
     border-color: #ffffff;
+    opacity: 1; /* Full opacity when active */
   }
 
   .faq-answer {
@@ -169,10 +171,11 @@ const faqs = [
   .faq-answer p {
     font-family: var(--font-mono);
     font-size: var(--text-sm);
-    color: #eeeeee;
+    color: #ffffff; /* Improved contrast from #eeeeee */
     line-height: 1.75;
     padding-bottom: var(--space-5);
     max-width: 66ch;
+    opacity: 0.9; /* Subtle distinction while maintaining contrast */
   }
 </style>
 

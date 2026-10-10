@@ -101,7 +101,7 @@ const founders = (await getCollection('team')).sort(
   .section-index {
     font-family: var(--font-mono);
     font-size: var(--text-xs);
-    color: var(--text-muted);
+    color: var(--text-muted-light); /* Better contrast on dark background */
     letter-spacing: 0.1em;
     padding-top: 6px;
   }
@@ -113,7 +113,7 @@ const founders = (await getCollection('team')).sort(
   .team-intro {
     font-family: var(--font-mono);
     font-size: var(--text-sm);
-    color: var(--text-muted);
+    color: var(--text-muted-light); /* Better contrast on dark background */
     max-width: 70ch;
     margin-bottom: var(--space-12);
     line-height: 1.7;
@@ -206,7 +206,7 @@ const founders = (await getCollection('team')).sort(
     border-radius: 50%;
     overflow: hidden;
     background: var(--surface-2);
-    border: 3px dashed #444444;
+    border: 3px dashed #666666; /* Improved contrast from #444444 */
     transition: border-color var(--dur-fast) var(--ease-out);
     position: relative;
   }
@@ -281,16 +281,17 @@ const founders = (await getCollection('team')).sort(
   .member-role {
     font-family: var(--font-mono);
     font-size: var(--text-md);
-    color: #cccccc;
+    color: #ffffff; /* Improved contrast from #cccccc */
     margin: 0;
   }
 
   .member-focus {
     font-family: var(--font-mono);
     font-size: var(--text-sm);
-    color: #eeeeee;
+    color: #ffffff; /* Improved contrast from #eeeeee */
     line-height: 1.5;
     margin: 0;
+    opacity: 0.9; /* Subtle distinction while maintaining contrast */
   }
 
   /* ── Links ────────────────────────────────────────── */
@@ -304,18 +305,19 @@ const founders = (await getCollection('team')).sort(
   .member-link {
     font-family: var(--font-mono);
     font-size: var(--text-xs);
-    color: #cccccc;
+    color: #ffffff; /* Improved contrast from #cccccc */
     text-decoration: none;
     padding: var(--space-1) var(--space-3);
-    border: 1px solid #444444;
+    border: 1px solid #666666; /* Improved contrast from #444444 */
     border-radius: 2px;
     transition: all var(--dur-fast) var(--ease-out);
+    background: rgba(255, 255, 255, 0.05); /* Subtle background for better contrast */
   }
   
   .member-link:hover {
     color: #ffffff;
     border-color: #ffffff;
-    background: rgba(255,255,255,0.1);
+    background: rgba(255,255,255,0.15); /* Increased background opacity on hover */
   }
 
   .member-link-text {
