@@ -1,6 +1,8 @@
 ---
-// Hero section with modern pill design
+// Hero section with draggable IDE
+import IDEViewport from '../ui/IDEViewport.tsx';
 import HalftoneBackground from '../ui/HalftoneBackground.tsx';
+import ServicesBento from '../ui/ServicesBento.astro';
 ---
 
 <section class="hero" aria-labelledby="hero-headline">
@@ -10,58 +12,54 @@ import HalftoneBackground from '../ui/HalftoneBackground.tsx';
   <HalftoneBackground client:visible />
   <div class="section-container hero-inner">
 
-    <!-- Main content -->
-    <div class="hero-content">
-      <!-- Brand pill -->
-      <div class="brand-pill" aria-hidden="true">
-        <span class="pill-text">KNR Collective</span>
-        <div class="pill-dots">
-          <span class="dot"></span>
-          <span class="dot"></span>
-          <span class="dot"></span>
+    <!-- Hero Container with solid background -->
+    <div class="hero-container">
+      <!-- 50:50 Layout for desktop -->
+      <div class="hero-split">
+        <!-- Left: Main content -->
+        <div class="hero-content">
+          <h1 id="hero-headline" class="hero-headline">
+            <span class="hero-line">Secure software</span>
+            <span class="hero-line hero-line--bold">by design.</span>
+          </h1>
+
+          <p class="hero-sub">
+            Expert software engineering and security auditing.<br />
+            We build systems that are secure from the ground up,<br />
+            not patched as an afterthought.
+          </p>
+
+          <div class="hero-actions">
+            <a href="/#contact" class="btn-primary">
+              Start a project
+            </a>
+            <a href="/#work" class="btn-secondary">
+              See our work
+            </a>
+          </div>
+
+          <div class="trust-line">
+            <span class="trust-item">OWASP-aligned</span>
+            <span class="trust-separator">•</span>
+            <span class="trust-item">Pen-tested</span>
+          </div>
         </div>
-      </div>
 
-      <h1 id="hero-headline" class="hero-headline">
-        <span class="hero-line">Secure software</span>
-        <span class="hero-line hero-line--bold">by design.</span>
-      </h1>
-
-      <p class="hero-sub">
-        Expert software engineering and security auditing.<br />
-        We build systems that are secure from the ground up,<br />
-        not patched as an afterthought.
-      </p>
-
-      <div class="hero-actions">
-        <a href="/#contact" class="btn-primary">
-          Start a project
-        </a>
-        <a href="/#work" class="btn-secondary">
-          See our work
-        </a>
-      </div>
-
-      <div class="trust-line">
-        <span class="trust-item">OWASP-aligned</span>
-        <span class="trust-separator">•</span>
-        <span class="trust-item">Pen-tested</span>
+        <!-- Right: Hero image -->
+        <div class="hero-image">
+          <img src="/images/hero.webp" alt="KNR Web Hero" loading="eager" />
+        </div>
       </div>
     </div>
 
-    <!-- Visual element -->
-    <div class="hero-visual" aria-hidden="true">
-      <div class="visual-card">
-        <img 
-          src="/images/hero.webp" 
-          alt="" 
-          class="hero-image"
-          width="520"
-          height="520"
-          loading="eager"
-          decoding="async"
-        />
-      </div>
+    <!-- Services Bento Grid -->
+    <div class="hero-services">
+      <ServicesBento />
+    </div>
+
+    <!-- IDE Viewport (bottom) -->
+    <div class="hero-visual">
+      <IDEViewport client:load />
     </div>
 
   </div>
@@ -154,64 +152,145 @@ import HalftoneBackground from '../ui/HalftoneBackground.tsx';
   }
 
   .hero-inner {
-    display: grid;
-    grid-template-columns: 1.3fr 1fr; /* Reduced from 1.6fr to prevent overlap */
-    gap: var(--space-24); /* Increased gap to create more separation */
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-16);
     align-items: center;
     padding-block: 0;
     position: relative;
+    max-width: 1400px;
+    margin: 0 auto;
   }
 
   @media (max-width: 900px) {
     .hero-inner {
-      grid-template-columns: 1fr;
-      gap: var(--space-20);
-      padding-top: var(--space-16);
+      gap: var(--space-12);
+      padding-top: var(--space-8);
     }
   }
 
-  /* ── Brand pill ──────────────────────────────────────── */
-  .brand-pill {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--space-4);
-    background: transparent;
-    border: 1.5px solid var(--text-light);
-    border-radius: var(--radius-full);
-    padding: var(--space-3) var(--space-6);
-    margin-bottom: var(--space-8); /* Increased from var(--space-5) */
-    margin-left: calc(var(--space-6) * -1); /* Negative margin to align inner text with headline */
+  /* Hero Container with solid background */
+  .hero-container {
+    width: 90vw;
+    max-width: 1400px;
+    background: rgba(255, 255, 255, 0.01);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-lg);
+    padding: var(--space-12) var(--space-10);
     opacity: 0;
-    animation: fade-up var(--dur-slow) var(--ease-out) 0.1s forwards;
+    animation: fade-up var(--dur-slow) var(--ease-out) 0.3s forwards;
+    position: relative;
   }
 
-  .pill-text {
-    font-family: var(--font-body);
-    font-size: var(--text-sm);
-    font-weight: 500;
-    color: var(--text-light);
-    letter-spacing: -0.01em;
+  /* Gold strips on sides */
+  .hero-container::before,
+  .hero-container::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: linear-gradient(
+      180deg,
+      rgba(147, 51, 234, 0.3) 0%,
+      rgba(59, 130, 246, 0.35) 33%,
+      rgba(212, 175, 55, 0.3) 66%,
+      rgba(147, 51, 234, 0.3) 100%
+    );
   }
 
-  .pill-dots {
-    display: flex;
-    gap: var(--space-2);
+  .hero-container::before {
+    left: 0;
+    border-top-left-radius: var(--radius-lg);
+    border-bottom-left-radius: var(--radius-lg);
   }
 
-  .dot {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    background: transparent;
-    border: 1.5px solid var(--text-light);
+  .hero-container::after {
+    right: 0;
+    border-top-right-radius: var(--radius-lg);
+    border-bottom-right-radius: var(--radius-lg);
+  }
+
+  @media (max-width: 1024px) {
+    .hero-container {
+      padding: var(--space-10) var(--space-8);
+    }
+  }
+
+  @media (max-width: 640px) {
+    .hero-container {
+      padding: var(--space-8) var(--space-6);
+    }
+  }
+
+  /* 50:50 Split Layout */
+  .hero-split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-12);
+    align-items: center;
+    width: 100%;
+    max-width: 1400px;
+  }
+
+  /* Tablet: vertical layout */
+  @media (max-width: 1024px) {
+    .hero-split {
+      grid-template-columns: 1fr;
+      gap: var(--space-8);
+    }
   }
 
   .hero-content {
     display: flex;
     flex-direction: column;
-    align-items: flex-start; /* Align all content to the left */
-    max-width: none; /* Remove any width constraints */
-    margin-bottom: var(--space-8); /* Add bottom margin for breathing room */
+    align-items: flex-start;
+    text-align: left;
+    max-width: 600px;
+  }
+
+  /* Center content on tablet and below */
+  @media (max-width: 1024px) {
+    .hero-content {
+      align-items: center;
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+  }
+
+  /* Hero Image */
+  .hero-image {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 1;
+  }
+
+  .hero-image img {
+    width: 100%;
+    height: auto;
+    max-width: 600px;
+    border-radius: var(--radius-lg);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  }
+
+  @media (max-width: 1024px) {
+    .hero-image {
+      max-width: 500px;
+      margin: 0 auto;
+    }
+  }
+
+  /* ── Services Bento ──────────────────────────────────────── */
+  .hero-services {
+    width: 100%;
+    max-width: 1200px;
+    opacity: 0;
+    animation: fade-up var(--dur-slow) var(--ease-out) 1s forwards;
   }
 
   /* ── Headline ──────────────────────────────────────────── */
@@ -227,13 +306,11 @@ import HalftoneBackground from '../ui/HalftoneBackground.tsx';
   .hero-line {
     display: block;
     font-weight: 400;
-    opacity: 0;
-    animation: fade-up var(--dur-slow) var(--ease-out) 0.25s forwards;
+    opacity: 1;
   }
 
   .hero-line--bold {
     font-weight: 700;
-    animation-delay: 0.4s; /* Back to two lines */
   }
 
   /* ── Sub ───────────────────────────────────────────────── */
@@ -241,10 +318,9 @@ import HalftoneBackground from '../ui/HalftoneBackground.tsx';
     font-family: var(--font-body);
     font-size: clamp(var(--text-base), 1.8vw, var(--text-lg));
     color: var(--text-light-muted);
-    line-height: 1.7; /* Increased from 1.5 */
-    margin-bottom: var(--space-12); /* Increased from var(--space-8) */
-    opacity: 0;
-    animation: fade-up var(--dur-slow) var(--ease-out) 0.55s forwards;
+    line-height: 1.7;
+    margin-bottom: var(--space-12);
+    opacity: 1;
   }
 
   /* ── Actions ──────────────────────────────────────────── */
@@ -253,9 +329,16 @@ import HalftoneBackground from '../ui/HalftoneBackground.tsx';
     align-items: center;
     gap: var(--space-5);
     flex-wrap: wrap;
-    margin-bottom: var(--space-8); /* Increased from var(--space-5) */
-    opacity: 0;
-    animation: fade-up var(--dur-slow) var(--ease-out) 0.7s forwards;
+    margin-bottom: var(--space-8);
+    opacity: 1;
+    justify-content: flex-start;
+  }
+
+  /* Center on tablet and below */
+  @media (max-width: 1024px) {
+    .hero-actions {
+      justify-content: center;
+    }
   }
 
   .btn-primary {
@@ -300,10 +383,17 @@ import HalftoneBackground from '../ui/HalftoneBackground.tsx';
     display: flex;
     align-items: center;
     gap: var(--space-3);
-    margin-top: var(--space-4); /* Increased from var(--space-3) */
-    margin-bottom: var(--space-8); /* Increased from var(--space-6) */
-    opacity: 0;
-    animation: fade-up var(--dur-slow) var(--ease-out) 0.85s forwards;
+    margin-top: var(--space-4);
+    margin-bottom: 0;
+    opacity: 1;
+    justify-content: flex-start;
+  }
+
+  /* Center on tablet and below */
+  @media (max-width: 1024px) {
+    .trust-line {
+      justify-content: center;
+    }
   }
 
   .trust-item {
@@ -321,40 +411,13 @@ import HalftoneBackground from '../ui/HalftoneBackground.tsx';
     opacity: 0.5;
   }
 
-  /* ── Visual card ──────────────────────────────────────── */
+  /* ── Visual (IDE Viewport) ──────────────────────────────────────── */
   .hero-visual {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    opacity: 0;
-    animation: fade-up var(--dur-slow) var(--ease-out) 0.5s forwards;
-    position: relative;
-  }
-
-  .visual-card {
-    position: absolute;
-    width: 140%; /* Reduced from 150% */
-    max-width: 850px; /* Reduced from 900px */
-    aspect-ratio: 1;
-    right: -18%; /* Adjusted from -22% */
-    top: 50%;
-    transform: translateY(-50%);
-  }
-  @media (min-width: 1200px) {
-    .visual-card {
-      width: 145%; /* Reduced from 160% */
-      right: -20%; /* Adjusted from -25% */
-    }
-  }
-
-  .hero-image {
     width: 100%;
-    height: 100%;
-    object-fit: contain;
-    display: block;
+    max-width: 1300px;
+    opacity: 0;
+    animation: fade-up var(--dur-slow) var(--ease-out) 1.15s forwards;
   }
-
-  /* Remove old card styles */
 
   /* ── Keyframes ────────────────────────────────────────── */
   @keyframes fade-up {
@@ -365,23 +428,8 @@ import HalftoneBackground from '../ui/HalftoneBackground.tsx';
   /* ── Responsive ────────────────────────────────────────── */
   @media (max-width: 900px) {
     .hero-inner {
-      grid-template-columns: 1fr;
-      gap: var(--space-2);
-      padding-top: 0; /* Remove extra padding since navbar spacer handles clearance */
-    }
-    .hero-visual {
-      order: 2;
-      min-height: 250px; /* Further reduced for tablet */
-    }
-    .visual-card {
-      position: relative;
-      width: 100%;
-      max-width: 600px;
-      right: 0;
-      left: 0;
-      margin: 0 auto;
-      top: 0;
-      transform: none;
+      gap: var(--space-12);
+      padding-top: var(--space-8);
     }
   }
 
@@ -391,35 +439,25 @@ import HalftoneBackground from '../ui/HalftoneBackground.tsx';
     }
     .hero-inner {
       padding-top: 0;
-      gap: 0; /* No gap between content and visual on mobile */
-    }
-    .hero-visual {
-      min-height: 250px; /* Much smaller height for mobile */
-    }
-    .visual-card {
-      max-width: 400px; /* Smaller max-width for mobile */
+      gap: var(--space-10);
     }
     .hero-content {
       text-align: center;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      order: 1;
     }
     .hero-headline { 
       font-size: clamp(2.25rem, 12vw, 3.5rem); 
-      margin-bottom: var(--space-5); /* Increased from var(--space-2) */
-      line-height: 1.05; /* Increased from 0.95 */
+      margin-bottom: var(--space-5);
+      line-height: 1.05;
     }
     .hero-sub { 
       font-size: var(--text-base); 
-      margin-bottom: var(--space-6); /* Increased from var(--space-3) */
+      margin-bottom: var(--space-6);
       line-height: 1.6;
     }
     .hero-actions {
       gap: var(--space-4);
       justify-content: center;
-      margin-bottom: var(--space-1);
+      margin-bottom: var(--space-4);
     }
     .btn-primary {
       padding: var(--space-3) var(--space-6);
@@ -429,22 +467,10 @@ import HalftoneBackground from '../ui/HalftoneBackground.tsx';
     .btn-secondary {
       font-size: var(--text-sm);
     }
-    .value-props {
-      gap: var(--space-3);
-      margin-top: var(--space-3);
-      justify-content: center;
-    }
-    .prop-pill {
-      padding: var(--space-2) var(--space-4);
-    }
-    .prop-label {
-      font-size: var(--text-xs);
-    }
   }
 
   /* ── Reduced motion ────────────────────────────────────── */
   @media (prefers-reduced-motion: reduce) {
-    .brand-pill,
     .hero-line,
     .hero-sub,
     .hero-actions,
