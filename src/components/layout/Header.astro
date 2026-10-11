@@ -253,7 +253,20 @@ const { pathname } = Astro.url;
   .mobile-nav {
     border-top: 1px solid var(--border);
     background: var(--surface);
+    border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+    overflow: hidden;
+    transition: max-height var(--dur-base) var(--ease-out),
+                opacity var(--dur-base) var(--ease-out);
+    max-height: 500px;
+    opacity: 1;
   }
+  
+  .mobile-nav[hidden] {
+    max-height: 0;
+    opacity: 0;
+    border-top-width: 0;
+  }
+  
   .mobile-nav ul {
     list-style: none;
     margin: 0;
@@ -262,19 +275,23 @@ const { pathname } = Astro.url;
     flex-direction: column;
     gap: var(--space-4);
   }
+  
   .mobile-nav-link {
     font-family: var(--font-body);
     font-size: var(--text-md);
     font-weight: 500;
     color: var(--text);
     transition: color var(--dur-fast) var(--ease-out);
+    display: block;
   }
   .mobile-nav-link:hover { color: var(--text-strong); }
+  
   .mobile-nav-cta {
     font-family: var(--font-body);
     font-size: var(--text-md);
     font-weight: 600;
     color: var(--text-strong);
+    display: block;
   }
 
   @media (max-width: 767px) {
@@ -288,16 +305,27 @@ const { pathname } = Astro.url;
   // Mobile toggle
   const btn = document.getElementById('mobile-menu-btn');
   const mobileNav = document.getElementById('mobile-nav');
+  
   btn?.addEventListener('click', () => {
-    const isOpen = mobileNav?.hidden === false;
-    if (mobileNav) mobileNav.hidden = isOpen;
+    const isOpen = !mobileNav?.hasAttribute('hidden');
+    
+    if (mobileNav) {
+      if (isOpen) {
+        mobileNav.setAttribute('hidden', '');
+      } else {
+        mobileNav.removeAttribute('hidden');
+      }
+    }
+    
     btn.setAttribute('aria-expanded', String(!isOpen));
   });
 
   // Close on link click
   mobileNav?.querySelectorAll('a').forEach(link => {
     link.addEventListener('click', () => {
-      if (mobileNav) mobileNav.hidden = true;
+      if (mobileNav) {
+        mobileNav.setAttribute('hidden', '');
+      }
       btn?.setAttribute('aria-expanded', 'false');
     });
   });
