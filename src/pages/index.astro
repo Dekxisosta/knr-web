@@ -4,7 +4,6 @@ import Hero from '../components/sections/Hero.astro';
 import Services from '../components/sections/Services.astro';
 import TechStack from '../components/sections/TechStack.astro';
 import Process from '../components/sections/Process.astro';
-import Team from '../components/sections/Team.astro';
 import FAQ from '../components/sections/FAQ.astro';
 import Contact from '../components/sections/Contact.astro';
 
@@ -31,14 +30,7 @@ const orgSchema = {
 };
 
 // Person JSON-LD for each founder (replace placeholders with real data)
-const founderSchemas = [1, 2, 3].map((n) => ({
-  '@context': 'https://schema.org',
-  '@type': 'Person',
-  name: `[FOUNDER_${n}_NAME]`,
-  jobTitle: `[FOUNDER_${n}_ROLE]`,
-  worksFor: { '@type': 'Organization', name: 'KNR Collective', url: 'https://knrcollective.com' },
-  url: `https://knrcollective.com/#team`,
-}));
+const founderSchemas = [];
 
 // FAQ Schema
 const faqSchema = {
@@ -93,7 +85,6 @@ const allSchemas = [orgSchema, ...founderSchemas, faqSchema];
   <Services />
   <TechStack />
   <Process />
-  <Team />
   <FAQ />
   <Contact />
 </BaseLayout>
