@@ -22,7 +22,7 @@ const checkIcon = '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14
           id="contact-form"
           class="contact-form"
           method="POST"
-          action="/api/contact"
+          action="https://knr-contact-api.rroquxii.workers.dev"
           novalidate
           aria-label="Project inquiry form"
         >
@@ -527,7 +527,7 @@ const checkIcon = '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14
     }
 
     try {
-      const res = await fetch('/api/contact', { method: 'POST', body: data });
+      const res = await fetch('https://knr-contact-api.rroquxii.workers.dev', { method: 'POST', body: data });
       if (res.ok) {
         if (statusEl) {
           statusEl.hidden = false;
