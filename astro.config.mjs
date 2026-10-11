@@ -11,7 +11,9 @@ export default defineConfig({
 
   // Use Cloudflare adapter for server-rendered endpoints
   output: 'server',
-  adapter: cloudflare(),
+  adapter: cloudflare({
+    mode: 'directory',
+  }),
 
   integrations: [
     react({ 
