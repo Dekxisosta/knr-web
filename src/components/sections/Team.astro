@@ -206,7 +206,7 @@ const founders = (await getCollection('team')).sort(
     border-radius: 50%;
     overflow: hidden;
     background: var(--surface-2);
-    border: 3px dashed #666666; /* Improved contrast from #444444 */
+    border: 3px dashed rgba(212, 175, 55, 0.4);
     transition: border-color var(--dur-fast) var(--ease-out);
     position: relative;
   }
@@ -250,7 +250,7 @@ const founders = (await getCollection('team')).sort(
       filter: grayscale(60%) contrast(1.05) brightness(1.05);
     }
     .team-card:hover .member-photo-wrap {
-      border-color: #ffffff;
+      border-color: rgba(212, 175, 55, 0.8);
     }
     .team-card:hover .member-photo-wrap::before {
       opacity: 1;
@@ -305,19 +305,19 @@ const founders = (await getCollection('team')).sort(
   .member-link {
     font-family: var(--font-mono);
     font-size: var(--text-xs);
-    color: #ffffff; /* Improved contrast from #cccccc */
+    color: #ffffff;
     text-decoration: none;
     padding: var(--space-1) var(--space-3);
-    border: 1px solid #666666; /* Improved contrast from #444444 */
+    border: 1px solid rgba(212, 175, 55, 0.3);
     border-radius: 2px;
     transition: all var(--dur-fast) var(--ease-out);
-    background: rgba(255, 255, 255, 0.05); /* Subtle background for better contrast */
+    background: rgba(255, 255, 255, 0.05);
   }
   
   .member-link:hover {
     color: #ffffff;
-    border-color: #ffffff;
-    background: rgba(255,255,255,0.15); /* Increased background opacity on hover */
+    border-color: rgba(212, 175, 55, 0.7);
+    background: rgba(212, 175, 55, 0.15);
   }
 
   .member-link-text {
