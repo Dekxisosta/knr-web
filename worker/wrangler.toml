@@ -1,0 +1,12 @@
+name = "knr-contact-api"
+main = "index.js"
+compatibility_date = "2024-10-11"
+
+# Environment variables (secrets set via CLI: wrangler secret put FORMSPREE_ENDPOINT)
+# [vars]
+# You can add non-secret variables here
+
+# For production deployment
+[env.production]
+name = "knr-contact-api"
+# routes = ["knrcollective.com/api/*"]

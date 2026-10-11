@@ -9,7 +9,9 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "worker:deploy": "cd worker && wrangler deploy",
+    "worker:dev": "cd worker && wrangler dev"
   },
   "dependencies": {
     "@astrojs/cloudflare": "^14.3.4",

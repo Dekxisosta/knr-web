@@ -3,17 +3,13 @@ import { defineConfig } from 'astro/config';
 import react from '@astrojs/react';
 import tailwindcss from '@tailwindcss/vite';
 import sitemap from '@astrojs/sitemap';
-import cloudflare from '@astrojs/cloudflare';
 
 // Astro configuration for KNR Collective website
 export default defineConfig({
   site: 'https://knrcollective.com',
 
-  // Use Cloudflare adapter for server-rendered endpoints
-  output: 'server',
-  adapter: cloudflare({
-    mode: 'directory',
-  }),
+  // Pure static output - API handled by separate Cloudflare Worker
+  output: 'static',
 
   integrations: [
     react({ 
