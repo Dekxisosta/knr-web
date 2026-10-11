@@ -4,7 +4,7 @@ import react from '@astrojs/react';
 import tailwindcss from '@tailwindcss/vite';
 import sitemap from '@astrojs/sitemap';
 
-// Astro configuration for KNR Collective website
+// Astro configuration for KNR Collective website 
 export default defineConfig({
   site: 'https://knrcollective.com',
 
