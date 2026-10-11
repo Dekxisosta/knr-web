@@ -38,6 +38,12 @@ import HalftoneBackground from '../ui/HalftoneBackground.tsx';
         </a>
       </div>
 
+      <div class="trust-line">
+        <span class="trust-item">OWASP-aligned</span>
+        <span class="trust-separator">•</span>
+        <span class="trust-item">Pen-tested</span>
+      </div>
+
       <div class="hero-tag">
         @knrcollective
       </div>
@@ -168,7 +174,8 @@ import HalftoneBackground from '../ui/HalftoneBackground.tsx';
     border: 1.5px solid var(--text-light);
     border-radius: var(--radius-full);
     padding: var(--space-3) var(--space-6);
-    margin-bottom: var(--space-1);
+    margin-bottom: var(--space-3);
+    margin-left: calc(var(--space-6) * -1); /* Negative margin to align inner text with headline */
     opacity: 0;
     animation: fade-up var(--dur-slow) var(--ease-out) 0.1s forwards;
   }
@@ -192,6 +199,13 @@ import HalftoneBackground from '../ui/HalftoneBackground.tsx';
     border-radius: 50%;
     background: transparent;
     border: 1.5px solid var(--text-light);
+  }
+
+  .hero-content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Align all content to the left */
+    max-width: none; /* Remove any width constraints */
   }
 
   /* ── Headline ──────────────────────────────────────────── */
@@ -233,7 +247,7 @@ import HalftoneBackground from '../ui/HalftoneBackground.tsx';
     align-items: center;
     gap: var(--space-5);
     flex-wrap: wrap;
-    margin-bottom: var(--space-1);
+    margin-bottom: var(--space-3);
     opacity: 0;
     animation: fade-up var(--dur-slow) var(--ease-out) 0.7s forwards;
   }
@@ -275,13 +289,39 @@ import HalftoneBackground from '../ui/HalftoneBackground.tsx';
     text-decoration-color: var(--text-light);
   }
 
+  /* ── Trust line ──────────────────────────────────────────── */
+  .trust-line {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    margin-top: var(--space-3); /* Add top spacing from CTAs */
+    margin-bottom: var(--space-6); /* Increased spacing before handle */
+    opacity: 0;
+    animation: fade-up var(--dur-slow) var(--ease-out) 0.85s forwards;
+  }
+
+  .trust-item {
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    font-weight: 500;
+    color: var(--text-light-muted);
+    letter-spacing: -0.01em;
+  }
+
+  .trust-separator {
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    color: var(--text-light-muted);
+    opacity: 0.5;
+  }
+
   /* ── Tag ───────────────────────────────────────────────── */
   .hero-tag {
     font-family: var(--font-mono);
     font-size: var(--text-sm);
     color: var(--text-light-muted);
     opacity: 0;
-    animation: fade-up var(--dur-slow) var(--ease-out) 0.85s forwards;
+    animation: fade-up var(--dur-slow) var(--ease-out) 1s forwards;
   }
 
   /* ── Visual card ──────────────────────────────────────── */
@@ -411,6 +451,7 @@ import HalftoneBackground from '../ui/HalftoneBackground.tsx';
     .hero-line,
     .hero-sub,
     .hero-actions,
+    .trust-line,
     .hero-tag,
     .hero-visual {
       opacity: 1;
