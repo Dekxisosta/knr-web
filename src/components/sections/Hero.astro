@@ -179,7 +179,7 @@ import HalftoneBackground from '../ui/HalftoneBackground.tsx';
     border: 1.5px solid var(--text-light);
     border-radius: var(--radius-full);
     padding: var(--space-3) var(--space-6);
-    margin-bottom: var(--space-5); /* Increased from var(--space-3) */
+    margin-bottom: var(--space-8); /* Increased from var(--space-5) */
     margin-left: calc(var(--space-6) * -1); /* Negative margin to align inner text with headline */
     opacity: 0;
     animation: fade-up var(--dur-slow) var(--ease-out) 0.1s forwards;
@@ -218,8 +218,8 @@ import HalftoneBackground from '../ui/HalftoneBackground.tsx';
   .hero-headline {
     font-size: clamp(2.5rem, 8vw, 5.5rem);
     font-weight: 700;
-    line-height: 0.95;
-    margin-bottom: var(--space-6);
+    line-height: 1.1;
+    margin-bottom: var(--space-10); /* Increased from var(--space-6) */
     letter-spacing: -0.04em;
     color: var(--text-light);
   }
@@ -241,8 +241,8 @@ import HalftoneBackground from '../ui/HalftoneBackground.tsx';
     font-family: var(--font-body);
     font-size: clamp(var(--text-base), 1.8vw, var(--text-lg));
     color: var(--text-light-muted);
-    line-height: 1.5;
-    margin-bottom: var(--space-8);
+    line-height: 1.7; /* Increased from 1.5 */
+    margin-bottom: var(--space-12); /* Increased from var(--space-8) */
     opacity: 0;
     animation: fade-up var(--dur-slow) var(--ease-out) 0.55s forwards;
   }
@@ -253,7 +253,7 @@ import HalftoneBackground from '../ui/HalftoneBackground.tsx';
     align-items: center;
     gap: var(--space-5);
     flex-wrap: wrap;
-    margin-bottom: var(--space-5); /* Increased from var(--space-3) */
+    margin-bottom: var(--space-8); /* Increased from var(--space-5) */
     opacity: 0;
     animation: fade-up var(--dur-slow) var(--ease-out) 0.7s forwards;
   }
@@ -408,12 +408,13 @@ import HalftoneBackground from '../ui/HalftoneBackground.tsx';
     }
     .hero-headline { 
       font-size: clamp(2.25rem, 12vw, 3.5rem); 
-      margin-bottom: var(--space-2);
-      line-height: 0.95;
+      margin-bottom: var(--space-5); /* Increased from var(--space-2) */
+      line-height: 1.05; /* Increased from 0.95 */
     }
     .hero-sub { 
       font-size: var(--text-base); 
-      margin-bottom: var(--space-3);
+      margin-bottom: var(--space-6); /* Increased from var(--space-3) */
+      line-height: 1.6;
     }
     .hero-actions {
       gap: var(--space-4);
