@@ -5,7 +5,7 @@ import tailwindcss from '@tailwindcss/vite';
 import sitemap from '@astrojs/sitemap';
 import cloudflare from '@astrojs/cloudflare';
 
-// https://astro.build/config
+// Astro configuration for KNR Collective website
 export default defineConfig({
   site: 'https://knrcollective.com',
 
