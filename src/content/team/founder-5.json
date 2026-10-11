@@ -1,0 +1,33 @@
+{
+  "name": "Joshua Emmanuel Balois",
+  "nickname": "JOSH",
+  "slug": "josh",
+  "role": "Backend Developer",
+  "focus": "Server-Side & APIs",
+  "bio": "Builds robust backend systems and APIs that power seamless user experiences. Specializes in scalable architectures and efficient data handling.",
+  "photo": "/images/team/josh.webp",
+  "credentials": [
+    {
+      "label": "Backend Development",
+      "detail": "Server-side logic, database design"
+    },
+    {
+      "label": "API Development",
+      "detail": "RESTful APIs, GraphQL"
+    },
+    {
+      "label": "System Architecture",
+      "detail": "Scalable and maintainable systems"
+    },
+    {
+      "label": "Database Management",
+      "detail": "SQL and NoSQL optimization"
+    }
+  ],
+  "links": {
+    "github": "https://github.com/SHUBARUUU",
+    "linkedin": "https://www.linkedin.com/in/joshua-emmanuel-balois-881a5533a/",
+    "email": "joshuaemmanuelbalois@gmail.com"
+  },
+  "order": 5
+}
