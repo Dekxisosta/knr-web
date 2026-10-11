@@ -1,10 +1,7 @@
 import type { APIRoute } from 'astro';
 
-// NOTE: This endpoint requires a server adapter (e.g. @astrojs/vercel or @astrojs/netlify)
-// to run server-side at deploy time. For purely static deploys, the contact form
-// falls back to Formspree's direct submission (see Contact.astro).
-// To enable server-side handling, install your adapter and uncomment:
-// export const prerender = false;
+// Enable server-side rendering for this endpoint to handle POST requests
+export const prerender = false;
 
 // Contact form endpoint
 // Configured for Formspree by default. Set FORMSPREE_ENDPOINT in your .env
