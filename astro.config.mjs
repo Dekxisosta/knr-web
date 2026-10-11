@@ -10,7 +10,7 @@ export default defineConfig({
   site: 'https://knrcollective.com',
 
   // Use Cloudflare adapter for server-rendered endpoints
-  output: 'static',
+  output: 'server',
   adapter: cloudflare(),
 
   integrations: [
