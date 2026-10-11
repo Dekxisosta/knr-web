@@ -23,13 +23,14 @@ import HalftoneBackground from '../ui/HalftoneBackground.tsx';
       </div>
 
       <h1 id="hero-headline" class="hero-headline">
-        <span class="hero-line">Secure by</span>
-        <span class="hero-line hero-line--bold">design.</span>
+        <span class="hero-line">Secure software</span>
+        <span class="hero-line hero-line--bold">by design.</span>
       </h1>
 
       <p class="hero-sub">
-        Software engineering and<br />
-        security auditing.
+        Expert software engineering and security auditing.<br />
+        We build systems that are secure from the ground up,<br />
+        not patched as an afterthought.
       </p>
 
       <div class="hero-actions">
@@ -45,10 +46,6 @@ import HalftoneBackground from '../ui/HalftoneBackground.tsx';
         <span class="trust-item">OWASP-aligned</span>
         <span class="trust-separator">•</span>
         <span class="trust-item">Pen-tested</span>
-      </div>
-
-      <div class="hero-tag">
-        @knrcollective
       </div>
     </div>
 
@@ -80,7 +77,7 @@ import HalftoneBackground from '../ui/HalftoneBackground.tsx';
 
 <style>
   .hero {
-    min-height: 70vh;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -166,8 +163,8 @@ import HalftoneBackground from '../ui/HalftoneBackground.tsx';
 
   .hero-inner {
     display: grid;
-    grid-template-columns: 1.2fr 1fr;
-    gap: var(--space-20);
+    grid-template-columns: 1.3fr 1fr; /* Reduced from 1.6fr to prevent overlap */
+    gap: var(--space-24); /* Increased gap to create more separation */
     align-items: center;
     padding-block: 0;
     position: relative;
@@ -190,7 +187,7 @@ import HalftoneBackground from '../ui/HalftoneBackground.tsx';
     border: 1.5px solid var(--text-light);
     border-radius: var(--radius-full);
     padding: var(--space-3) var(--space-6);
-    margin-bottom: var(--space-3);
+    margin-bottom: var(--space-5); /* Increased from var(--space-3) */
     margin-left: calc(var(--space-6) * -1); /* Negative margin to align inner text with headline */
     opacity: 0;
     animation: fade-up var(--dur-slow) var(--ease-out) 0.1s forwards;
@@ -230,7 +227,7 @@ import HalftoneBackground from '../ui/HalftoneBackground.tsx';
     font-size: clamp(3.5rem, 10vw, 7.5rem);
     font-weight: 700;
     line-height: 0.9; /* Increased from 0.8 for better readability */
-    margin-bottom: var(--space-3); /* Increased from var(--space-1) */
+    margin-bottom: var(--space-6); /* Increased from var(--space-3) */
     letter-spacing: -0.05em;
     color: var(--text-light);
   }
@@ -244,7 +241,7 @@ import HalftoneBackground from '../ui/HalftoneBackground.tsx';
 
   .hero-line--bold {
     font-weight: 700;
-    animation-delay: 0.4s;
+    animation-delay: 0.4s; /* Back to two lines */
   }
 
   /* ── Sub ───────────────────────────────────────────────── */
@@ -253,7 +250,7 @@ import HalftoneBackground from '../ui/HalftoneBackground.tsx';
     font-size: clamp(var(--text-lg), 2vw, var(--text-xl));
     color: var(--text-light-muted);
     line-height: 1.4; /* Increased from 1.3 for better readability */
-    margin-bottom: var(--space-5); /* Increased from var(--space-3) */
+    margin-bottom: var(--space-8); /* Increased from var(--space-5) */
     opacity: 0;
     animation: fade-up var(--dur-slow) var(--ease-out) 0.55s forwards;
   }
@@ -264,7 +261,7 @@ import HalftoneBackground from '../ui/HalftoneBackground.tsx';
     align-items: center;
     gap: var(--space-5);
     flex-wrap: wrap;
-    margin-bottom: var(--space-3);
+    margin-bottom: var(--space-5); /* Increased from var(--space-3) */
     opacity: 0;
     animation: fade-up var(--dur-slow) var(--ease-out) 0.7s forwards;
   }
@@ -311,8 +308,8 @@ import HalftoneBackground from '../ui/HalftoneBackground.tsx';
     display: flex;
     align-items: center;
     gap: var(--space-3);
-    margin-top: var(--space-3); /* Add top spacing from CTAs */
-    margin-bottom: var(--space-6); /* Increased spacing before handle */
+    margin-top: var(--space-4); /* Increased from var(--space-3) */
+    margin-bottom: var(--space-8); /* Increased from var(--space-6) */
     opacity: 0;
     animation: fade-up var(--dur-slow) var(--ease-out) 0.85s forwards;
   }
@@ -332,15 +329,6 @@ import HalftoneBackground from '../ui/HalftoneBackground.tsx';
     opacity: 0.5;
   }
 
-  /* ── Tag ───────────────────────────────────────────────── */
-  .hero-tag {
-    font-family: var(--font-mono);
-    font-size: var(--text-sm);
-    color: var(--text-light-muted);
-    opacity: 0;
-    animation: fade-up var(--dur-slow) var(--ease-out) 1s forwards;
-  }
-
   /* ── Visual card ──────────────────────────────────────── */
   .hero-visual {
     display: flex;
@@ -353,17 +341,17 @@ import HalftoneBackground from '../ui/HalftoneBackground.tsx';
 
   .visual-card {
     position: absolute;
-    width: 150%;
-    max-width: 900px;
+    width: 140%; /* Reduced from 150% */
+    max-width: 850px; /* Reduced from 900px */
     aspect-ratio: 1;
-    right: -22%;
+    right: -18%; /* Adjusted from -22% */
     top: 50%;
     transform: translateY(-50%);
   }
   @media (min-width: 1200px) {
     .visual-card {
-      width: 160%;
-      right: -25%;
+      width: 145%; /* Reduced from 160% */
+      right: -20%; /* Adjusted from -25% */
     }
   }
 
@@ -468,7 +456,6 @@ import HalftoneBackground from '../ui/HalftoneBackground.tsx';
     .hero-sub,
     .hero-actions,
     .trust-line,
-    .hero-tag,
     .hero-visual {
       opacity: 1;
       animation: none;
