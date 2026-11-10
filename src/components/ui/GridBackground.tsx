@@ -6,7 +6,8 @@ const DOT_BASE_OPACITY = 0.08;
 const DOT_HOVER_OPACITY = 0.35;
 const CURSOR_RADIUS = 140;
 const AMPLITUDE = 3;
-const MAX_DPR = 2;
+const MAX_DPR = 1.5;
+const FRAME_MS = 1000 / 30;
 
 interface Dot {
   bx: number;
@@ -75,59 +76,54 @@ export default function GridBackground() {
 
     function draw(now: number) {
       if (!canvas || !ctx) return;
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      ctx.save();
       ctx.scale(dpr, dpr);
 
+      const glow = !prefersReduced && !isTouch;
+      const r2 = CURSOR_RADIUS * CURSOR_RADIUS;
+      const near: Array<[number, number, number]> = [];
+
+      // All resting dots share one colour: draw them in a single batched path.
+      ctx.fillStyle = `rgba(255,255,255,${DOT_BASE_OPACITY})`;
+      ctx.beginPath();
       for (const d of dots) {
         let dx = d.bx;
         let dy = d.by;
-
         if (!prefersReduced) {
           const tx = (now % d.period) / d.period;
           const ty = (now % d.periodY) / d.periodY;
           dx += Math.sin(d.phase + tx * Math.PI * 2) * AMPLITUDE;
           dy += Math.sin(d.phaseY + ty * Math.PI * 2) * AMPLITUDE;
         }
-
-        let opacity = DOT_BASE_OPACITY;
-
-        // Cursor glow — skip on touch and reduced motion
-        if (!prefersReduced && !isTouch) {
-          const dist = Math.hypot(dx - cx, dy - cy);
-          if (dist < CURSOR_RADIUS) {
-            const t = 1 - dist / CURSOR_RADIUS;
-            opacity = DOT_BASE_OPACITY + (DOT_HOVER_OPACITY - DOT_BASE_OPACITY) * t * t;
+        if (glow) {
+          const ox = dx - cx;
+          const oy = dy - cy;
+          const dist2 = ox * ox + oy * oy;
+          if (dist2 < r2) {
+            near.push([dx, dy, 1 - Math.sqrt(dist2) / CURSOR_RADIUS]);
+            continue;
           }
         }
-
-        ctx.fillStyle = `rgba(255,255,255,${opacity})`;
-        ctx.beginPath();
-        ctx.arc(dx, dy, 0.5, 0, Math.PI * 2);
-        ctx.fill();
+        ctx.rect(dx - 0.5, dy - 0.5, 1, 1);
       }
+      ctx.fill();
 
-      ctx.restore();
-
-      // Vignette overlay
-      const vg = ctx.createRadialGradient(
-        canvas.width / 2,
-        canvas.height / 2,
-        Math.min(canvas.width, canvas.height) * 0.3,
-        canvas.width / 2,
-        canvas.height / 2,
-        Math.max(canvas.width, canvas.height) * 0.75
-      );
-      vg.addColorStop(0, 'rgba(0,0,0,0)');
-      vg.addColorStop(1, 'rgba(0,0,0,0.85)');
-      ctx.fillStyle = vg;
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      // Only dots under the cursor need their own opacity.
+      for (const [x, y, t] of near) {
+        const opacity = DOT_BASE_OPACITY + (DOT_HOVER_OPACITY - DOT_BASE_OPACITY) * t * t;
+        ctx.fillStyle = `rgba(255,255,255,${opacity})`;
+        ctx.fillRect(x - 0.5, y - 0.5, 1, 1);
+      }
     }
 
+    // The drift is very slow (12-20s periods), so 30fps looks identical and halves the work.
+    let last = 0;
     function loop(now: number) {
-      if (!hidden) draw(now);
       animId = requestAnimationFrame(loop);
+      if (hidden || now - last < FRAME_MS) return;
+      last = now;
+      draw(now);
     }
     animId = requestAnimationFrame(loop);
 
@@ -158,17 +154,31 @@ export default function GridBackground() {
   }, []);
 
   return (
-    <canvas
-      ref={canvasRef}
-      aria-hidden="true"
-      style={{
-        position: 'fixed',
-        inset: 0,
-        zIndex: -1,
-        pointerEvents: 'none',
-        display: 'block',
-        backgroundColor: '#000',
-      }}
-    />
+    <>
+      <canvas
+        ref={canvasRef}
+        aria-hidden="true"
+        style={{
+          position: 'fixed',
+          inset: 0,
+          zIndex: -1,
+          pointerEvents: 'none',
+          display: 'block',
+          backgroundColor: '#000',
+        }}
+      />
+      {/* Static vignette (was redrawn on the canvas every frame) */}
+      <div
+        aria-hidden="true"
+        style={{
+          position: 'fixed',
+          inset: 0,
+          zIndex: -1,
+          pointerEvents: 'none',
+          background:
+            'radial-gradient(ellipse at center, rgba(0,0,0,0) 30%, rgba(0,0,0,0.85) 100%)',
+        }}
+      />
+    </>
   );
 }

@@ -1,107 +1,134 @@
 ---
-// Hero section with draggable IDE
+// Hero: exactly one viewport tall. The IDE viewport lives in its own section right below.
 import IDEViewport from '../ui/IDEViewport.tsx';
-import HalftoneBackground from '../ui/HalftoneBackground.tsx';
 import ServicesBento from '../ui/ServicesBento.astro';
 ---
 
 <section class="hero" aria-labelledby="hero-headline">
-  <!-- Invisible navbar spacer -->
-  <div class="navbar-spacer" aria-hidden="true"></div>
-  
-  <HalftoneBackground client:visible />
-  <div class="section-container hero-inner">
+  <div class="section-container hero-main">
+    <div class="hero-split">
 
-    <!-- Hero Container with solid background -->
-    <div class="hero-container">
-      <!-- 50:50 Layout for desktop -->
-      <div class="hero-split">
-        <!-- Left: Main content -->
-        <div class="hero-content">
-          <h1 id="hero-headline" class="hero-headline">
-            <span class="hero-line">Secure software</span>
-            <span class="hero-line hero-line--bold">by design.</span>
-          </h1>
+      <!-- Left: copy -->
+      <div class="hero-content">
+        <p class="hero-eyebrow">
+          <span class="eyebrow-dot" aria-hidden="true"></span>
+          Software engineering &amp; security auditing
+        </p>
 
-          <p class="hero-sub">
-            Expert software engineering and security auditing.<br />
-            We build systems that are secure from the ground up,<br />
-            not patched as an afterthought.
-          </p>
+        <h1 id="hero-headline" class="hero-headline">
+          <span class="hero-line">Secure software</span>
+          <span class="hero-line hero-line--bold">by design.</span>
+        </h1>
 
-          <div class="hero-actions">
-            <a href="/#contact" class="btn-primary">
-              Start a project
-            </a>
-            <a href="/#work" class="btn-secondary">
-              See our work
-            </a>
-          </div>
+        <p class="hero-sub">
+          We build systems that are secure from the ground up,
+          not patched as an afterthought.
+        </p>
 
-          <div class="trust-line">
-            <span class="trust-item">OWASP-aligned</span>
-            <span class="trust-separator">•</span>
-            <span class="trust-item">Pen-tested</span>
-          </div>
+        <div class="hero-actions">
+          <a href="/#contact" class="btn-primary">
+            Start a project <span aria-hidden="true">↗</span>
+          </a>
+          <a href="/#work" class="btn-secondary">See our work</a>
         </div>
 
-        <!-- Right: Hero image -->
-        <div class="hero-image">
-          <img src="/images/hero.webp" alt="KNR Web Hero" loading="eager" />
+        <ul class="trust-line" role="list">
+          <li class="trust-chip">OWASP-aligned</li>
+          <li class="trust-chip">Pen-tested</li>
+        </ul>
+      </div>
+
+      <!-- Right: image -->
+      <div class="hero-image">
+        <div class="image-frame">
+          <img src="/images/hero.webp" alt="KNR Collective hero illustration" loading="eager" fetchpriority="high" />
+
+          <!-- Decorative audit readout -->
+          <div class="audit-card" aria-hidden="true">
+            <div class="audit-bar">
+              <span class="audit-dot"></span><span class="audit-dot"></span><span class="audit-dot"></span>
+              <span class="audit-title">knr audit</span>
+            </div>
+            <ul class="audit-lines">
+              <li><span class="ok">✓</span> dependencies validated</li>
+              <li><span class="ok">✓</span> auth flows reviewed</li>
+              <li><span class="ok">✓</span> input handling tested</li>
+              <li><span class="run">›</span> reporting findings<span class="caret"></span></li>
+            </ul>
+          </div>
         </div>
       </div>
+
     </div>
 
-    <!-- Services Bento Grid -->
-    <div class="hero-services">
-      <ServicesBento />
-    </div>
+    <!-- Principles row -->
+    <ul class="principles" role="list">
+      <li class="principle">
+        <span class="principle-num">01</span>
+        <div>
+          <h2 class="principle-title">Designed with threats in mind</h2>
+          <p class="principle-text">Security is an engineering requirement from the first commit.</p>
+        </div>
+      </li>
+      <li class="principle">
+        <span class="principle-num">02</span>
+        <div>
+          <h2 class="principle-title">Nothing assumed safe</h2>
+          <p class="principle-text">We review generated and third-party code instead of trusting it.</p>
+        </div>
+      </li>
+      <li class="principle">
+        <span class="principle-num">03</span>
+        <div>
+          <h2 class="principle-title">Tested before it ships</h2>
+          <p class="principle-text">Implementations and dependencies are verified, not just written.</p>
+        </div>
+      </li>
+    </ul>
+  </div>
 
-    <!-- IDE Viewport (bottom) -->
-    <div class="hero-visual">
-      <IDEViewport client:load />
-    </div>
+  <!-- Services strip, pinned to the bottom of the viewport -->
+  <div class="section-container hero-services">
+    <ServicesBento />
+  </div>
+</section>
 
+<!-- IDE viewport sits directly below the hero -->
+<section class="hero-reveal" aria-label="Development environment preview">
+  <div class="section-container hero-reveal-inner">
+    <IDEViewport client:visible />
   </div>
 </section>
 
 <style>
+  /* ── Hero: exactly one viewport tall ───────────────────── */
   .hero {
-    min-height: 100vh;
+    --hero-top: 96px; /* clears the fixed navbar */
+    height: 100vh;    /* fallback */
+    height: 100dvh;   /* real visible viewport on mobile browsers */
+    box-sizing: border-box;
+    padding-top: var(--hero-top);
+    padding-bottom: var(--space-5);
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    padding-top: 0; /* Remove top padding since we have navbar spacer */
-    padding-bottom: var(--space-2);
     position: relative;
     background: var(--bg-dark);
     overflow: hidden;
   }
 
-  /* Invisible spacer to prevent navbar overlap */
-  .navbar-spacer {
-    height: 100px; /* Increased from 80px for more allowance */
-    width: 100%;
-    flex-shrink: 0;
-  }
-
   @media (max-width: 640px) {
-    .navbar-spacer {
-      height: 90px; /* Increased from 70px for more allowance on mobile */
-    }
+    .hero { --hero-top: 84px; }
   }
 
-  /* Color-shifting gradient overlays */
+  /* Colour-shifting glow overlays */
   .hero::before,
   .hero::after {
     content: '';
     position: absolute;
     pointer-events: none;
     z-index: 0;
-    animation: gradient-shift 8s ease-in-out infinite;
   }
 
-  /* Top-right gradient */
   .hero::before {
     top: 0;
     right: 0;
@@ -109,13 +136,12 @@ import ServicesBento from '../ui/ServicesBento.astro';
     height: 60%;
     background: radial-gradient(
       ellipse 50% 40% at 80% 20%,
-      rgba(255, 215, 0, 0.12) 0%,
-      rgba(212, 175, 55, 0.06) 30%,
+      rgba(255, 255, 255, 0.07) 0%,
+      rgba(255, 255, 255, 0.03) 30%,
       transparent 70%
     );
   }
 
-  /* Bottom-left gradient */
   .hero::after {
     bottom: 0;
     left: 0;
@@ -123,123 +149,36 @@ import ServicesBento from '../ui/ServicesBento.astro';
     height: 55%;
     background: radial-gradient(
       ellipse 45% 35% at 20% 80%,
-      rgba(184, 134, 11, 0.1) 0%,
-      rgba(255, 215, 0, 0.05) 35%,
+      rgba(255, 255, 255, 0.06) 0%,
+      rgba(255, 255, 255, 0.025) 35%,
       transparent 70%
     );
-    animation-delay: 4s;
   }
 
-  /* Hide gradients on tablet and below */
   @media (max-width: 768px) {
     .hero::before,
-    .hero::after {
-      display: none;
-    }
+    .hero::after { display: none; }
   }
 
-  /* Gradient color shift animation */
-  @keyframes gradient-shift {
-    0%, 100% {
-      filter: hue-rotate(0deg) saturate(1);
-    }
-    33% {
-      filter: hue-rotate(-60deg) saturate(1.4); /* Shift to violet */
-    }
-    66% {
-      filter: hue-rotate(140deg) saturate(1.6); /* Shift to neon blue */
-    }
-  }
-
-  .hero-inner {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-16);
-    align-items: center;
-    padding-block: 0;
-    position: relative;
-    max-width: 1400px;
-    margin: 0 auto;
-  }
-
-  @media (max-width: 900px) {
-    .hero-inner {
-      gap: var(--space-12);
-      padding-top: var(--space-8);
-    }
-  }
-
-  /* Hero Container with solid background */
-  .hero-container {
-    width: 90vw;
-    max-width: 1400px;
-    background: rgba(255, 255, 255, 0.01);
-    backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: var(--radius-lg);
-    padding: var(--space-12) var(--space-10);
-    opacity: 0;
-    animation: fade-up var(--dur-slow) var(--ease-out) 0.3s forwards;
-    position: relative;
-  }
-
-  /* Gold strips on sides */
-  .hero-container::before,
-  .hero-container::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    width: 4px;
-    background: linear-gradient(
-      180deg,
-      rgba(147, 51, 234, 0.3) 0%,
-      rgba(59, 130, 246, 0.35) 33%,
-      rgba(212, 175, 55, 0.3) 66%,
-      rgba(147, 51, 234, 0.3) 100%
-    );
-  }
-
-  .hero-container::before {
-    left: 0;
-    border-top-left-radius: var(--radius-lg);
-    border-bottom-left-radius: var(--radius-lg);
-  }
-
-  .hero-container::after {
-    right: 0;
-    border-top-right-radius: var(--radius-lg);
-    border-bottom-right-radius: var(--radius-lg);
-  }
-
-  @media (max-width: 1024px) {
-    .hero-container {
-      padding: var(--space-10) var(--space-8);
-    }
-  }
-
-  @media (max-width: 640px) {
-    .hero-container {
-      padding: var(--space-8) var(--space-6);
-    }
-  }
-
-  /* 50:50 Split Layout */
-  .hero-split {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: var(--space-12);
-    align-items: center;
+  /* ── Main area takes all remaining height ──────────────── */
+  .hero-main {
+    flex: 1;
+    min-height: 0;
     width: 100%;
     max-width: 1400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: var(--space-8);
   }
 
-  /* Tablet: vertical layout */
-  @media (max-width: 1024px) {
-    .hero-split {
-      grid-template-columns: 1fr;
-      gap: var(--space-8);
-    }
+  .hero-split {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: var(--space-8);
+    align-items: center;
+    width: 100%;
+    min-height: 0;
   }
 
   .hero-content {
@@ -247,98 +186,77 @@ import ServicesBento from '../ui/ServicesBento.astro';
     flex-direction: column;
     align-items: flex-start;
     text-align: left;
-    max-width: 600px;
-  }
-
-  /* Center content on tablet and below */
-  @media (max-width: 1024px) {
-    .hero-content {
-      align-items: center;
-      text-align: center;
-      max-width: 700px;
-      margin: 0 auto;
-    }
-  }
-
-  /* Hero Image */
-  .hero-image {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 1;
-  }
-
-  .hero-image img {
-    width: 100%;
-    height: auto;
-    max-width: 600px;
-    border-radius: var(--radius-lg);
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-  }
-
-  @media (max-width: 1024px) {
-    .hero-image {
-      max-width: 500px;
-      margin: 0 auto;
-    }
-  }
-
-  /* ── Services Bento ──────────────────────────────────────── */
-  .hero-services {
-    width: 100%;
-    max-width: 1200px;
+    max-width: 640px;
     opacity: 0;
-    animation: fade-up var(--dur-slow) var(--ease-out) 1s forwards;
+    animation: fade-up var(--dur-slow) var(--ease-out) 0.2s forwards;
   }
 
-  /* ── Headline ──────────────────────────────────────────── */
+  /* ── Eyebrow ───────────────────────────────────────────── */
+  .hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-family: var(--font-body);
+    font-size: var(--text-xs);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-light-muted);
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: var(--radius-full);
+    padding: var(--space-2) var(--space-4);
+    margin-bottom: var(--space-4);
+  }
+
+  .eyebrow-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: var(--radius-full);
+    background: var(--text-light);
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
+  }
+
+  /* ── Headline: scales with both width and height ───────── */
   .hero-headline {
-    font-size: clamp(2.5rem, 8vw, 5.5rem);
+    font-size: clamp(2.25rem, min(5.5vw, 9vh), 4.75rem);
     font-weight: 700;
-    line-height: 1.1;
-    margin-bottom: var(--space-10); /* Increased from var(--space-6) */
+    line-height: 1.05;
     letter-spacing: -0.04em;
     color: var(--text-light);
+    margin-bottom: var(--space-4);
   }
 
   .hero-line {
     display: block;
     font-weight: 400;
-    opacity: 1;
   }
 
   .hero-line--bold {
     font-weight: 700;
+    background: linear-gradient(90deg, #ffffff 0%, rgba(255, 255, 255, 0.55) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
   }
 
   /* ── Sub ───────────────────────────────────────────────── */
   .hero-sub {
     font-family: var(--font-body);
-    font-size: clamp(var(--text-base), 1.8vw, var(--text-lg));
+    font-size: clamp(var(--text-base), min(1.6vw, 2.6vh), var(--text-lg));
     color: var(--text-light-muted);
-    line-height: 1.7;
-    margin-bottom: var(--space-12);
-    opacity: 1;
+    line-height: 1.65;
+    max-width: 30em;
+    margin-bottom: var(--space-6);
   }
 
-  /* ── Actions ──────────────────────────────────────────── */
+  /* ── Actions ───────────────────────────────────────────── */
   .hero-actions {
     display: flex;
     align-items: center;
-    gap: var(--space-5);
+    gap: var(--space-4);
     flex-wrap: wrap;
-    margin-bottom: var(--space-8);
-    opacity: 1;
-    justify-content: flex-start;
-  }
-
-  /* Center on tablet and below */
-  @media (max-width: 1024px) {
-    .hero-actions {
-      justify-content: center;
-    }
+    margin-bottom: var(--space-5);
   }
 
   .btn-primary {
@@ -347,13 +265,13 @@ import ServicesBento from '../ui/ServicesBento.astro';
     font-weight: 600;
     background: var(--text-light);
     color: var(--bg-dark);
-    border: none;
     border-radius: var(--radius-full);
-    padding: var(--space-4) var(--space-8);
+    padding: var(--space-3) var(--space-8);
     min-height: 52px;
     display: inline-flex;
     align-items: center;
-    transition: all var(--dur-base) var(--ease-out);
+    gap: var(--space-2);
+    transition: transform var(--dur-base) var(--ease-out), box-shadow var(--dur-base) var(--ease-out);
     box-shadow: 0 4px 12px rgba(255, 255, 255, 0.15);
   }
   @media (hover: hover) {
@@ -371,113 +289,268 @@ import ServicesBento from '../ui/ServicesBento.astro';
     text-decoration: underline;
     text-decoration-color: rgba(255, 255, 255, 0.3);
     text-underline-offset: 4px;
-    transition: all var(--dur-fast) var(--ease-out);
+    transition: color var(--dur-fast) var(--ease-out), text-decoration-color var(--dur-fast) var(--ease-out);
   }
   .btn-secondary:hover {
     color: var(--text-light);
     text-decoration-color: var(--text-light);
   }
 
-  /* ── Trust line ──────────────────────────────────────────── */
+  .btn-primary:focus-visible,
+  .btn-secondary:focus-visible {
+    outline: 2px solid var(--text-light);
+    outline-offset: 4px;
+  }
+
+  /* ── Trust chips ───────────────────────────────────────── */
   .trust-line {
     display: flex;
-    align-items: center;
-    gap: var(--space-3);
-    margin-top: var(--space-4);
-    margin-bottom: 0;
-    opacity: 1;
-    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    list-style: none;
+    margin: 0;
+    padding: 0;
   }
 
-  /* Center on tablet and below */
-  @media (max-width: 1024px) {
-    .trust-line {
-      justify-content: center;
-    }
-  }
-
-  .trust-item {
+  .trust-chip {
     font-family: var(--font-body);
     font-size: var(--text-sm);
     font-weight: 500;
     color: var(--text-light-muted);
-    letter-spacing: -0.01em;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: var(--radius-full);
+    padding: var(--space-1) var(--space-4);
   }
 
-  .trust-separator {
+  /* ── Image ─────────────────────────────────────────────── */
+  .hero-image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 0;
+    opacity: 0;
+    animation: fade-up var(--dur-slow) var(--ease-out) 0.45s forwards;
+  }
+
+  .image-frame {
+    position: relative;
+    width: 100%;
+    max-width: 520px;
+    border-radius: var(--radius-lg);
+    padding: 1px;
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.35),
+      rgba(255, 255, 255, 0.12) 40%,
+      rgba(255, 255, 255, 0.3)
+    );
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5), 0 0 80px rgba(255, 255, 255, 0.06);
+  }
+
+  .image-frame img {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-height: min(46vh, 460px);
+    object-fit: cover;
+    border-radius: calc(var(--radius-lg) - 1px);
+  }
+
+  /* ── Audit card (overlaps the image) ───────────────────── */
+  .audit-card {
+    position: absolute;
+    left: -2.5rem;
+    bottom: -1.75rem;
+    width: 15.5rem;
+    background: rgba(10, 10, 10, 0.94);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: var(--radius-md);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.55);
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    overflow: hidden;
+  }
+
+  .audit-bar {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 8px 12px;
+    background: #1c1c1c;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .audit-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.22);
+  }
+
+  .audit-title {
+    margin-left: auto;
+    color: var(--text-light-muted);
+    letter-spacing: 0.04em;
+  }
+
+  .audit-lines {
+    list-style: none;
+    margin: 0;
+    padding: var(--space-3) var(--space-3) var(--space-3);
+    display: grid;
+    gap: 6px;
+    color: var(--text-light-muted);
+  }
+
+  .audit-lines .ok  { color: var(--text-light); margin-right: 6px; }
+  .audit-lines .run { color: var(--text-light-muted); margin-right: 6px; }
+
+  .caret {
+    display: inline-block;
+    width: 6px;
+    height: 12px;
+    margin-left: 3px;
+    vertical-align: -2px;
+    background: var(--text-light);
+    animation: caret-blink 1.1s steps(1) infinite;
+  }
+
+  @keyframes caret-blink {
+    50% { opacity: 0; }
+  }
+
+  /* ── Principles row ────────────────────────────────────── */
+  .principles {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-4);
+    opacity: 0;
+    animation: fade-up var(--dur-slow) var(--ease-out) 0.55s forwards;
+  }
+
+  .principle {
+    display: flex;
+    gap: var(--space-4);
+    align-items: flex-start;
+    padding: var(--space-4) var(--space-5);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: var(--radius-md);
+    background: rgba(255, 255, 255, 0.03);
+  }
+
+  .principle-num {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    font-weight: 600;
+    color: var(--text-light-muted);
+    letter-spacing: 0.08em;
+    padding-top: 3px;
+  }
+
+  .principle-title {
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--text-light);
+    margin: 0 0 var(--space-1);
+    line-height: 1.3;
+  }
+
+  .principle-text {
     font-family: var(--font-body);
     font-size: var(--text-sm);
     color: var(--text-light-muted);
-    opacity: 0.5;
+    line-height: 1.5;
+    margin: 0;
   }
 
-  /* ── Visual (IDE Viewport) ──────────────────────────────────────── */
-  .hero-visual {
+  /* Not enough height or width: drop the row before anything overflows */
+  @media (max-width: 900px), (max-height: 820px) {
+    .principles { display: none; }
+  }
+
+  /* ── Services strip ────────────────────────────────────── */
+  .hero-services {
+    flex-shrink: 0;
     width: 100%;
-    max-width: 1300px;
+    max-width: 1400px;
     opacity: 0;
-    animation: fade-up var(--dur-slow) var(--ease-out) 1.15s forwards;
+    animation: fade-up var(--dur-slow) var(--ease-out) 0.7s forwards;
+    position: relative;
   }
 
-  /* ── Keyframes ────────────────────────────────────────── */
-  @keyframes fade-up {
-    from { opacity: 0; transform: translateY(20px); }
-    to   { opacity: 1; transform: translateY(0); }
+  /* Align the strip with the hero content edges */
+  .hero-services :global(.services-bento) {
+    max-width: none;
   }
 
-  /* ── Responsive ────────────────────────────────────────── */
+  /* Not enough room: drop the strip instead of overflowing the viewport */
+  @media (max-width: 768px), (max-height: 680px) {
+    .hero-services { display: none; }
+  }
+
+  /* ── Below tablet landscape: single column, image hidden ─ */
   @media (max-width: 900px) {
-    .hero-inner {
-      gap: var(--space-12);
-      padding-top: var(--space-8);
+    .hero-split {
+      grid-template-columns: 1fr;
+      gap: 0;
     }
+    .hero-image { display: none; }
+    .hero-content {
+      align-items: center;
+      text-align: center;
+      margin-inline: auto;
+    }
+    .hero-actions,
+    .trust-line { justify-content: center; }
   }
 
   @media (max-width: 640px) {
-    .hero {
-      min-height: auto;
-    }
-    .hero-inner {
-      padding-top: 0;
-      gap: var(--space-10);
-    }
-    .hero-content {
-      text-align: center;
-    }
-    .hero-headline { 
-      font-size: clamp(2.25rem, 12vw, 3.5rem); 
-      margin-bottom: var(--space-5);
-      line-height: 1.05;
-    }
-    .hero-sub { 
-      font-size: var(--text-base); 
-      margin-bottom: var(--space-6);
-      line-height: 1.6;
-    }
-    .hero-actions {
-      gap: var(--space-4);
-      justify-content: center;
-      margin-bottom: var(--space-4);
-    }
     .btn-primary {
       padding: var(--space-3) var(--space-6);
       min-height: 48px;
       font-size: var(--text-sm);
     }
-    .btn-secondary {
-      font-size: var(--text-sm);
-    }
+    .btn-secondary { font-size: var(--text-sm); }
   }
 
-  /* ── Reduced motion ────────────────────────────────────── */
+  /* ── IDE section below the hero ────────────────────────── */
+  @media (max-width: 1100px) {
+    .audit-card { left: -1rem; width: 14rem; }
+  }
+
+  .hero-reveal {
+    position: relative;
+    background: var(--bg-dark);
+    padding-block: var(--space-6) var(--space-12);
+  }
+
+  .hero-reveal-inner {
+    display: flex;
+    justify-content: center;
+  }
+
+  .hero-reveal-inner > :global(*) {
+    width: 100%;
+    max-width: 1300px;
+  }
+
+  @keyframes fade-up {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
   @media (prefers-reduced-motion: reduce) {
-    .hero-line,
-    .hero-sub,
-    .hero-actions,
-    .trust-line,
-    .hero-visual {
+    .hero-content,
+    .hero-image,
+    .principles,
+    .hero-services {
       opacity: 1;
       animation: none;
     }
+    .caret { animation: none; }
   }
 </style>

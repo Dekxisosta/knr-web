@@ -147,20 +147,23 @@ export default function SideGrids() {
       ctx.resetTransform();
     }
 
+    // At 15px/s the dots only move to a new whole pixel ~15x per second, so redraw only then
+    // (and never while the tab is hidden or the margins are too narrow to show anything).
+    let lastOffset = -1;
     function animate(timestamp: number) {
-      if (!shouldRender) {
-        animId = requestAnimationFrame(animate);
-        return;
-      }
-      
+      animId = requestAnimationFrame(animate);
+      if (!shouldRender || document.hidden) return;
+
       if (!prefersReduced) {
         offset = (timestamp * ANIMATION_SPEED / 1000) % GRID_SIZE;
       }
-      
+
+      const step = Math.floor(offset);
+      if (step === lastOffset) return;
+      lastOffset = step;
+
       if (leftCtx && leftCanvas) drawGrid(leftCtx, leftCanvas);
       if (rightCtx && rightCanvas) drawGrid(rightCtx, rightCanvas);
-      
-      animId = requestAnimationFrame(animate);
     }
 
     animId = requestAnimationFrame(animate);

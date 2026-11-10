@@ -1,0 +1,360 @@
+---
+const projects = [
+  {
+    no: '01',
+    label: 'Dental studio',
+    name: 'Ivory & Co. Dental Studio',
+    image: '/images/work/ivory.webp',
+    alt: 'Ivory & Co. dental studio homepage: smiling patient, headline and appointment buttons',
+    blurb: 'An elegant, trust-building site for a dental practice, rebuilt from a single-file HTML concept into a structured Next.js project.',
+    tags: ['Next.js', 'Healthcare'],
+    bg: 'linear-gradient(135deg,#efe6d6,#d9c7a3)',
+    palette: ['#fbf7ef', '#b8935a', '#2c2418'],
+    live: 'https://ivory-and-co-showcase.vercel.app/',
+    source: 'https://github.com/Dekxisosta/ivory-and-co-showcase',
+  },
+  {
+    no: '02',
+    label: 'Burger joint',
+    name: 'Stackd Burger Joint',
+    image: '/images/work/stackd.webp',
+    alt: 'Stackd burger joint homepage: grilling cheeseburgers behind the headline Stack higher. Bite harder.',
+    blurb: 'A bold, appetite-first landing page for a burger restaurant, with menu browsing and a food-forward visual identity.',
+    tags: ['Food & Beverage', 'Menu UI'],
+    bg: 'linear-gradient(135deg,#ffd45e,#f08a24)',
+    palette: ['#8f1d1d', '#ffd45e', '#ffffff'],
+    live: 'https://stackd-showcase.vercel.app/',
+    source: 'https://github.com/Dekxisosta/stackd-burger-joint-showcase',
+  },
+  {
+    no: '03',
+    label: 'Barbershop',
+    name: 'Iron & Fade Barber',
+    image: '/images/work/iron.webp',
+    alt: 'Iron & Fade barbershop homepage: black and white photo of a barber at work with a Book now button',
+    blurb: 'A high-contrast showcase for a multi-branch barbershop, with branch cards, opening hours and booking calls to action.',
+    tags: ['Multi-branch', 'Grooming'],
+    bg: 'linear-gradient(135deg,#3a3d42,#14161a)',
+    palette: ['#1d1f23', '#c98a4b', '#f1ece4'],
+    live: 'https://iron-and-fade-barber-showcase.vercel.app/',
+    source: 'https://github.com/Dekxisosta/iron-and-fade-barber-showcase',
+  },
+  {
+    no: '04',
+    label: 'Pet grooming',
+    name: 'Paisen Mutt Pet Grooming',
+    image: '/images/work/paisen.webp',
+    alt: 'Paisen Mutt pet grooming homepage: dogs and cats posed together with a Book appointment button',
+    blurb: 'A friendly pet grooming and care site generated from a full product requirements document, with public pages and a booking flow.',
+    tags: ['Booking flow', 'Pet care'],
+    bg: 'linear-gradient(135deg,#bfe6df,#ffd9c2)',
+    palette: ['#f4fbf9', '#2a9d8f', '#17413c'],
+    live: 'https://paisen-mutt-showcase.vercel.app/',
+    source: 'https://github.com/Dekxisosta/paisen-mutt-showcase',
+  },
+  {
+    no: '05',
+    label: 'Dermatology clinic',
+    name: 'Aura Dermatology',
+    image: '/images/work/aura.webp',
+    alt: 'Aura Dermatology Clinic Full-stack',
+    blurb: 'A clean, professional site for a dermatology clinic, built to present services and make booking a consultation easy.',
+    tags: ['Healthcare', 'Clinic site'],
+    bg: 'linear-gradient(135deg,#f6e7e1,#e3c9c0)',
+    palette: ['#fbf3ef', '#c08a7a', '#3a2a26'],
+    live: 'https://auradermatology-frontend.vercel.app/',
+    source: null,
+  },
+];
+---
+
+<section id="work" class="work-section section-pad" aria-labelledby="work-heading">
+  <div class="section-container">
+
+    <header class="section-header">
+      <div class="header-badge">Work</div>
+      <h2 id="work-heading" class="section-title">Live demos</h2>
+      <p class="section-desc">
+        Recent showcase builds you can open and click through. Each one is deployed and running.
+      </p>
+    </header>
+
+    <div class="work-grid">
+      {projects.map((p) => (
+        <article class="work-card">
+          {p.image ? (
+            <div class="work-preview work-preview--shot">
+              <img
+                src={p.image}
+                alt={p.alt}
+                width="1000"
+                height="488"
+                loading="lazy"
+                decoding="async"
+              />
+              <span class="work-chip">{p.no} · {p.label}</span>
+            </div>
+          ) : (
+            <div class="work-preview" style={`background:${p.bg}`}>
+              <span class="work-no" style={`color:${p.palette[2]}`}>{p.no}</span>
+              <span class="work-label" style={`color:${p.palette[2]}`}>{p.label}</span>
+              <div class="work-swatches" aria-hidden="true">
+                {p.palette.map((c) => <span class="swatch" style={`background:${c}`}></span>)}
+              </div>
+            </div>
+          )}
+          <div class="work-body">
+            <h3 class="work-name">{p.name}</h3>
+            <p class="work-blurb">{p.blurb}</p>
+            <ul class="work-tags" role="list">
+              {p.tags.map((t) => <li>{t}</li>)}
+            </ul>
+            <div class="work-actions">
+              <a href={p.live} class="work-live" target="_blank" rel="noopener noreferrer">
+                Live demo <span aria-hidden="true">↗</span>
+                <span class="sr-only">— {p.name} (opens in a new tab)</span>
+              </a>
+              {p.source && (
+                <a href={p.source} class="work-source" target="_blank" rel="noopener noreferrer">
+                  Source
+                  <span class="sr-only">code for {p.name} (opens in a new tab)</span>
+                </a>
+              )}
+            </div>
+          </div>
+        </article>
+      ))}
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .work-section {
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    position: relative;
+  }
+
+  .section-header {
+    max-width: 720px;
+    margin-bottom: var(--space-16);
+    text-align: center;
+    margin-inline: auto;
+  }
+
+  .header-badge {
+    display: inline-block;
+    font-family: var(--font-body);
+    font-size: var(--text-xs);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-muted);
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-full);
+    padding: var(--space-2) var(--space-4);
+    margin-bottom: var(--space-6);
+  }
+
+  .section-title {
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 700;
+    color: var(--text-strong);
+    margin-bottom: var(--space-5);
+    letter-spacing: -0.03em;
+  }
+
+  .section-desc {
+    font-family: var(--font-body);
+    font-size: var(--text-lg);
+    color: var(--text-muted);
+    line-height: 1.6;
+    max-width: 600px;
+    margin-inline: auto;
+  }
+
+  .work-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+    gap: var(--space-6);
+  }
+
+  .work-card {
+    background: var(--bg);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform var(--dur-base) var(--ease-out), border-color var(--dur-base) var(--ease-out);
+  }
+
+  @media (hover: hover) {
+    .work-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--border-strong);
+    }
+  }
+
+  .work-preview {
+    position: relative;
+    aspect-ratio: 2 / 1;
+    padding: var(--space-5);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .work-preview--shot {
+    padding: 0;
+    background: #0a0a0a;
+    border-bottom: 1px solid var(--border);
+    overflow: hidden;
+  }
+
+  .work-preview--shot img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+    display: block;
+  }
+
+  .work-chip {
+    position: absolute;
+    left: var(--space-3);
+    bottom: var(--space-3);
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    font-weight: 600;
+    color: #fff;
+    background: rgba(0, 0, 0, 0.72);
+    border-radius: var(--radius-full);
+    padding: var(--space-1) var(--space-3);
+  }
+
+  .work-no {
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    opacity: 0.7;
+  }
+
+  .work-label {
+    font-family: var(--font-heading);
+    font-size: var(--text-lg);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+
+  .work-swatches {
+    position: absolute;
+    top: var(--space-5);
+    right: var(--space-5);
+    display: flex;
+    gap: var(--space-1);
+  }
+
+  .swatch {
+    width: 14px;
+    height: 14px;
+    border-radius: var(--radius-full);
+    border: 1px solid rgba(0, 0, 0, 0.15);
+  }
+
+  .work-body {
+    padding: var(--space-6);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    flex: 1;
+  }
+
+  .work-name {
+    font-family: var(--font-heading);
+    font-size: var(--text-md);
+    font-weight: 700;
+    color: var(--text-strong);
+    letter-spacing: -0.02em;
+  }
+
+  .work-blurb {
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+    line-height: 1.7;
+    flex: 1;
+  }
+
+  .work-tags {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+  }
+
+  .work-tags li {
+    font-family: var(--font-body);
+    font-size: var(--text-xs);
+    font-weight: 600;
+    color: var(--text-muted);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-full);
+    padding: var(--space-1) var(--space-3);
+  }
+
+  .work-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    margin-top: var(--space-2);
+  }
+
+  .work-live {
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: #fff;
+    background: var(--text-strong);
+    border-radius: var(--radius-full);
+    padding: var(--space-2) var(--space-5);
+    transition: transform var(--dur-fast) var(--ease-out);
+  }
+  .work-live:hover { transform: translateY(-2px); }
+
+  .work-source {
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    font-weight: 500;
+    color: var(--text-muted);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .work-source:hover { color: var(--text-strong); }
+
+  .work-live:focus-visible,
+  .work-source:focus-visible {
+    outline: 2px solid var(--text-strong);
+    outline-offset: 3px;
+  }
+
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+
+  @media (max-width: 640px) {
+    .section-desc { font-size: var(--text-base); }
+  }
+</style>
