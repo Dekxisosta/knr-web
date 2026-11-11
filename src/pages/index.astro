@@ -4,6 +4,9 @@ import Hero from '../components/sections/Hero.astro';
 import Services from '../components/sections/Services.astro';
 import TechStack from '../components/sections/TechStack.astro';
 import Process from '../components/sections/Process.astro';
+import InfoStrip from '../components/sections/InfoStrip.astro';
+import KnrCards from '../components/sections/KnrCards.astro';
+import ParallaxBand from '../components/sections/ParallaxBand.astro';
 import Showcase from '../components/sections/Showcase.astro';
 import FAQ from '../components/sections/FAQ.astro';
 import Contact from '../components/sections/Contact.astro';
@@ -87,6 +90,15 @@ const allSchemas = [orgSchema, ...founderSchemas, faqSchema];
   <TechStack />
   <Process />
   <Showcase />
+  <InfoStrip />
+  <KnrCards />
+  <ParallaxBand />
   <FAQ />
   <Contact />
 </BaseLayout>
+
+<script>
+  import { initParallax } from '../lib/parallax';
+  // Fires on first load and after every client-side navigation
+  document.addEventListener('astro:page-load', initParallax);
+</script>

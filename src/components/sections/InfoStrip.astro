@@ -1,0 +1,71 @@
+---
+// Slim black strip between Live demos and KNR Cards.
+// Placeholder facts: swap the values for real ones when ready.
+const items = [
+  { value: '05', label: 'Live demos deployed' },
+  { value: '06', label: 'Services offered' },
+  { value: '05', label: 'Founders on the team' },
+  { value: '24/7', label: 'Sites running in production' },
+];
+---
+
+<section class="strip" aria-label="KNR Collective at a glance">
+  <div class="section-container">
+    <ul class="strip-list" role="list">
+      {items.map((i) => (
+        <li class="strip-item">
+          <span class="strip-value">{i.value}</span>
+          <span class="strip-label">{i.label}</span>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .strip {
+    background: var(--bg-dark);
+    color: var(--text-light);
+    padding-block: var(--space-8);
+  }
+
+  .strip-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: var(--space-6);
+  }
+
+  .strip-item {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    padding-left: var(--space-4);
+    border-left: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .strip-value {
+    font-family: var(--font-heading);
+    font-size: var(--text-lg);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+  }
+
+  .strip-label {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-light-muted);
+  }
+
+  @media (max-width: 700px) {
+    .strip-list {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-6) var(--space-4);
+    }
+  }
+</style>
