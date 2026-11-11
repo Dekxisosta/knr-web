@@ -2,9 +2,13 @@
 // Hero: exactly one viewport tall. The IDE viewport lives in its own section right below.
 import IDEViewport from '../ui/IDEViewport.tsx';
 import ServicesBento from '../ui/ServicesBento.astro';
+import Hero3D from '../ui/Hero3D.tsx';
 ---
 
 <section class="hero" aria-labelledby="hero-headline">
+  <!-- Monochrome 2.5D vault, masked away from the copy (see Hero3D.tsx) -->
+  <Hero3D client:idle />
+
   <div class="section-container hero-main">
     <div class="hero-split">
 
@@ -95,6 +99,8 @@ import ServicesBento from '../ui/ServicesBento.astro';
 
 <!-- IDE viewport sits directly below the hero -->
 <section class="hero-reveal" aria-label="Development environment preview">
+  <!-- Decorative dot-grid texture at the left of the code card (same language as the hero) -->
+  <div class="ide-texture" aria-hidden="true"></div>
   <div class="section-container hero-reveal-inner">
     <IDEViewport client:visible />
   </div>
@@ -162,6 +168,8 @@ import ServicesBento from '../ui/ServicesBento.astro';
 
   /* ── Main area takes all remaining height ──────────────── */
   .hero-main {
+    position: relative;
+    z-index: 1;
     flex: 1;
     min-height: 0;
     width: 100%;
@@ -480,6 +488,7 @@ import ServicesBento from '../ui/ServicesBento.astro';
     opacity: 0;
     animation: fade-up var(--dur-slow) var(--ease-out) 0.7s forwards;
     position: relative;
+    z-index: 1;
   }
 
   /* Align the strip with the hero content edges */
@@ -492,23 +501,56 @@ import ServicesBento from '../ui/ServicesBento.astro';
     .hero-services { display: none; }
   }
 
-  /* ── Below tablet landscape: single column, image hidden ─ */
+  /* ── Below tablet landscape: one column, image shown ────────────────
+     The hero no longer forces a full viewport here. It is sized by its
+     content, so there is no dead space above, between, or below. */
   @media (max-width: 900px) {
-    .hero-split {
-      grid-template-columns: 1fr;
+    .hero {
+      height: auto;
+      min-height: 0;
+      padding-bottom: var(--space-10);
+    }
+    .hero-main {
+      flex: none;
+      justify-content: flex-start;
       gap: 0;
     }
-    .hero-image { display: none; }
-    .hero-content {
-      align-items: center;
-      text-align: center;
-      margin-inline: auto;
+    .hero-split {
+      grid-template-columns: 1fr;
+      gap: var(--space-8);
+      align-items: start;
     }
-    .hero-actions,
-    .trust-line { justify-content: center; }
+    .hero-content {
+      max-width: none;
+    }
+    .hero-image {
+      padding-bottom: var(--space-6); /* room for the audit card that overhangs the image */
+    }
+    .image-frame {
+      max-width: none;
+    }
+    .image-frame img {
+      height: clamp(200px, 52vw, 340px);
+      max-height: none;
+    }
+    .audit-card {
+      left: var(--space-3);
+      bottom: -1.5rem;
+      width: 14rem;
+    }
   }
 
   @media (max-width: 640px) {
+    .hero { --hero-top: 76px; }
+    .hero-eyebrow { margin-bottom: var(--space-3); }
+    .hero-headline {
+      font-size: clamp(2.4rem, 10.5vw, 3.1rem);
+      margin-bottom: var(--space-3);
+    }
+    .hero-sub {
+      margin-bottom: var(--space-5);
+    }
+    .hero-actions { margin-bottom: var(--space-4); }
     .btn-primary {
       padding: var(--space-3) var(--space-6);
       min-height: 48px;
@@ -529,8 +571,47 @@ import ServicesBento from '../ui/ServicesBento.astro';
   }
 
   .hero-reveal-inner {
+    position: relative;
+    z-index: 1;
     display: flex;
     justify-content: center;
+  }
+
+  /* Left-side texture: drifting dot grid (as in the side margins) plus a soft glow
+     (as in the hero), fading out toward the card. Sits behind the card. */
+  .ide-texture {
+    position: absolute;
+    z-index: 0;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: calc(50% - 300px);
+    pointer-events: none;
+    overflow: hidden;
+    background:
+      radial-gradient(ellipse 70% 55% at 25% 55%, rgba(255, 255, 255, 0.07) 0%, rgba(255, 255, 255, 0.025) 40%, transparent 75%),
+      radial-gradient(circle, rgba(255, 255, 255, 0.3) 1.5px, transparent 1.6px) 0 0 / 16px 16px;
+    -webkit-mask-image:
+      linear-gradient(to right, #000 0%, #000 35%, transparent 100%),
+      linear-gradient(to bottom, transparent 0%, #000 18%, #000 82%, transparent 100%);
+    -webkit-mask-composite: source-in;
+    mask-image:
+      linear-gradient(to right, #000 0%, #000 35%, transparent 100%),
+      linear-gradient(to bottom, transparent 0%, #000 18%, #000 82%, transparent 100%);
+    mask-composite: intersect;
+    animation: ide-texture-drift 1.07s linear infinite;
+  }
+
+  @keyframes ide-texture-drift {
+    to { background-position: 0 0, 0 16px; }
+  }
+
+  @media (max-width: 1000px) {
+    .ide-texture { display: none; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ide-texture { animation: none; }
   }
 
   .hero-reveal-inner > :global(*) {
