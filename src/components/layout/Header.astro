@@ -252,22 +252,41 @@ const { pathname } = Astro.url;
   }
 
   .mobile-nav {
-    border-top: 1px solid var(--border);
+    margin: var(--space-3) var(--space-4) 0;
+    border: 1px solid var(--border);
     background: var(--surface);
-    border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+    border-radius: var(--radius-lg);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
     overflow: hidden;
-    transition: max-height var(--dur-base) var(--ease-out),
-                opacity var(--dur-base) var(--ease-out);
-    max-height: 500px;
-    opacity: 1;
   }
-  
+
+  /* Explicit so nothing else can keep the open panel hidden */
+  .mobile-nav:not([hidden]) {
+    display: block;
+    animation: mobile-nav-in var(--dur-base) var(--ease-out);
+  }
+
   .mobile-nav[hidden] {
-    max-height: 0;
-    opacity: 0;
-    border-top-width: 0;
+    display: none;
   }
-  
+
+  @keyframes mobile-nav-in {
+    from { opacity: 0; transform: translateY(-6px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Hamburger turns into an X while open */
+  .mobile-menu-btn[aria-expanded='true'] .hamburger-line:nth-child(1) {
+    transform: translateY(3px) rotate(45deg);
+  }
+  .mobile-menu-btn[aria-expanded='true'] .hamburger-line:nth-child(2) {
+    transform: translateY(-3px) rotate(-45deg);
+  }
+
+  @media (min-width: 768px) {
+    .mobile-nav { display: none !important; }
+  }
+
   .mobile-nav ul {
     list-style: none;
     margin: 0;
@@ -303,31 +322,38 @@ const { pathname } = Astro.url;
 </style>
 
 <script>
-  // Mobile toggle
-  const btn = document.getElementById('mobile-menu-btn');
-  const mobileNav = document.getElementById('mobile-nav');
-  
-  btn?.addEventListener('click', () => {
-    const isOpen = !mobileNav?.hasAttribute('hidden');
-    
-    if (mobileNav) {
-      if (isOpen) {
-        mobileNav.setAttribute('hidden', '');
-      } else {
-        mobileNav.removeAttribute('hidden');
-      }
+  // Delegated listeners are bound once on `document`, so the menu keeps working
+  // after Astro's ClientRouter swaps the header in on page navigations.
+  function setMenu(open: boolean) {
+    const btn = document.getElementById('mobile-menu-btn');
+    const nav = document.getElementById('mobile-nav');
+    if (!btn || !nav) return;
+    nav.hidden = !open;
+    btn.setAttribute('aria-expanded', String(open));
+    btn.setAttribute('aria-label', open ? 'Close navigation menu' : 'Open navigation menu');
+  }
+
+  document.addEventListener('click', (e) => {
+    const target = e.target as Element | null;
+    if (!target) return;
+    const nav = document.getElementById('mobile-nav');
+
+    if (target.closest('#mobile-menu-btn')) {
+      setMenu(!!nav?.hidden); // hidden -> open, open -> close
+    } else if (target.closest('#mobile-nav a')) {
+      setMenu(false);
+    } else if (nav && !nav.hidden && !target.closest('#site-header')) {
+      setMenu(false);
     }
-    
-    btn.setAttribute('aria-expanded', String(!isOpen));
   });
 
-  // Close on link click
-  mobileNav?.querySelectorAll('a').forEach(link => {
-    link.addEventListener('click', () => {
-      if (mobileNav) {
-        mobileNav.setAttribute('hidden', '');
-      }
-      btn?.setAttribute('aria-expanded', 'false');
-    });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') setMenu(false);
   });
+
+  window.addEventListener('resize', () => {
+    if (window.innerWidth >= 768) setMenu(false);
+  }, { passive: true });
+
+  document.addEventListener('astro:after-swap', () => setMenu(false));
 </script>
