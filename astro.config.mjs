@@ -30,6 +30,10 @@ export default defineConfig({
         output: {
           // More granular chunking to improve caching and loading
           manualChunks: (id) => {
+            // three.js: keep isolated so it only loads with the Process background
+            if (id.includes('node_modules/three')) {
+              return 'three';
+            }
             // React core bundle (critical, cached long-term)
             if (id.includes('react') || id.includes('react-dom')) {
               return 'react-vendor';

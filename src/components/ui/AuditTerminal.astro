@@ -1,0 +1,26 @@
+---
+import './IDEViewport.css';
+
+// Second window beside the code card: a static terminal in the same monochrome style.
+// Decorative, mirrors the "knr audit" readout in the hero (no figures, no claims).
+const lines = [
+  { kind: 'cmd', text: 'knr audit --deep' },
+  { kind: 'gap' },
+  { kind: 'ok', text: 'dependencies validated' },
+  { kind: 'ok', text: 'auth flows reviewed' },
+  { kind: 'ok', text: 'input handling tested' },
+  { kind: 'ok', text: 'headers and CORS hardened' },
+  { kind: 'ok', text: 'secrets scan clean' },
+  { kind: 'gap' },
+  { kind: 'run', text: 'reporting findings' },
+];
+---
+
+<figure class="code-card audit-terminal" aria-label="Terminal preview">
+  <figcaption class="code-bar">
+    <span class="code-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+    <span class="code-file">terminal</span>
+  </figcaption>
+
+  <pre class="code-body" aria-label="knr audit output"><code>{lines.map((l) => (<span class="code-row"><span class="code-text">{l.kind === 'cmd' && <><span class="tok-m">$ </span><span class="tok-k">{l.text}</span></>}{l.kind === 'ok' && <><span class="tok-k">  ✓ </span>{l.text}</>}{l.kind === 'run' && <><span class="tok-k">  › </span>{l.text}<span class="code-caret" aria-hidden="true"></span></>}</span></span>))}</code></pre>
+</figure>

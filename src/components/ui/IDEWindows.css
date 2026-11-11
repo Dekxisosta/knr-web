@@ -1,0 +1,55 @@
+/* Two windows side by side; the terminal is hidden on narrower screens */
+.ide-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-6);
+  align-items: stretch;
+  width: 100%;
+  max-width: 1160px;
+  margin-inline: auto;
+}
+
+.ide-cell {
+  display: flex;
+  min-width: 0;
+}
+
+.ide-cell > .code-card {
+  flex: 1;
+  max-width: none;
+  margin: 0;
+}
+
+@media (max-width: 999px) {
+  .ide-row {
+    grid-template-columns: minmax(0, 1fr);
+    max-width: 720px;
+  }
+  .ide-cell--terminal {
+    display: none;
+  }
+}
+
+/* Wireframe shapes in the left-hand texture (positioned by IDEShapes.tsx) */
+.ide-shapes {
+  position: absolute;
+  inset: 0;
+}
+
+.tex-ring {
+  position: absolute;
+  top: -90px;
+  left: -110px;
+  width: 300px;
+  height: 300px;
+  color: rgba(255, 255, 255, 0.22);
+}
+
+.tex-cube {
+  position: absolute;
+  left: 18%;
+  bottom: 14%;
+  width: 84px;
+  height: 84px;
+  color: rgba(255, 255, 255, 0.5);
+}

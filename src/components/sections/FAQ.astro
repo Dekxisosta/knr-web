@@ -1,4 +1,6 @@
 ---
+import CRT3D from '../ui/CRT3D.tsx';
+
 const faqs = [
   {
     q: 'What services do you offer?',
@@ -35,6 +37,7 @@ const faqs = [
       <h2 id="faq-heading" class="section-title">FAQ</h2>
     </header>
 
+    <div class="faq-layout">
     <dl class="faq-list">
       {faqs.map((item, i) => (
         <div class="faq-item">
@@ -62,6 +65,12 @@ const faqs = [
       ))}
     </dl>
 
+    <!-- Floating CRT monitor (see CRT3D.tsx) -->
+    <div class="faq-art">
+      <CRT3D client:visible />
+    </div>
+    </div>
+
   </div>
 </section>
 
@@ -87,6 +96,31 @@ const faqs = [
   .section-title {
     font-size: clamp(2rem, 5vw, 3rem);
     color: #ffffff;
+  }
+
+  .faq-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-10);
+    align-items: center;
+  }
+
+  .faq-art {
+    position: relative;
+    width: min(100%, 340px);
+    aspect-ratio: 1 / 1;
+    margin-inline: auto;
+  }
+
+  @media (min-width: 1200px) {
+    .faq-layout {
+      grid-template-columns: minmax(0, 760px) minmax(0, 1fr);
+      gap: var(--space-12);
+    }
+    .faq-art {
+      width: min(100%, 460px);
+      margin-inline: auto 0;
+    }
   }
 
   .faq-list {

@@ -1,4 +1,6 @@
 ---
+import Sonar3D from '../ui/Sonar3D.tsx';
+
 const projects = [
   {
     no: '01',
@@ -69,6 +71,9 @@ const projects = [
 ---
 
 <section id="work" class="work-section section-pad" aria-labelledby="work-heading">
+  <!-- Monochrome sonar scope behind the header and cards (see Sonar3D.tsx) -->
+  <Sonar3D client:visible />
+
   <div class="section-container">
 
     <header class="section-header">

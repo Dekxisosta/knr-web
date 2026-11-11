@@ -1,8 +1,13 @@
 ---
+import Contact3D from '../ui/Contact3D.tsx';
+
 const checkIcon = '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>';
 ---
 
 <section id="contact" class="contact-section section-pad" aria-labelledby="contact-heading">
+  <!-- Monochrome 2.5D pieces in the side margins (see Contact3D.tsx) -->
+  <Contact3D client:visible />
+
   <div class="section-container">
     
     <header class="section-header">
@@ -90,7 +95,7 @@ const checkIcon = '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14
               id="message"
               name="message"
               class="form-input form-textarea"
-              rows="5"
+              rows="4"
               required
               aria-required="true"
               aria-describedby="message-error"
@@ -109,6 +114,17 @@ const checkIcon = '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14
           </div>
         </form>
       </div>
+
+      <!-- Photo beside the form -->
+      <figure class="contact-photo">
+        <img
+          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSKDJ_fny6g1zAEU4-6nfHYVumoKUzpure-Sn7W8bBPCA&s=10"
+          alt=""
+          loading="lazy"
+          decoding="async"
+          referrerpolicy="no-referrer"
+        />
+      </figure>
 
       <!-- Info side -->
       <div class="contact-info">
@@ -150,12 +166,17 @@ const checkIcon = '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14
   .contact-section {
     background: var(--surface);
     position: relative;
+    /* Tighter than the global .section-pad rhythm */
+    padding-block: var(--space-10);
+  }
+  @media (min-width: 1024px) {
+    .contact-section { padding-block: var(--space-12); }
   }
 
   .section-header {
     max-width: 720px;
     margin-inline: auto;
-    margin-bottom: var(--space-16);
+    margin-bottom: var(--space-8);
     text-align: center;
   }
 
@@ -163,7 +184,7 @@ const checkIcon = '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14
     font-size: clamp(2rem, 5vw, 3rem);
     font-weight: 700;
     color: var(--text-strong);
-    margin-bottom: var(--space-4);
+    margin-bottom: var(--space-2);
     letter-spacing: -0.03em;
   }
 
@@ -171,13 +192,13 @@ const checkIcon = '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14
     font-family: var(--font-body);
     font-size: var(--text-lg);
     color: var(--text-muted);
-    line-height: 1.6;
+    line-height: 1.5;
   }
 
   .contact-inner {
     display: grid;
     grid-template-columns: 1.5fr 1fr;
-    gap: var(--space-12);
+    gap: var(--space-6);
     align-items: start;
     max-width: 1100px;
     margin-inline: auto;
@@ -186,7 +207,7 @@ const checkIcon = '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14
   @media (max-width: 900px) {
     .contact-inner {
       grid-template-columns: 1fr;
-      gap: var(--space-10);
+      gap: var(--space-5);
     }
   }
 
@@ -195,10 +216,10 @@ const checkIcon = '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14
     background: white;
     border: 1.5px solid var(--border);
     border-radius: var(--radius-lg);
-    padding: var(--space-10);
+    padding: var(--space-6);
     display: flex;
     flex-direction: column;
-    gap: var(--space-5);
+    gap: var(--space-3);
   }
 
   .hp-field {
@@ -213,7 +234,7 @@ const checkIcon = '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14
   .form-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: var(--space-5);
+    gap: var(--space-3);
   }
 
   @media (max-width: 640px) {
@@ -225,7 +246,7 @@ const checkIcon = '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14
   .form-row {
     display: flex;
     flex-direction: column;
-    gap: var(--space-2);
+    gap: var(--space-1);
   }
 
   .form-label {
@@ -242,8 +263,8 @@ const checkIcon = '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14
     color: var(--text-strong);
     font-family: var(--font-body);
     font-size: var(--text-base);
-    padding: var(--space-3) var(--space-4);
-    min-height: 48px;
+    padding: var(--space-2) var(--space-4);
+    min-height: 44px;
     width: 100%;
     transition: all var(--dur-fast) var(--ease-out);
     outline: none;
@@ -281,8 +302,8 @@ const checkIcon = '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14
 
   .form-textarea {
     resize: vertical;
-    min-height: 140px;
-    line-height: 1.6;
+    min-height: 96px;
+    line-height: 1.5;
   }
 
   .form-error {
@@ -323,8 +344,8 @@ const checkIcon = '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14
     color: white;
     border: none;
     border-radius: var(--radius-full);
-    padding: var(--space-4) var(--space-8);
-    min-height: 52px;
+    padding: var(--space-3) var(--space-8);
+    min-height: 48px;
     cursor: pointer;
     transition: all var(--dur-base) var(--ease-out);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
@@ -341,17 +362,52 @@ const checkIcon = '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14
   }
 
   /* ── Info side ────────────────────────────────────── */
+  /* Sits under the form + photo, aligned to the same two columns */
   .contact-info {
-    display: flex;
-    flex-direction: column;
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
     gap: var(--space-6);
+    align-items: stretch;
+  }
+
+  @media (max-width: 900px) {
+    .contact-info {
+      grid-template-columns: 1fr;
+      gap: var(--space-4);
+    }
+  }
+
+  /* ── Contact photo ────────────────────────────────── */
+  .contact-photo {
+    position: relative;
+    align-self: stretch;
+    min-height: 260px;
+    margin: 0;
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    background: #0a0a0a;
+  }
+  .contact-photo img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    filter: grayscale(1) contrast(1.05);
+  }
+
+  @media (max-width: 900px) {
+    .contact-photo { aspect-ratio: 16 / 10; min-height: 0; }
   }
 
   .info-card {
     background: white;
     border: 1.5px solid var(--border);
     border-radius: var(--radius-lg);
-    padding: var(--space-8);
+    padding: var(--space-5) var(--space-6);
   }
 
   .info-title {
@@ -359,7 +415,7 @@ const checkIcon = '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14
     font-size: var(--text-lg);
     font-weight: 700;
     color: var(--text-strong);
-    margin-bottom: var(--space-5);
+    margin-bottom: var(--space-3);
     letter-spacing: -0.02em;
   }
 
@@ -369,7 +425,7 @@ const checkIcon = '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14
     padding: 0;
     display: flex;
     flex-direction: column;
-    gap: var(--space-4);
+    gap: var(--space-2);
   }
 
   .info-list li {
@@ -379,7 +435,7 @@ const checkIcon = '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14
     font-family: var(--font-body);
     font-size: var(--text-sm);
     color: var(--text);
-    line-height: 1.6;
+    line-height: 1.5;
   }
 
   .info-icon {
@@ -402,7 +458,7 @@ const checkIcon = '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14
   }
 
   .contact-meta {
-    padding: var(--space-6);
+    padding: var(--space-4) var(--space-6);
     background: rgba(0, 0, 0, 0.02);
     border: 1px solid var(--border);
     border-radius: var(--radius-lg);
@@ -428,7 +484,7 @@ const checkIcon = '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14
     word-break: break-all;
     transition: text-decoration-color var(--dur-fast) var(--ease-out);
     display: block;
-    margin-bottom: var(--space-3);
+    margin-bottom: var(--space-2);
   }
   @media (hover: hover) {
     .meta-email:hover { text-decoration-color: var(--text-strong); }
@@ -464,7 +520,7 @@ const checkIcon = '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14
 
   @media (max-width: 640px) {
     .contact-form {
-      padding: var(--space-6);
+      padding: var(--space-4);
     }
     .section-title {
       font-size: clamp(1.75rem, 8vw, 2.5rem);
@@ -556,3 +612,4 @@ const checkIcon = '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14
     }
   });
 </script>
+

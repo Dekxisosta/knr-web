@@ -1,6 +1,7 @@
 ---
 // Hero: exactly one viewport tall. The IDE viewport lives in its own section right below.
-import IDEViewport from '../ui/IDEViewport.tsx';
+import IDEWindows from '../ui/IDEWindows.tsx';
+import IDEShapes from '../ui/IDEShapes.tsx';
 import ServicesBento from '../ui/ServicesBento.astro';
 import Hero3D from '../ui/Hero3D.tsx';
 ---
@@ -97,12 +98,14 @@ import Hero3D from '../ui/Hero3D.tsx';
   </div>
 </section>
 
-<!-- IDE viewport sits directly below the hero -->
+<!-- IDE viewport sits directly below the hero: two windows on desktop, one on mobile -->
 <section class="hero-reveal" aria-label="Development environment preview">
-  <!-- Decorative dot-grid texture at the left of the code card (same language as the hero) -->
-  <div class="ide-texture" aria-hidden="true"></div>
+  <!-- Decorative wireframe texture at the left (same language as the hero vault) -->
+  <div class="ide-texture" aria-hidden="true">
+    <IDEShapes client:visible />
+  </div>
   <div class="section-container hero-reveal-inner">
-    <IDEViewport client:visible />
+    <IDEWindows client:visible />
   </div>
 </section>
 
@@ -577,36 +580,39 @@ import Hero3D from '../ui/Hero3D.tsx';
     justify-content: center;
   }
 
-  /* Left-side texture: drifting dot grid (as in the side margins) plus a soft glow
-     (as in the hero), fading out toward the card. Sits behind the card. */
+  /* Left-side texture, the hero vault's language in miniature: a faint isometric
+     floor grid, a wireframe cube and two ring outlines, fading out toward the
+     windows. Pure CSS/SVG (no extra WebGL context). Sits behind the cards. */
   .ide-texture {
     position: absolute;
     z-index: 0;
     top: 0;
     bottom: 0;
     left: 0;
-    width: calc(50% - 300px);
+    width: calc(50% - 540px);
     pointer-events: none;
     overflow: hidden;
+    color: rgba(255, 255, 255, 0.3);
     background:
-      radial-gradient(ellipse 70% 55% at 25% 55%, rgba(255, 255, 255, 0.07) 0%, rgba(255, 255, 255, 0.025) 40%, transparent 75%),
-      radial-gradient(circle, rgba(255, 255, 255, 0.3) 1.5px, transparent 1.6px) 0 0 / 16px 16px;
+      radial-gradient(ellipse 70% 55% at 25% 55%, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0.02) 40%, transparent 75%),
+      linear-gradient(45deg, transparent 49.2%, rgba(255, 255, 255, 0.13) 49.5% 50.5%, transparent 50.8%) 0 0 / 40px 40px,
+      linear-gradient(to bottom, rgba(255, 255, 255, 0.1) 1px, transparent 1px) 0 0 / 100% 40px;
     -webkit-mask-image:
-      linear-gradient(to right, #000 0%, #000 35%, transparent 100%),
+      linear-gradient(to right, #000 0%, #000 40%, transparent 100%),
       linear-gradient(to bottom, transparent 0%, #000 18%, #000 82%, transparent 100%);
     -webkit-mask-composite: source-in;
     mask-image:
-      linear-gradient(to right, #000 0%, #000 35%, transparent 100%),
+      linear-gradient(to right, #000 0%, #000 40%, transparent 100%),
       linear-gradient(to bottom, transparent 0%, #000 18%, #000 82%, transparent 100%);
     mask-composite: intersect;
-    animation: ide-texture-drift 1.07s linear infinite;
+    animation: ide-grid-drift 6s linear infinite;
   }
 
-  @keyframes ide-texture-drift {
-    to { background-position: 0 0, 0 16px; }
+  @keyframes ide-grid-drift {
+    to { background-position: 0 0, 0 40px, 0 40px; }
   }
 
-  @media (max-width: 1000px) {
+  @media (max-width: 1199px) {
     .ide-texture { display: none; }
   }
 

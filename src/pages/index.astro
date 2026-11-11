@@ -99,6 +99,8 @@ const allSchemas = [orgSchema, ...founderSchemas, faqSchema];
 
 <script>
   import { initParallax } from '../lib/parallax';
+  import { initReveal } from '../lib/reveal';
   // Fires on first load and after every client-side navigation
   document.addEventListener('astro:page-load', initParallax);
+  document.addEventListener('astro:page-load', initReveal);
 </script>

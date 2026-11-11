@@ -1,0 +1,317 @@
+---
+import NfcCard from '../ui/NfcCard.astro';
+import KnrCard3D from '../ui/KnrCard3D.tsx';
+
+const BASE = 'https://knr-cards.vercel.app';
+
+const features = [
+  {
+    index: '01',
+    title: 'Tap to introduce',
+    body: 'A single tap opens your digital profile on compatible smartphones. No app required.',
+  },
+  {
+    index: '02',
+    title: 'Always up to date',
+    body: 'Change your role, number, or social links anytime without replacing the physical card.',
+  },
+  {
+    index: '03',
+    title: 'Convert connections',
+    body: 'People can save your contact details and send you inquiries straight from your profile.',
+  },
+];
+---
+
+<section id="cards" class="cards-section section-pad" aria-labelledby="cards-heading">
+  <div class="section-container">
+    <div class="cards-layout">
+
+      <!-- Left: pitch -->
+      <div class="cards-side cards-left" data-parallax="-0.03" data-parallax-min="1101">
+        <div class="header-badge">KNR Cards</div>
+        <h2 id="cards-heading" class="section-title">
+          Networking, <em>made effortless.</em>
+        </h2>
+        <p class="section-desc">
+          A premium NFC business card paired with a digital profile that evolves with you. One tap is all it takes.
+        </p>
+
+        <div class="cards-actions">
+          <a class="btn-primary" href={`${BASE}/pricing`} target="_blank" rel="noopener noreferrer">
+            Explore KNR Cards
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg>
+          </a>
+          <a class="btn-text" href={`${BASE}/u/alexander-reyes`} target="_blank" rel="noopener noreferrer">
+            View a sample profile
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </a>
+        </div>
+
+        <p class="cards-notes">No app required <span aria-hidden="true">·</span> Edit anytime <span aria-hidden="true">·</span> QR fallback</p>
+      </div>
+
+      <!-- Centre: card on its stand -->
+      <figure class="cards-visual">
+        <div class="stage" data-3d="loading">
+          <KnrCard3D client:visible />
+          <!-- Shown only if WebGL is unavailable -->
+          <div class="card-fallback">
+            <NfcCard name="Your Name" tagline="Your next connection." />
+          </div>
+        </div>
+        <figcaption class="caption">The connection, reimagined. — 001</figcaption>
+      </figure>
+
+      <!-- Right: what you get -->
+      <div class="cards-side cards-right" data-parallax="0.03" data-parallax-min="1101">
+        <ol class="feature-list" role="list">
+          {features.map((f) => (
+            <li class="feature">
+              <span class="feature-index">{f.index}</span>
+              <div>
+                <h3 class="feature-title">{f.title}</h3>
+                <p class="feature-body">{f.body}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<noscript>
+  <style is:global>
+    .card-fallback { display: grid !important; }
+  </style>
+</noscript>
+
+<style>
+  .cards-section {
+    background: var(--surface-2);
+    border-block: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Text left, card centre, text right */
+  .cards-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(360px, 560px) minmax(0, 1fr);
+    gap: var(--space-10);
+    align-items: center;
+  }
+
+  .header-badge {
+    display: inline-block;
+    font-family: var(--font-body);
+    font-size: var(--text-xs);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-muted);
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-full);
+    padding: var(--space-2) var(--space-4);
+    margin-bottom: var(--space-6);
+  }
+
+  .section-title {
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 700;
+    color: var(--text-strong);
+    letter-spacing: -0.03em;
+    line-height: 1.08;
+    margin-bottom: var(--space-4);
+  }
+
+  .section-title em {
+    font-style: normal;
+    color: #8a8a8a;
+  }
+
+  .section-desc {
+    font-family: var(--font-body);
+    font-size: var(--text-md);
+    color: var(--text-muted);
+    line-height: 1.6;
+    max-width: 440px;
+    margin-bottom: var(--space-8);
+  }
+
+  /* Features: a quiet numbered list, not cards */
+  .feature-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    max-width: 440px;
+    border-top: 1px solid rgba(0, 0, 0, 0.14);
+  }
+
+  .feature {
+    display: grid;
+    grid-template-columns: 40px 1fr;
+    gap: var(--space-3);
+    padding-block: var(--space-5);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.14);
+  }
+
+  .feature-index {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    font-weight: 700;
+    color: var(--text-strong);
+    letter-spacing: 0.05em;
+    padding-top: 3px;
+  }
+
+  .feature-title {
+    font-family: var(--font-heading);
+    font-size: var(--text-base);
+    font-weight: 700;
+    color: var(--text-strong);
+    letter-spacing: -0.01em;
+    margin-bottom: var(--space-1);
+  }
+
+  .feature-body {
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+    line-height: 1.55;
+  }
+
+  /* Actions */
+  .cards-actions {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--space-6);
+    margin-bottom: var(--space-5);
+  }
+
+  .btn-primary,
+  .btn-text {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .btn-primary {
+    color: white;
+    background: var(--bg-dark);
+    border-radius: var(--radius-md);
+    padding: var(--space-4) var(--space-6);
+    transition: transform var(--dur-fast) var(--ease-out), background var(--dur-fast) var(--ease-out);
+  }
+
+  .btn-text {
+    color: var(--text-strong);
+  }
+
+  .btn-primary svg,
+  .btn-text svg {
+    width: 16px;
+    height: 16px;
+    transition: transform var(--dur-fast) var(--ease-out);
+  }
+
+  .btn-primary:hover { background: #222; }
+  .btn-primary:hover svg { transform: translate(2px, -2px); }
+  .btn-text:hover svg { transform: translateX(3px); }
+
+  .btn-primary:focus-visible,
+  .btn-text:focus-visible {
+    outline: 2px solid var(--text-strong);
+    outline-offset: 3px;
+  }
+
+  .cards-notes {
+    font-family: var(--font-body);
+    font-size: var(--text-xs);
+    color: var(--text-muted);
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+  }
+
+  /* Visual */
+  .cards-visual {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-4);
+    min-width: 0;
+  }
+
+  .stage {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1 / 0.95;
+  }
+
+  /* HTML card only when WebGL is not available (or JS is off) */
+  .card-fallback {
+    display: none;
+    position: absolute;
+    inset: 0;
+    place-items: center;
+  }
+
+  .card-fallback > :global(.nfc-card) {
+    width: 84%;
+    transform: rotate(-9deg);
+  }
+
+  .stage[data-3d='off'] .card-fallback {
+    display: grid;
+  }
+
+  .caption {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    text-align: center;
+  }
+
+  /* Narrower: card on top, the two text columns side by side below it */
+  @media (max-width: 1100px) {
+    .cards-layout {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: var(--space-10) var(--space-8);
+      align-items: start;
+    }
+    .cards-visual {
+      grid-column: 1 / -1;
+      grid-row: 1;
+      max-width: 520px;
+      width: 100%;
+      justify-self: center;
+    }
+    .cards-left { grid-row: 2; }
+    .cards-right { grid-row: 2; }
+  }
+
+  @media (max-width: 700px) {
+    .cards-layout {
+      grid-template-columns: 1fr;
+    }
+    .cards-left,
+    .cards-right {
+      grid-row: auto;
+    }
+    .section-title {
+      font-size: clamp(1.75rem, 8vw, 2.5rem);
+    }
+  }
+</style>
